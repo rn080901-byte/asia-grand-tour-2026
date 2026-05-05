@@ -1,0 +1,7 @@
+{
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/japan", "dest": "/japan.html" },
+    { "src": "/japan.html", "dest": "/japan.html" }
+  ]
+}
