@@ -48,6 +48,22 @@ h1 {
 .card:active {
   transform: scale(0.98);
 }
+  .card {
+  will-change: transform;
+}
+
+.card:hover h2 {
+  transform: translateY(-2px);
+}
+
+.card:hover .days {
+  transform: translateY(-2px);
+}
+
+.card h2,
+.card .days {
+  transition: transform 0.3s ease;
+}    
 /* IMAGE */
 .hero {
   width: 100%;
