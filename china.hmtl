@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Japan</title>
+  <title>China</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -46,41 +46,41 @@
 
 <body>
 
-<h1>🇯🇵 Japan</h1>
+<h1>🇨🇳 China</h1>
 
 <div class="card">
   <h2>📍 Cities</h2>
-  <p>Osaka • Kyoto • Tokyo • Hakone • Nara</p>
+  <p>Beijing • Shanghai • Xi’an • Chengdu</p>
 </div>
 
 <div class="card">
   <h2>📅 Duration</h2>
-  <p>20 Days</p>
+  <p>10 Days</p>
 </div>
 
 <div class="card">
   <h2>✨ Highlights</h2>
   <p>
-    Osaka street food & Dotonbori<br>
-    Kyoto temples & Fushimi Inari<br>
-    Tokyo city life & Shibuya<br>
-    Hakone Mt Fuji views & ryokan stay<br>
-    Nara deer park experience
+    Great Wall of China<br>
+    Forbidden City & Beijing history<br>
+    Terracotta Army in Xi’an<br>
+    Shanghai skyline & Bund<br>
+    Chengdu pandas
   </p>
 </div>
 
 <div class="card">
   <h2>🍜 Food</h2>
-  <p>Ramen • Sushi • Okonomiyaki • Takoyaki • Wagyu</p>
+  <p>Peking Duck • Dumplings • Hot Pot • Noodles</p>
 </div>
 
 <div class="card">
   <h2>💡 Travel Tips</h2>
   <p>
-    Use IC card (ICOCA / Suica)<br>
-    Bullet trains are fast and easy<br>
-    August = hot & humid (plan rest time)<br>
-    Early mornings beat crowds
+    Use Alipay / WeChat Pay<br>
+    VPN needed for Google apps<br>
+    High-speed trains are excellent<br>
+    Carry passport at all times
   </p>
 </div>
 
