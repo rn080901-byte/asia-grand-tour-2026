@@ -29,7 +29,33 @@
   border-radius: 14px;
   margin-bottom: 10px;
 }
+.card {
+  position: relative;
+  overflow: hidden;
+}
 
+.hero {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.card {
+  position: relative;
+  overflow: hidden;
+
+}
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  border-radius: 14px;
+
+}
 </style>
 </head>
 
@@ -37,12 +63,12 @@
 
 <h1>Asia Grand Tour 2026 ✈️</h1>
 
-<img class="hero" src="https://images.unsplash.com/photo-...">
+<a href="/japan.html" class="card">
+  <img class="hero" src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f">
   <div class="flag">🇯🇵</div>
   <h2>Japan</h2>
   <p class="days">14 Days</p>
 </a>
-
 <a href="/korea.html" class="card">
   <img class="hero" src="https://images.unsplash.com/photo-...">
   <div class="flag">🇰🇷</div>
