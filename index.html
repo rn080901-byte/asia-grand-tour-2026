@@ -49,15 +49,16 @@ h1 {
 
   /* Smooth but SAFE (no blur effect) */
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
 
-  .card::before {
+.card::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 20px;
   background: rgba(255,255,255,0.02);
   z-index: 0;
-  }
+}      
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.8);
@@ -196,7 +197,6 @@ h1 {
 <h1>Asia Grand Tour 2026 ✈️🔥</h1>
 
 <a href="/japan.html" class="card">
-  <a href="/japan.html" class="card">
   <img class="hero" src="https://picsum.photos/800/400?random=1">
   <div class="flag">🇯🇵</div>
   <h2>Japan</h2>
@@ -214,7 +214,7 @@ h1 {
 </a>
 
 <a href="/china.html" class="card">
-  <img class="hero" src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=2000&q=100&v=3">⁸
+  <img class="hero" src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=2000&q=100&v=3">
   <div class="flag">🇨🇳</div>
   <h2>China</h2>
   <p class="days">14 Days</p>
