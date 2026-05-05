@@ -10,24 +10,37 @@ body {
   background: #111;
   color: white;
   text-align: center;
-  padding: 40px;
+  padding: 30px 15px;
 }
 
 h1 {
   color: gold;
+  font-size: 34px;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
 }
 
 /* CARD */
 .card {
   position: relative;
   display: block;
-  margin: 20px;
-  border-radius: 14px;
+  margin: 25px auto;
+  max-width: 420px;
+  border-radius: 18px;
   overflow: hidden;
   text-decoration: none;
   color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
 
+.card:active {
+  transform: scale(0.98);
+}
 /* IMAGE */
 .hero {
   width: 100%;
@@ -61,16 +74,16 @@ h1 {
   bottom: 30px;
   left: 15px;
   margin: 0;
+  font-size: 22px;
 }
 
-/* DAYS */
 .days {
   position: absolute;
   bottom: 10px;
   left: 15px;
   margin: 0;
   font-size: 14px;
-  color: #ccc;
+  color: #ddd;
 }
 </style>
 </head>
