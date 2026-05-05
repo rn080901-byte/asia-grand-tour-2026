@@ -53,11 +53,14 @@ h1 {
 .card::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.5) 40%,
+    rgba(0,0,0,0.2) 70%,
+    rgba(0,0,0,0.0) 100%
+  );
 }
 
 /* FLAG */
@@ -69,22 +72,24 @@ h1 {
 }
 
 /* COUNTRY NAME */
+
 .card h2 {
   position: absolute;
-  bottom: 30px;
-  left: 15px;
+  bottom: 32px;
+  left: 18px;
   margin: 0;
   font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
-
-.days {
+  .days {
   position: absolute;
-  bottom: 10px;
-  left: 15px;
+  bottom: 12px;
+  left: 18px;
   margin: 0;
   font-size: 14px;
-  color: #ddd;
-}
+  color: rgba(255,255,255,0.75);
+} 
 </style>
 </head>
 
