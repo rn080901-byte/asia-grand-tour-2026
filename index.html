@@ -35,8 +35,9 @@ h1 {
   overflow: hidden;
   text-decoration: none;
   color: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* REMOVE ALL TRANSFORMS */
+  transform: none !important;
 }
 .card:hover {
   transform: translateY(-4px);
@@ -75,14 +76,12 @@ h1 {
   height: 180px;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s ease;
-  transform: scale(1);
 
-  /* KEEP THESE */
-  backface-visibility: hidden;
-
-  /* REMOVE THIS ❌ */
-  /* transform: translateZ(0); */
+  /* REMOVE ALL EFFECTS */
+  transform: none !important;
+  transition: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
 }
 /* DARK GRADIENT OVER IMAGE */
 .card::after {
@@ -91,10 +90,9 @@ h1 {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.75) 0%,
-    rgba(0,0,0,0.4) 40%,
-    rgba(0,0,0,0.15) 70%,
-    rgba(0,0,0,0) 100%
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0)
   );
 }
 
@@ -165,27 +163,27 @@ h1 {
 <h1>Asia Grand Tour 2026 ✈️</h1>
 
 <a href="/japan.html" class="card">
-  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?w=1200&q=100&auto=format&fit=crop">
+  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?auto=format&w=2000&q=100">
   <div class="flag">🇯🇵</div>
   <h2>Japan</h2>
   <p class="days">14 Days</p>
 </a>
 <a href="/korea.html" class="card">
-  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?w=1200&q=100&auto=format&fit=crop">
+  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?auto=format&w=2000&q=100">
   <div class="flag">🇰🇷</div>
   <h2>South Korea</h2>
   <p class="days">11 Days</p>
 </a>
 
 <a href="/china.html" class="card">
-  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?w=1200&q=100&auto=format&fit=crop">
+  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?auto=format&w=2000&q=100">
   <div class="flag">🇨🇳</div>
   <h2>China</h2>
   <p class="days">14 Days</p>
 </a>
 
 <a href="/hongkong.html" class="card">
-  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?w=1200&q=100&auto=format&fit=crop">
+  <img class="hero" src="https://images.unsplash.com/photo-xxxxx?auto=format&w=2000&q=100">
   <div class="flag">🇭🇰</div>
   <h2>Hong Kong</h2>
   <p class="days">3 Days</p>
