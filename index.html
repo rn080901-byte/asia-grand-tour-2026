@@ -61,6 +61,9 @@ h1 {
   filter: contrast(1.05) saturate(1.05);
   transition: transform 0.6s ease;
 }
+ .card:hover .hero {
+  transform: scale(1.06);
+}     
   .card::after {
   content: "";
   position: absolute;
@@ -78,6 +81,7 @@ h1 {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 30px 70px rgba(0,0,0,0.9);
 }     
+  
   .card::before {
   content: "";
   position: absolute;
@@ -85,7 +89,7 @@ h1 {
   border-radius: 20px;
   background: rgba(255,255,255,0.02);
   z-index: 0;
-
+}
 
  .days {
   position: absolute;
@@ -102,6 +106,16 @@ h1 {
   top: 12px;
   left: 12px;
   font-size: 22px;
+}
+.card h2 {
+  position: absolute;
+  bottom: 36px;
+  left: 18px;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.9);
 }
 
  .card.show {
