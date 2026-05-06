@@ -154,7 +154,8 @@ h1 {
 }
 .bottom-nav {
   position: fixed;
-  bottom: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
 
@@ -175,6 +176,16 @@ h1 {
   border: 1px solid rgba(255,255,255,0.08);
 
   z-index: 1000;
+  .bottom-nav div {
+  font-size: 22px;
+  opacity: 0.8;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.bottom-nav div:hover {
+  transform: translateY(-2px) scale(1.08);
+  opacity: 1;
+}
 }
 @keyframes fadeIn {
   to {
