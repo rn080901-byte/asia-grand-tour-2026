@@ -152,7 +152,30 @@ h1 {
     transform: translateY(0);
   }
 }
+.bottom-nav {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
 
+  width: calc(100% - 36px);
+  max-width: 500px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 16px;
+
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  z-index: 1000;
+}
 @keyframes fadeIn {
   to {
     opacity: 1;
