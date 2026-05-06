@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 05 · Kyoto Day 1 · Fushimi Inari Dawn · Diamond Max Final</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #3a3a3a;
+    --ink-muted: #6b6b6b;
+    --paper: #faf7f2;
+    --paper-warm: #f3ede2;
+    --gold: #b8860b;
+    --gold-soft: #d4a73a;
+    --crimson: #8b2635;
+    --vermillion: #d0451f;
+    --sakura: #e8a5a5;
+    --indigo: #1d3557;
+    --teal: #2d5f5d;
+    --moss: #4a6a3a;
+    --line: #d9d2c4;
+    --accent-bg: #fff8e7;
+    --warn-bg: #fdeeee;
+    --tip-bg: #eef4f8;
+    --rest-bg: #eeeaf4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Hiragino Mincho ProN', serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    padding: 24px 16px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .card-header {
+    text-align: center;
+    padding: 28px 20px 20px;
+    border-top: 3px double var(--gold);
+    border-bottom: 3px double var(--gold);
+    margin-bottom: 28px;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+  }
+  .tour-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .day-number {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--vermillion);
+    line-height: 1;
+    margin: 6px 0;
+    letter-spacing: -0.02em;
+  }
+  .day-title {
+    font-size: 1.9rem;
+    font-weight: 300;
+    margin: 8px 0 6px;
+    letter-spacing: 0.02em;
+  }
+  .day-date {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .day-subtitle {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+  .score-banner {
+    background: linear-gradient(90deg, var(--vermillion) 0%, #e55a38 100%);
+    color: var(--paper);
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    letter-spacing: 0.08em;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .changelog {
+    background: #f0ede4;
+    border: 1px dashed var(--gold);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 28px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  .changelog-title {
+    font-weight: 700;
+    color: var(--crimson);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+  .changelog ul { padding-left: 20px; }
+  .changelog li { margin-bottom: 5px; }
+  .quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--paper-warm);
+    padding: 12px 14px;
+    border-left: 3px solid var(--gold);
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  .section-heading {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin: 32px 0 14px;
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .phase-header {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--paper);
+    margin: 28px 0 12px;
+    background: var(--indigo);
+    padding: 10px 18px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .phase-header.dawn { background: linear-gradient(90deg, var(--vermillion) 0%, #e55a38 100%); }
+  .phase-header.rest { background: linear-gradient(90deg, #5c4a82 0%, #7a68a0 100%); }
+  .phase-header.afternoon { background: linear-gradient(90deg, var(--moss) 0%, #6b8a5a 100%); }
+  .phase-header.evening { background: linear-gradient(90deg, var(--crimson) 0%, #c04a5c 100%); }
+  .phase-header.night { background: linear-gradient(90deg, var(--ink) 0%, #3a3a3a 100%); }
+  .logic-block {
+    background: var(--paper-warm);
+    padding: 18px 22px;
+    border-radius: 4px;
+    border-left: 4px solid var(--vermillion);
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .logic-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 10px 16px;
+  }
+  .logic-grid dt {
+    font-weight: 700;
+    color: var(--vermillion);
+    font-family: 'Playfair Display', serif;
+  }
+  .route-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 4px;
+    align-items: center;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 28px;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+  .route-strip span.step { display: inline-flex; align-items: center; gap: 4px; }
+  .route-strip span.arrow { color: var(--gold-soft); margin: 0 4px; }
+  .time-entry {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .time-entry:last-child { border-bottom: none; }
+  .time-col { text-align: right; }
+  .time-col .clock {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--vermillion);
+    line-height: 1;
+  }
+  .time-col .duration {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .content-col .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .entry-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .entry-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--paper-warm);
+    padding: 3px 8px;
+    border-radius: 3px;
+    color: var(--ink-muted);
+    border: 1px solid var(--line);
+  }
+  .entry-tag.tag-transit { background: var(--tip-bg); color: var(--indigo); border-color: var(--indigo); }
+  .entry-tag.tag-star { background: #ffe8d8; color: var(--vermillion); border-color: var(--vermillion); font-weight: 700; }
+  .entry-tag.tag-food { background: #f0ede4; color: var(--gold); border-color: var(--gold-soft); }
+  .entry-tag.tag-rest { background: var(--rest-bg); color: #5c4a82; border-color: #9b8bbf; }
+  .entry-tag.tag-kyoto { background: #eef5e8; color: var(--moss); border-color: var(--moss); }
+  .cost-line {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .cost-line .yen { font-weight: 700; color: var(--ink-soft); }
+  .entry-body { color: var(--ink-soft); font-size: 0.95rem; }
+  .entry-body p { margin-bottom: 8px; }
+  .tip-box {
+    display: flex;
+    gap: 10px;
+    background: var(--tip-bg);
+    padding: 10px 14px;
+    border-left: 3px solid var(--indigo);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .warn-box {
+    display: flex;
+    gap: 10px;
+    background: var(--warn-bg);
+    padding: 10px 14px;
+    border-left: 3px solid var(--crimson);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .food-box {
+    display: flex;
+    gap: 10px;
+    background: #f9f3e4;
+    padding: 10px 14px;
+    border-left: 3px solid var(--gold);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .kyoto-box {
+    display: flex;
+    gap: 10px;
+    background: #eff5ec;
+    padding: 10px 14px;
+    border-left: 3px solid var(--moss);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .inari-box {
+    display: flex;
+    gap: 10px;
+    background: #ffeee3;
+    padding: 10px 14px;
+    border-left: 3px solid var(--vermillion);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .tip-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .mini-route {
+    background: var(--paper-warm);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 0.88rem;
+  }
+  .mini-route-step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .mini-route-step:last-child { border-bottom: none; }
+  .mini-route-step .icon {
+    font-size: 0.85rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--paper);
+    background: var(--vermillion);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mini-route-step .icon.walk { background: var(--ink-muted); font-size: 1rem; }
+  .mini-route-step .icon.keihan { background: #006633; }
+  .mini-route-step .icon.taxi { background: var(--gold); color: var(--ink); }
+  .mini-route-step .detail strong { color: var(--ink); }
+  .mini-route-step .sub { color: var(--ink-muted); font-size: 0.82rem; margin-top: 2px; }
+  .inari-sequence {
+    background: linear-gradient(180deg, #ffeee3 0%, #faf7f2 100%);
+    border: 1px solid var(--vermillion);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+  .inari-title {
+    font-weight: 700;
+    color: var(--vermillion);
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    letter-spacing: 0.03em;
+  }
+  .inari-row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px dotted var(--line);
+    font-size: 0.9rem;
+  }
+  .inari-row:last-child { border-bottom: none; }
+  .inari-row .time {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--vermillion);
+  }
+  .dinner-options {
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 0.88rem;
+  }
+  .dinner-option {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--line);
+  }
+  .dinner-option:last-child { border-bottom: none; }
+  .dinner-option .tier {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--crimson);
+    font-size: 0.85rem;
+  }
+  .cost-table {
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-top: 12px;
+  }
+  .cost-table-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--indigo);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .cost-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px dotted var(--line);
+    font-size: 0.9rem;
+  }
+  .cost-row:last-of-type { border-bottom: none; }
+  .cost-row .amount { color: var(--ink-soft); font-weight: 600; }
+  .cost-row .aud { color: var(--ink-muted); font-size: 0.82rem; min-width: 70px; text-align: right; }
+  .cost-total {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid var(--gold);
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .cost-total .total-aud { color: var(--crimson); }
+  .prep-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .prep-item {
+    background: var(--paper-warm);
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+  .maps-list {
+    background: var(--paper-warm);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+  .maps-list-item {
+    padding: 6px 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-bottom: 1px dotted var(--line);
+  }
+  .maps-list-item:last-child { border-bottom: none; }
+  .footer-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 3px double var(--gold);
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    font-style: italic;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer-nav a { color: var(--indigo); text-decoration: none; font-weight: 600; }
+  @media (max-width: 600px) {
+    .time-entry { grid-template-columns: 60px 1fr; gap: 10px; }
+    .time-col .clock { font-size: 1.2rem; }
+    .day-number { font-size: 3.5rem; }
+    .day-title { font-size: 1.5rem; }
+    .logic-grid { grid-template-columns: 1fr; gap: 4px; }
+    .logic-grid dt { margin-top: 8px; }
+    .dinner-option { grid-template-columns: 1fr; gap: 4px; }
+  }
+@media print{*,*::before,*::after{opacity:1!important;animation:none!important;transform:none!important;transition:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html,body{background:white!important;font-size:11pt!important;line-height:1.45!important;min-height:0!important}.page{max-width:100%!important;padding:0!important;margin:0!important}.masthead{padding:18pt 14pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important}.masthead::after,.masthead::before{display:none!important}.day-number,.summary-title,.title-text h1{font-size:32pt!important}.day-name{font-size:14pt!important}.day-title,.subtitle,.summary-subtitle{font-size:10.5pt!important;margin-top:6pt!important}.tour-label{margin-bottom:8pt!important;font-size:7pt!important}.day-eyebrow,.title-row{margin-bottom:4pt!important}.badges{margin-top:8pt!important}.badge,.chip,.legend-pill,.task-tag,.tag,.pack-item,.pin,.metro-tag,.highlight-chip{font-size:7.5pt!important;padding:1pt 5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.conditions,.legend-bar{padding:8pt 14pt!important;gap:4pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box,.transition-box,.opening,.notes-box,.closing-box,.guide-callouts,.priority-strip,.moments-box,.lessons-box{margin:8pt 14pt!important;padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box h3,.notes-box h3,.closing-box h3,.guide-callouts h2,.priority-strip,.moments-box h3,.lessons-box h3{font-size:10pt!important;margin-bottom:6pt!important}.logic-pillars{grid-template-columns:repeat(2,1fr)!important;gap:4pt!important}.pillar{padding:5pt 7pt!important;font-size:8.5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip{padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip h3{margin-bottom:6pt!important;font-size:7pt!important}.route-node{font-size:8.5pt!important}.phase-divider{padding:6pt 14pt 0!important;page-break-after:avoid!important;break-after:avoid!important}.phase-label{font-size:7pt!important}.blocks{padding:0 14pt!important}.block{padding:9pt 0!important;grid-template-columns:60pt 1fr!important;gap:0 12pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.b-time{padding-top:1pt!important}.b-clock{font-size:11pt!important}.b-duration{font-size:7pt!important;margin-top:2pt!important}.b-label{font-size:10.5pt!important;margin-bottom:3pt!important}.b-text{font-size:9.5pt!important;line-height:1.5!important}.callout{margin-top:5pt!important;padding:6pt 9pt!important;font-size:9pt!important;line-height:1.45!important;page-break-inside:avoid!important;break-inside:avoid!important}.metro-diagram,.walk-box,.ginza-box,.flight-box,.checklist-box,.arrival-box{margin-top:6pt!important;padding:8pt 10pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.walk-header,.ginza-header,.checklist-header,.arrival-header,.flight-header{padding:5pt 8pt!important;font-size:7.5pt!important}.walk-row,.ginza-row,.check-row,.arr-row{padding-bottom:5pt!important}.walk-text,.ginza-text,.check-row,.arr-text{font-size:9pt!important;line-height:1.45!important}.metro-step{margin-bottom:5pt!important}.metro-line-name{font-size:9pt!important}.metro-line-detail{font-size:8.5pt!important}.cost{font-size:8.5pt!important;padding:1pt 7pt!important}.cost .yen{font-size:9.5pt!important}.cost .aud{font-size:7.5pt!important}.daily-total,.cost-summary{margin:8pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.daily-total-header,.cost-header{padding:7pt 12pt!important;font-size:7.5pt!important}.cost-row,.cost-row-sum{padding:5pt 12pt!important;font-size:9pt!important}.cr-yen,.cr-sum-value{font-size:9.5pt!important}.cr-aud{font-size:8pt!important}.packing-strip,.pins-strip{margin:6pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.packing-header,.pins-header{padding:7pt 12pt!important;font-size:7.5pt!important}.packing-items,.pins-list{padding:8pt 12pt!important;gap:4pt!important}.day-footer,.footer{margin:8pt 14pt 0!important;padding:9pt 12pt!important;page-break-before:avoid!important;break-before:avoid!important}.footer-prev,.footer-next,.footer-text{font-size:8.5pt!important}.dot{width:4pt!important;height:4pt!important}.countdown-bar{page-break-inside:avoid!important;break-inside:avoid!important}.cd-cell{padding:8pt 10pt!important}.cd-num{font-size:14pt!important}.cd-label{font-size:7pt!important}.section-banner{margin:10pt 14pt 0!important;padding:7pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important;page-break-inside:avoid!important;break-inside:avoid!important}.section-banner h2{font-size:11pt!important}.tasks{padding:0 14pt!important;margin-top:6pt!important}.task-card,.guide-row,.moment-row,.lesson-item,.pri-item,.first-card,.flight-row,.cd-cell{page-break-inside:avoid!important;break-inside:avoid!important}.task-card{padding:7pt 10pt!important;margin-bottom:4pt!important;grid-template-columns:22pt 1fr auto!important}.checkbox{width:14pt!important;height:14pt!important;font-size:11pt!important}.task-title{font-size:10pt!important}.task-detail{font-size:8.5pt!important;line-height:1.45!important}.task-status{font-size:7pt!important;padding-top:2pt!important}.guide-row,.moment-row,.lesson-item{padding:7pt 0!important}.guide-content h4,.moment-text strong,.lesson-text strong{font-size:10pt!important}.guide-content p,.moment-text,.lesson-text{font-size:9pt!important;line-height:1.45!important}.guide-cost{font-size:9pt!important}.firsts-grid{padding:0 14pt!important;grid-template-columns:repeat(2,1fr)!important;gap:5pt!important}.first-card{padding:7pt 9pt!important}.first-label{font-size:7pt!important}.first-value{font-size:8.5pt!important;line-height:1.4!important}.section-header{padding:14pt 14pt 6pt!important;page-break-after:avoid!important;break-after:avoid!important}.section-header h2{font-size:13pt!important}.opening{padding:12pt 14pt!important}.opening p{font-size:10pt!important;line-height:1.55!important}.stats-bar{page-break-inside:avoid!important;break-inside:avoid!important}.stat{padding:8pt 10pt!important}.stat-num{font-size:16pt!important}.stat-label{font-size:7pt!important}.city-timeline{padding:0 14pt!important}.city-block{padding:9pt 0!important;grid-template-columns:75pt 1fr!important;gap:0 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.city-days{font-size:11pt!important}.city-dates,.city-nights{font-size:7.5pt!important}.city-body h4{font-size:10.5pt!important;margin-bottom:4pt!important}.city-body p{font-size:9pt!important;line-height:1.45!important;margin-bottom:5pt!important}.city-highlights{margin-top:6pt!important;gap:4pt!important}.sayonara{margin:14pt 14pt 0!important;padding:12pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.sayonara .kanji{font-size:18pt!important;margin-bottom:4pt!important}.sayonara .translit{font-size:7.5pt!important}.sayonara .next{margin-top:8pt!important;font-size:9.5pt!important}.priority-list{padding:8pt 14pt!important}.priority-header{padding:8pt 14pt!important;font-size:7.5pt!important}.pri-item{padding:5pt 0!important;font-size:9pt!important}.pri-num{font-size:11pt!important}.pri-when{font-size:7pt!important}@page{size:A4 portrait;margin:10mm 10mm 12mm 10mm}}</style>
+</head>
+<body>
+
+<div class="card-header">
+  <div class="tour-title">Asia Grand Tour 2026 · Diamond Max Edition</div>
+  <div class="day-title">Japan · Kyoto</div>
+  <div class="day-number">05</div>
+  <div class="day-title">Kyoto — Day 1 · Fushimi Inari at Dawn</div>
+  <div class="day-date">Saturday · 15 August 2026</div>
+  <div class="day-subtitle">Fushimi Inari Dawn · Café Reset · Deep Rest · Philosopher's Path · Gion Dusk</div>
+</div>
+
+<div class="score-banner">
+  ★★★★★  ·  Diamond-Max 10 / 10  ·  Dawn Is Everything in Kyoto
+</div>
+
+<div class="changelog">
+  <div class="changelog-title">✎ Revisions from draft</div>
+  <ul>
+    <li><strong>Alarm aligned at 06:15</strong> — Fushimi 07:00 arrival still essentially empty; protects sleep after Day 4 transfer</li>
+    <li><strong>Nishiki Market cut from today</strong> — relocated to a dedicated Kyoto day when stalls are actually open</li>
+    <li><strong>Nanzen-ji cut from today</strong> — saved for the dedicated Higashiyama day</li>
+    <li><strong>Taxi replaces Bus 100/203</strong> to Philosopher's Path — air-conditioned, direct, worth the splurge on a 35°C day</li>
+    <li><strong>Yotsutsuji pacing revised</strong> — 40 min up, 25 down, budgeted for your wife's pace</li>
+    <li><strong>Gion-Shijo walk corrected</strong> — 5 min from hotel, not 10</li>
+    <li><strong>Inari-sushi breakfast dropped</strong> — vendors at shrine entrance don't open reliably until 09:00+</li>
+    <li><strong>Dinner guidance</strong>, not specific restaurants — framework over brittle bookings</li>
+    <li><strong>Step count honest</strong> at ~14,000 with real vertical</li>
+    <li><strong>Gion 2024 tourist restrictions</strong> noted — private Hanamikoji lanes now off-limits</li>
+  </ul>
+</div>
+
+<div class="quick-stats">
+  <div class="stat">🌡️ 34–36°C · Feels 39–41°C</div>
+  <div class="stat">☀️ UV Index 10–11</div>
+  <div class="stat">⏰ 06:15 alarm · 07:00 Fushimi</div>
+  <div class="stat">👟 ~14,000 steps · real vertical</div>
+  <div class="stat">🚅 Keihan Line + taxi</div>
+  <div class="stat">💡 Empty at 07:00 · crowd at 09:00</div>
+</div>
+
+<div class="section-heading">🔷 Diamond-Max Logic — Kyoto Day 1</div>
+<div class="logic-block">
+  <dl class="logic-grid">
+    <dt>Dawn Rule</dt>
+    <dd>Fushimi Inari before 09:00 — this is a transcendent experience at 07:00 and a crowded photo queue by 10:00. The difference is not subtle.</dd>
+    <dt>Heat Logic</dt>
+    <dd>Back at hotel by 10:45. Full 4-hour rest. Kyoto's basin geography traps heat — August here is hotter than Osaka.</dd>
+    <dt>Afternoon</dt>
+    <dd>Philosopher's Path at 15:30 — canal walk in lowering afternoon sun. Serene, shaded, unhurried.</dd>
+    <dt>Evening</dt>
+    <dd>Gion at dusk is a different place — lanterns lit, facades glowing. A proper first Kyoto dinner.</dd>
+    <dt>Protected</dt>
+    <dd>Nishiki, Nanzen-ji, Higashiyama all have dedicated days. Nothing crammed. Nothing rushed.</dd>
+  </dl>
+</div>
+
+<div class="section-heading">🧭 Today's Route</div>
+<div class="route-strip">
+  <span class="step">🏨 Hotel 06:30</span>
+  <span class="arrow">→</span>
+  <span class="step">⛩️ Fushimi Dawn</span>
+  <span class="arrow">→</span>
+  <span class="step">☕ Café Reset</span>
+  <span class="arrow">→</span>
+  <span class="step">🛏 Rest 4 hrs</span>
+  <span class="arrow">→</span>
+  <span class="step">🚕 Ginkaku-ji</span>
+  <span class="arrow">→</span>
+  <span class="step">🌿 Philosopher's Path</span>
+  <span class="arrow">→</span>
+  <span class="step">⛩️ Gion Dusk</span>
+  <span class="arrow">→</span>
+  <span class="step">🍜 Dinner</span>
+</div>
+
+<div class="phase-header dawn">🌄 PHASE 1 · DAWN · THE MOST IMPORTANT EARLY START</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">06:15</div>
+    <div class="duration">30 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Wake Up + Minimal Prep</span>
+      <span class="entry-tag">Pre-Dawn</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥0</span>
+      <span>Incl.</span>
+    </div>
+    <div class="entry-body">
+      <p>Alarm 06:15 (two alarms set last night). Dress quickly — light clothes, proper walking shoes (not sandals), SPF 50, hat. No hotel breakfast at this hour. Konbini coffee + onigiri will bridge you to the real café stop at 09:30.</p>
+      <div class="warn-box">
+        <span class="tip-icon">⏰</span>
+        <div>Fushimi at 07:00 is magical. By 09:00 the tour buses start arriving. By 10:00 it's a queue. There is no compromise on this timing — but you don't need 06:00 either. 07:00 gives you 90 minutes of essentially empty shrine and one extra hour of sleep after yesterday's transfer.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">06:45</div>
+    <div class="duration">20 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Keihan Line — Gion-Shijo → Fushimi Inari</span>
+      <span class="entry-tag tag-transit">Transit</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥230</span>
+      <span>~A$2</span>
+    </div>
+    <div class="entry-body">
+      <p>5-minute walk east across Shijo Bridge to Gion-Shijo Station (Keihan Main Line). Grab a konbini coffee + onigiri at the 7-Eleven on the way — eat on the platform.</p>
+      <div class="mini-route">
+        <div class="mini-route-step">
+          <div class="icon walk">🚶</div>
+          <div class="detail">
+            <strong>Hotel → Gion-Shijo Station (Keihan)</strong>
+            <div class="sub">5 min · across Shijo Bridge · station entrance on the Gion (east) side</div>
+          </div>
+        </div>
+        <div class="mini-route-step">
+          <div class="icon keihan">京</div>
+          <div class="detail">
+            <strong>Keihan Main Line — Gion-Shijo → Fushimi Inari</strong>
+            <div class="sub">~8 min · ¥230pp · southbound · trains every ~10 min from 05:30 · tap Suica</div>
+          </div>
+        </div>
+        <div class="mini-route-step">
+          <div class="icon walk">🚶</div>
+          <div class="detail">
+            <strong>Fushimi Inari Station → First Torii</strong>
+            <div class="sub">3 min · orange gates visible from the exit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">07:00</div>
+    <div class="duration">2 hr 15</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Fushimi Inari Taisha — Dawn</span>
+      <span class="entry-tag tag-star">⭐⭐ Peak</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥0</span>
+      <span>Free</span>
+    </div>
+    <div class="entry-body">
+      <p>Ten thousand vermillion torii gates ascending Mt Inari, donated by businesses over centuries. At 07:00 on a Saturday morning: cool air, mist filtering through the gates, near-silence, the occasional sound of a distant bell. You will have long stretches entirely to yourselves.</p>
+      <p>One of the most iconic images of Japan — and you are experiencing it the way almost no visitor ever does.</p>
+      <div class="inari-sequence">
+        <div class="inari-title">⛩️ How to Walk Fushimi Inari</div>
+        <div class="inari-row">
+          <span class="time">07:00</span>
+          <span>Enter through the large <strong>Romon Gate</strong>. Bow at the main shrine building, then follow the path left and upward.</span>
+        </div>
+        <div class="inari-row">
+          <span class="time">07:15</span>
+          <span><strong>Senbon Torii</strong> — the famous double rows of gates begin. Walk slowly. The filtered morning light through the orange pillars is the photograph.</span>
+        </div>
+        <div class="inari-row">
+          <span class="time">07:55</span>
+          <span><strong>Yotsutsuji intersection</strong> (~40 min up for your pace). First viewpoint over Kyoto. Rest here — this is the reward. Summit round-trip is 3+ hours and not worth it in this heat.</span>
+        </div>
+        <div class="inari-row">
+          <span class="time">08:15</span>
+          <span>Begin descending. Stone steps, steeper than the ascent — take it carefully.</span>
+        </div>
+        <div class="inari-row">
+          <span class="time">08:45</span>
+          <span>Back at the base. Crowds just arriving as you leave. Perfect timing.</span>
+        </div>
+        <div class="inari-row">
+          <span class="time">09:00</span>
+          <span>Short look at the fox statues and main hall, then train back.</span>
+        </div>
+      </div>
+      <div class="inari-box">
+        <span class="tip-icon">⛩️</span>
+        <div><strong>Proper shoes, not sandals.</strong> Stone steps the whole way. Bring water. Even at dawn the forested mountain path warms fast — by 09:00 it's already uncomfortable.</div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">🦊</span>
+        <div>Inari is the god of rice and commerce, and the fox (<em>kitsune</em>) is the shrine's messenger. The fox statues at each sub-shrine hold different symbolic items in their mouths — rice sheaves, keys, jewels. Look closely.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">09:15</div>
+    <div class="duration">15 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Return to Central Kyoto</span>
+      <span class="entry-tag tag-transit">Transit</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥230</span>
+      <span>~A$2</span>
+    </div>
+    <div class="entry-body">
+      <p>Keihan Line back to Gion-Shijo. You'll be back in central Kyoto by 09:30 — early enough for a real coffee somewhere lovely before the heat peaks.</p>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">09:35</div>
+    <div class="duration">60 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Café Reset — Proper Breakfast</span>
+      <span class="entry-tag tag-food">Reward</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥2,000–3,500</span>
+      <span>~A$21–36</span>
+    </div>
+    <div class="entry-body">
+      <p>You've earned this. Cross back over Shijo Bridge and stop at a proper café. Options near the hotel that open by 09:00:</p>
+      <div class="food-box">
+        <span class="tip-icon">☕</span>
+        <div><strong>% Arabica (Fujii Daimaru area)</strong> — Kyoto's most celebrated specialty coffee, multiple central locations. <strong>Smart Coffee</strong> on Teramachi — old-school Kyoto kissaten, famous for fluffy French toast and hot cakes. <strong>Inoda Coffee Sanjo</strong> — 1940s traditional Kyoto coffee house, formal, wonderful. Pick whichever feels right when you get there.</div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">💡</span>
+        <div>Sit down. Order properly. You've just done Fushimi at dawn — this is the right place to sit for 45 minutes and let the morning land before you go horizontal for rest.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">10:45</div>
+    <div class="duration">15 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Walk Back to Hotel</span>
+      <span class="entry-tag">Walk</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥0</span>
+      <span>Free</span>
+    </div>
+    <div class="entry-body">
+      <p>Short walk back. By now the heat is serious — get inside before 11:00.</p>
+    </div>
+  </div>
+</div>
+
+<div class="phase-header rest">🛏 PHASE 2 · MIDDAY REST · 4 HOURS · KYOTO HEAT IS SEVERE</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">11:00</div>
+    <div class="duration">4 hrs</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Mandatory Deep Rest — Mitsui Garden</span>
+      <span class="entry-tag tag-rest">Rest</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">Incl.</span>
+      <span>Pre-paid</span>
+    </div>
+    <div class="entry-body">
+      <p>You've been on your feet since 06:15. Fushimi dawn + full descent + café is already a complete morning by any measure. Shower, aircon 24°C, 500ml water, lie down. Alarm 15:00.</p>
+      <div class="warn-box">
+        <span class="tip-icon">⚠️</span>
+        <div>Kyoto in August is the hottest major city in Japan — the basin geography traps heat, and humidity is higher than Osaka. The feels-like temperature between 12:00 and 15:00 regularly exceeds 40°C. This rest window is not optional.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-header afternoon">🌿 PHASE 3 · AFTERNOON · CLASSICAL KYOTO</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">15:00</div>
+    <div class="duration">25 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Taxi — Hotel → Ginkaku-ji</span>
+      <span class="entry-tag tag-transit">Taxi</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">~¥2,500</span>
+      <span>~A$26</span>
+    </div>
+    <div class="entry-body">
+      <p>Take a taxi directly. This is the right splurge on a 35°C afternoon — air-conditioned, 20 minutes, drops you at the start of the Philosopher's Path.</p>
+      <div class="tip-box">
+        <span class="tip-icon">🚕</span>
+        <div>Hotel reception will call one. Tell the driver "Ginkaku-ji michi" (Silver Pavilion approach) or show the map pin. The bus alternative (City Bus 5 or 17, not the 100 which is packed with tourists) is ¥230pp and takes 40+ minutes including the walk to the stop — not worth the ¥2,000 saving on a hot day.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">15:30</div>
+    <div class="duration">90 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Philosopher's Path — Tetsugaku-no-Michi</span>
+      <span class="entry-tag tag-star">⭐ Walk</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥0</span>
+      <span>Free</span>
+    </div>
+    <div class="entry-body">
+      <p>A 2 km stone path following a narrow canal, lined with cherry trees (famous in spring, lovely in every season). Named after the philosopher Nishida Kitaro, who walked it daily in contemplation.</p>
+      <p>Walk southward from the Ginkaku-ji end. The afternoon sun is behind you; light falls warm and gold on the canal. Small cafés and shops dot the route. Cats sit on stone walls. The sound is only water and birdsong.</p>
+      <p>This is the most serene 90 minutes of Kyoto.</p>
+      <div class="kyoto-box">
+        <span class="tip-icon">🌿</span>
+        <div><strong>Optional stop midway — Otoyo Shrine.</strong> A small hidden shrine with mouse and snake stone guardians. Takes 10 minutes, almost no one visits it, and is genuinely lovely. Look for the small torii gate set back from the path on the right side (going south).</div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">🌳</span>
+        <div>The path is largely shaded by the canal's tree canopy — the coolest walking you'll do in Kyoto in August. Stop at any café that catches your eye. There is no schedule pressure on this walk.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">17:00</div>
+    <div class="duration">30 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Taxi — Nanzen-ji area → Hotel</span>
+      <span class="entry-tag tag-transit">Taxi</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">~¥2,000</span>
+      <span>~A$21</span>
+    </div>
+    <div class="entry-body">
+      <p>The southern end of the Philosopher's Path comes out near Nanzen-ji — which is saved for your dedicated Higashiyama day. Hail a taxi back to the hotel (~15 min). Freshen up for dinner.</p>
+      <div class="kyoto-box">
+        <span class="tip-icon">⛩️</span>
+        <div>Nanzen-ji (Zen temple complex with Roman-style brick aqueduct) will get a proper visit on the Higashiyama day when you can do it justice alongside Eikan-do and Kiyomizu-dera. Don't squeeze it in here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-header evening">⛩️ PHASE 4 · GION AT DUSK + DINNER</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">18:30</div>
+    <div class="duration">30 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Gion at Dusk — Hanamikoji Second Walk</span>
+      <span class="entry-tag tag-star">⭐ Kyoto</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥0</span>
+      <span>Free</span>
+    </div>
+    <div class="entry-body">
+      <p>10-minute walk across Shijo Bridge into Gion. Hanamikoji at dusk is entirely different from the afternoon — the paper lanterns of the ochaya are lit, the wooden facades glow warm. This is Gion at its most atmospheric.</p>
+      <div class="warn-box">
+        <span class="tip-icon">📸</span>
+        <div><strong>Strict rules apply (enforced since 2024):</strong> the private side-lanes of Hanamikoji are off-limits to tourists, with ¥10,000 fines. Stay on the main public streets only. Photographing anyone in maiko/geiko dress without permission is prohibited. If you see one moving between appointments, let her pass without stopping or photographing — this is her workplace, not a show.</div>
+      </div>
+      <div class="kyoto-box">
+        <span class="tip-icon">🏮</span>
+        <div>The best chance of a respectful, distant glimpse of a maiko or geiko is between 18:00 and 18:45 on the main Hanamikoji street itself, when they transition between engagements. Walk slowly, stay off your phone, and do not chase.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">19:00</div>
+    <div class="duration">1 hr 45</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">First Kyoto Dinner</span>
+      <span class="entry-tag tag-food">Dinner</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥6,000–14,000</span>
+      <span>~A$62–144</span>
+    </div>
+    <div class="entry-body">
+      <p>Saturday evening in Gion fills up. If you haven't booked, have a flexible dinner plan — framework over specific names:</p>
+      <div class="dinner-options">
+        <div class="dinner-option">
+          <span class="tier">Casual (¥1,500–3,000pp)</span>
+          <span>Kyoto-style udon or ramen at a small machiya place. Simple, excellent, no reservation. Excellent fallback.</span>
+        </div>
+        <div class="dinner-option">
+          <span class="tier">Mid-range (¥4,000–7,000pp)</span>
+          <span>Obanzai (Kyoto-style small plates) or a casual Pontocho place with river views. Walk-in often possible by 19:00 if you arrive ready to wait 15–20 min.</span>
+        </div>
+        <div class="dinner-option">
+          <span class="tier">Formal (¥10,000+ pp)</span>
+          <span>Machiya kaiseki in Gion or Pontocho. Reserve 2+ weeks ahead. Not realistic as a Saturday walk-in. Save for a booked Kyoto anniversary dinner.</span>
+        </div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">💡</span>
+        <div><strong>If you don't have a reservation:</strong> start walking from the north end of Pontocho toward the south. Look for smaller places with Japanese-only chalk menus and a visible queue of locals. English-picture menus with staff waving you in are the tourist traps. If nothing works by 19:30, the covered Teramachi arcade has excellent walk-in options including tonkatsu, tempura sets, and soba.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-header night">🌙 PHASE 5 · CLOSE</div>
+
+<div class="time-entry">
+  <div class="time-col">
+    <div class="clock">20:45</div>
+    <div class="duration">15 min</div>
+  </div>
+  <div class="content-col">
+    <div class="entry-header">
+      <span class="entry-title">Walk Home — Protect Tomorrow</span>
+      <span class="entry-tag">Close</span>
+    </div>
+    <div class="cost-line">
+      <span class="yen">¥0</span>
+      <span>Free</span>
+    </div>
+    <div class="entry-body">
+      <p>10-minute walk back. Pack daypack for tomorrow before sleep.</p>
+      <div class="tip-box">
+        <span class="tip-icon">⏰</span>
+        <div><strong>Alarm 07:00 tomorrow.</strong> Arashiyama bamboo grove does <em>not</em> benefit from a true dawn the way Fushimi does — it's less tour-bus dependent and the light is actually better at 08:00 than 06:30. Two consecutive dawn starts would break the week. Sleep properly tonight.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-heading">💴 Day 5 · Cost Breakdown (2 people)</div>
+<div class="cost-table">
+  <div class="cost-table-title">Spending today</div>
+  <div class="cost-row">
+    <span>Konbini breakfast (coffee + onigiri × 2)</span>
+    <span class="amount">¥600–800</span>
+    <span class="aud">~A$6–8</span>
+  </div>
+  <div class="cost-row">
+    <span>Keihan Line — Fushimi Inari return × 2</span>
+    <span class="amount">¥920</span>
+    <span class="aud">~A$9</span>
+  </div>
+  <div class="cost-row">
+    <span>Fushimi Inari Taisha (free)</span>
+    <span class="amount">¥0</span>
+    <span class="aud">Free</span>
+  </div>
+  <div class="cost-row">
+    <span>Café breakfast reset × 2</span>
+    <span class="amount">¥2,000–3,500</span>
+    <span class="aud">~A$21–36</span>
+  </div>
+  <div class="cost-row">
+    <span>Taxi — Hotel → Ginkaku-ji</span>
+    <span class="amount">¥2,500</span>
+    <span class="aud">~A$26</span>
+  </div>
+  <div class="cost-row">
+    <span>Philosopher's Path (free)</span>
+    <span class="amount">¥0</span>
+    <span class="aud">Free</span>
+  </div>
+  <div class="cost-row">
+    <span>Taxi — Philosopher's Path → Hotel</span>
+    <span class="amount">¥2,000</span>
+    <span class="aud">~A$21</span>
+  </div>
+  <div class="cost-row">
+    <span>Dinner × 2 (mid-range)</span>
+    <span class="amount">¥6,000–14,000</span>
+    <span class="aud">~A$62–144</span>
+  </div>
+  <div class="cost-row">
+    <span>Mitsui Garden Night 2 of 3 (pre-paid)</span>
+    <span class="amount">Pre-paid</span>
+    <span class="aud">A$146</span>
+  </div>
+  <div class="cost-total">
+    <span>🧮 Day 5 Total (2 people, excl. hotel)</span>
+    <span>¥14,020–23,720</span>
+    <span class="total-aud">~A$145–244</span>
+  </div>
+</div>
+
+<div class="section-heading">🎒 Day 5 Bag</div>
+<div class="prep-grid">
+  <div class="prep-item">👟 Proper shoes (not sandals)</div>
+  <div class="prep-item">🧴 SPF 50 (applied 06:30)</div>
+  <div class="prep-item">💧 2× water bottles</div>
+  <div class="prep-item">💨 Folding fan</div>
+  <div class="prep-item">🧢 Hat</div>
+  <div class="prep-item">📱 Suica × 2</div>
+  <div class="prep-item">💴 ¥20,000 cash (taxis)</div>
+  <div class="prep-item">📱 Offline maps</div>
+  <div class="prep-item">👔 Change for dinner</div>
+  <div class="prep-item">📸 Camera charged</div>
+</div>
+
+<div class="section-heading">📍 Google Maps — Save These Now</div>
+<div class="maps-list">
+  <div class="maps-list-item">📌 Gion-Shijo Station (Keihan)</div>
+  <div class="maps-list-item">📌 Fushimi Inari Station (Keihan)</div>
+  <div class="maps-list-item">📌 Fushimi Inari Taisha (Romon Gate)</div>
+  <div class="maps-list-item">📌 Senbon Torii</div>
+  <div class="maps-list-item">📌 Yotsutsuji Viewpoint</div>
+  <div class="maps-list-item">📌 % Arabica Kyoto Fujii Daimaru</div>
+  <div class="maps-list-item">📌 Inoda Coffee Sanjo (traditional kissaten)</div>
+  <div class="maps-list-item">📌 Ginkaku-ji michi (Philosopher's Path north end)</div>
+  <div class="maps-list-item">📌 Otoyo Shrine</div>
+  <div class="maps-list-item">📌 Philosopher's Path south end (Nanzen-ji area)</div>
+  <div class="maps-list-item">📌 Hanamikoji Street (public main strip only)</div>
+  <div class="maps-list-item">📌 Teramachi covered arcade (dinner backup)</div>
+</div>
+
+<div class="footer-nav">
+  <span>← Day 4 · Osaka → Kyoto Transfer</span>
+  <a href="#">Tomorrow → Day 6 · Arashiyama + Golden Pavilion</a>
+</div>
+
+</body>
+</html>
