@@ -3,6 +3,9 @@
 <head>
   <title>Asia Grand Tour 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
   html {
@@ -13,7 +16,7 @@ body {
   background: #111;
   color: white;
   margin: 0;
-  padding: 20px 16px 40px;
+  padding: 28px 18px 120px;
   opacity: 0;
 animation: fadeIn 0.8s ease forwards;
 }
@@ -60,6 +63,17 @@ h1 {
   letter-spacing: 2px;
   font-size: 13px;
   text-transform: uppercase;
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  padding-top: 10px;
+  padding-bottom: 18px;
+
+  background: rgba(17,17,17,0.75);
+  backdrop-filter: blur(14px);
+}
 }
 .hero {
   width: 100%;
@@ -156,9 +170,11 @@ h1 {
 </head>
 
 <body>
+<div class="app-header">
+  <h1>Asia Grand Tour 2026</h1>
+  <p class="subtitle">Diamond Max Edition ✈️</p>
+</div>
 
-<h1>Asia Grand Tour 2026</h1>
-<p class="subtitle">Diamond Max Edition ✈️</p>
 
 <a href="/japan.html" class="card">
   <img class="hero" src="https://picsum.photos/800/400?random=1">
@@ -201,5 +217,11 @@ cards.forEach(card => {
   observer.observe(card);
 });
 </script>
+<div class="bottom-nav">
+iv>🏠</div>
+<div>🗺️</div>
+div>📍</div>
+<div>⚙️</div>
+</div>
 </body>
 </html>
