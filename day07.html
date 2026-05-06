@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 7 · Kyoto → Hiroshima · Asia Grand Tour 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg-soft:#f7f5f2;--bg-card:#f2efe9;--bg-deep:#ede9e1;
+  --rule:#d8d0c0;--muted:#888070;--body:#2a2420;--heading:#0d0a08;
+  --gold:#a06820;--gold-lo:rgba(160,104,32,0.09);
+  --teal:#1e6860;--teal-lo:rgba(30,104,96,0.08);
+  --red:#8a2018;--red-lo:rgba(138,32,24,0.07);
+  --hiro:#4a8a6a;--hiro-lo:rgba(74,138,106,0.09);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--body);font-size:15px;line-height:1.65;min-height:100vh}
+.page{max-width:860px;margin:0 auto;padding:0 0 80px}
+
+/* ── MASTHEAD ── */
+.masthead{position:relative;padding:52px 48px 40px;border-bottom:2px solid var(--heading);overflow:hidden}
+.masthead::after{content:'';position:absolute;top:0;right:0;width:320px;height:100%;background:linear-gradient(to left,rgba(74,138,106,0.05),transparent);pointer-events:none}
+.tour-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.1s}
+.tour-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--rule),transparent)}
+.day-eyebrow{display:flex;align-items:baseline;gap:18px;margin-bottom:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.2s}
+.day-number{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:300;line-height:0.85;color:var(--gold);letter-spacing:-3px}
+.day-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--heading);line-height:1}
+.day-date{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;font-style:italic;color:var(--body);margin-top:14px;line-height:1.3;max-width:600px;opacity:0;animation:fadeUp 0.5s ease forwards 0.3s}
+.rating-badge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--hiro-lo);border:1px solid rgba(74,138,106,0.25);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--hiro);opacity:0;animation:fadeUp 0.5s ease forwards 0.35s}
+
+/* ── CONDITIONS ── */
+.conditions{display:flex;flex-wrap:wrap;gap:8px;padding:20px 48px;border-bottom:1px solid var(--rule);background:var(--bg-soft);opacity:0;animation:fadeUp 0.5s ease forwards 0.4s}
+.chip{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid}
+.chip-heat{background:var(--red-lo);border-color:rgba(138,32,24,0.2);color:var(--red)}
+.chip-info{background:var(--teal-lo);border-color:rgba(30,104,96,0.22);color:var(--teal)}
+.chip-gold{background:var(--gold-lo);border-color:rgba(160,104,32,0.22);color:var(--gold)}
+.chip-hiro{background:var(--hiro-lo);border-color:rgba(74,138,106,0.25);color:var(--hiro)}
+
+/* ── CITY TRANSITION ── */
+.city-transition{margin:20px 48px 0;background:linear-gradient(135deg,var(--hiro-lo),rgba(74,138,106,0.04));border:1px solid rgba(74,138,106,0.2);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeUp 0.5s ease forwards 0.42s}
+.city-transition-icon{font-size:1.8rem;flex-shrink:0}
+.city-transition-text h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--hiro);margin-bottom:3px}
+.city-transition-text p{font-size:12.5px;color:var(--body);line-height:1.5}
+
+/* ── LOGIC BOX ── */
+.logic-box{margin:16px 48px 0;border-left:3px solid var(--hiro);border-radius:0 8px 8px 0;border-top:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 22px;background:var(--bg-card);opacity:0;animation:fadeUp 0.5s ease forwards 0.45s}
+.logic-box h3{font-size:10px;font-weight:600;color:var(--hiro);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px}
+.logic-pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.pillar{background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:9px 12px;font-size:12.5px;color:var(--body)}
+.pillar strong{color:var(--hiro);display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+
+/* ── ROUTE ── */
+.route-strip{padding:20px 48px;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.5s ease forwards 0.5s}
+.route-strip h3{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.route-nodes{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.route-node{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--body)}
+.route-node .label{font-weight:600;color:var(--heading)}
+.route-node .sub{font-size:10px;color:var(--muted)}
+.route-arrow{color:var(--rule);margin:0 4px}
+
+/* ── PHASE DIVIDERS ── */
+.phase-divider{padding:10px 48px 0;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.4s ease forwards}
+.phase-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;font-weight:600}
+.phase-line{flex:1;height:1px;background:var(--rule)}
+.phase-icon{font-size:14px}
+
+/* ── BLOCKS ── */
+.blocks{padding:0 48px}
+.block{display:grid;grid-template-columns:86px 1fr;gap:0 22px;padding:22px 0;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.4s ease forwards}
+.block:last-child{border-bottom:none}
+.block:nth-child(1){animation-delay:0.55s}.block:nth-child(2){animation-delay:0.62s}.block:nth-child(3){animation-delay:0.69s}.block:nth-child(4){animation-delay:0.76s}.block:nth-child(5){animation-delay:0.83s}.block:nth-child(6){animation-delay:0.90s}.block:nth-child(7){animation-delay:0.97s}.block:nth-child(8){animation-delay:1.04s}.block:nth-child(9){animation-delay:1.11s}.block:nth-child(10){animation-delay:1.18s}
+.b-time{display:flex;flex-direction:column;align-items:flex-end;padding-top:2px}
+.b-clock{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold);line-height:1}
+.b-duration{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:4px;text-align:right}
+.b-label{font-size:14px;font-weight:600;color:var(--heading);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between}
+.tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-weight:600}
+.tag-rest{background:var(--teal-lo);color:var(--teal);border:1px solid rgba(30,104,96,0.2)}
+.tag-key{background:var(--gold-lo);color:var(--gold);border:1px solid rgba(160,104,32,0.2)}
+.tag-food{background:var(--red-lo);color:var(--red);border:1px solid rgba(138,32,24,0.15)}
+.tag-transit{background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.15)}
+.tag-hiro{background:var(--hiro-lo);color:var(--hiro);border:1px solid rgba(74,138,106,0.2)}
+.tag-reflect{background:rgba(74,100,138,0.07);color:#3a5a8a;border:1px solid rgba(74,100,138,0.15)}
+.b-text{font-size:13.5px;color:var(--body);line-height:1.72}
+.b-text strong{color:var(--heading);font-weight:600}
+
+/* ── CALLOUTS ── */
+.callout{margin-top:10px;padding:11px 14px;border-radius:6px;font-size:12.5px;line-height:1.65;display:flex;gap:9px;align-items:flex-start}
+.callout-nav{background:var(--teal-lo);border:1px solid rgba(30,104,96,0.18);color:#155248}
+.callout-tip{background:var(--gold-lo);border:1px solid rgba(160,104,32,0.18);color:#7a4e10}
+.callout-warn{background:var(--red-lo);border:1px solid rgba(138,32,24,0.15);color:#8a2018}
+.callout-hiro{background:var(--hiro-lo);border:1px solid rgba(74,138,106,0.2);color:#2a5a48}
+.callout-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ── METRO DIAGRAM ── */
+.metro-diagram{margin-top:12px;background:var(--bg-soft);border:1px solid var(--rule);border-radius:8px;padding:14px 16px}
+.metro-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.metro-step:last-child{margin-bottom:0}
+.metro-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.metro-dot.shinkansen{background:#003b6f;color:white}
+.metro-dot.subway{background:#008000;color:white}
+.metro-dot.tram{background:#c83a8a;color:white}
+.metro-dot.walk{background:var(--bg-deep);color:var(--body);font-size:13px}
+.metro-connector{width:2px;height:12px;background:var(--rule);margin:0 11px}
+.metro-line-name{font-size:12px;font-weight:600;color:var(--heading)}
+.metro-line-detail{font-size:11.5px;color:var(--muted);margin-top:2px}
+.metro-detail-box{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.metro-tag{font-size:10.5px;padding:2px 8px;border-radius:10px;background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.12)}
+
+/* ── PEACE PARK WALK BOX ── */
+.walk-box{margin-top:12px;border:1.5px solid rgba(74,138,106,0.25);border-radius:8px;overflow:hidden}
+.walk-header{background:linear-gradient(135deg,var(--hiro-lo),rgba(74,100,138,0.04));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--hiro);font-weight:600;border-bottom:1px solid rgba(74,138,106,0.15)}
+.walk-timeline{background:var(--bg);padding:12px 14px;display:flex;flex-direction:column;gap:9px}
+.walk-row{display:grid;grid-template-columns:60px 1fr;gap:10px;align-items:baseline}
+.walk-time{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--hiro);text-align:right}
+.walk-desc{font-size:13px;color:var(--body);line-height:1.55}
+.walk-desc strong{color:var(--heading)}
+
+/* ── FOOD STOPS ── */
+.food-stops{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.food-stop{background:var(--bg-soft);border:1px solid var(--rule);border-radius:7px;padding:13px 14px}
+.food-stop-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:6px}
+.food-stop-name{font-size:12.5px;font-weight:600;color:var(--heading);margin-bottom:4px}
+.food-stop-item{font-size:12.5px;color:var(--body);margin-bottom:3px;line-height:1.5}
+.food-stop-note{font-size:11px;color:var(--muted);margin-top:6px;font-style:italic}
+
+/* ── TRAIN OPTIONS ── */
+.options-box{margin-top:12px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--bg-soft)}
+.options-header{background:var(--bg-deep);padding:9px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;border-bottom:1px solid var(--rule)}
+.options-row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 14px;border-bottom:1px solid var(--rule);font-size:12.5px}
+.options-row:last-child{border-bottom:none}
+.options-row .option-label{font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--heading);font-size:13px}
+.options-row .option-label.rec{color:var(--hiro)}
+.options-row .option-label.rec::after{content:' ★';color:var(--gold)}
+
+/* ── COST BADGE ── */
+.cost{display:inline-flex;align-items:center;gap:5px;margin-left:auto;background:rgba(30,104,96,0.07);border:1px solid rgba(30,104,96,0.2);border-radius:20px;padding:3px 11px;font-size:11.5px;font-weight:600;color:var(--teal);white-space:nowrap;flex-shrink:0}
+.cost .yen{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700}
+.cost .aud{font-size:10.5px;color:var(--muted);font-weight:500}
+.cost.free{background:var(--red-lo);border-color:rgba(138,32,24,0.15);color:var(--red)}
+.cost.hotel{background:var(--gold-lo);border-color:rgba(160,104,32,0.2);color:var(--gold)}
+
+/* ── DAILY TOTAL ── */
+.daily-total{margin:28px 48px 0;border:1.5px solid rgba(30,104,96,0.25);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.28s}
+.daily-total-header{background:rgba(30,104,96,0.08);border-bottom:1px solid rgba(30,104,96,0.18);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:600}
+.daily-total-rows{background:var(--bg)}
+.cost-row{display:grid;grid-template-columns:1fr 110px 80px;padding:9px 18px;border-bottom:1px solid var(--rule);font-size:13px;align-items:center;gap:8px}
+.cost-row:last-child{border-bottom:none}
+.cost-row:nth-child(even){background:var(--bg-soft)}
+.cost-row.total-row{background:rgba(30,104,96,0.07)!important;border-top:2px solid rgba(30,104,96,0.2);font-weight:700}
+.cr-label{color:var(--body)}.cr-yen{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--teal);text-align:right}.cr-aud{font-size:11.5px;color:var(--muted);text-align:right}
+.cost-row.total-row .cr-label{color:var(--heading);font-size:13.5px}.cost-row.total-row .cr-yen{font-size:1.15rem}.cost-row.total-row .cr-aud{color:var(--body);font-weight:600;font-size:12px}
+
+/* ── PACKING ── */
+.packing-strip{margin:14px 48px 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.38s}
+.packing-header{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.packing-items{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;background:var(--bg-soft)}
+.pack-item{font-size:12px;color:var(--body);padding:4px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:16px}
+
+/* ── PINS ── */
+.pins-strip{margin:14px 48px 0;border:1px solid rgba(66,133,244,0.18);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.48s}
+.pins-header{background:#e8f0fe;border-bottom:1px solid rgba(66,133,244,0.15);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1a5bbf;display:flex;align-items:center;gap:8px}
+.pins-list{display:flex;flex-wrap:wrap;gap:7px;padding:14px 18px;background:#f5f8ff}
+.pin{font-size:11.5px;color:#1a5bbf;padding:4px 11px;background:rgba(66,133,244,0.06);border:1px solid rgba(66,133,244,0.16);border-radius:14px}
+
+/* ── FOOTER ── */
+.day-footer{margin:20px 48px 0;padding:18px 22px;background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:0;animation:fadeUp 0.5s ease forwards 1.58s}
+.footer-prev{font-size:12px;color:var(--muted)}
+.footer-next{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--body);display:flex;align-items:center;gap:8px}
+.footer-next strong{color:var(--heading);font-style:italic}
+.footer-dots{display:flex;gap:5px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--rule)}
+.dot.active{background:var(--gold)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){.masthead,.conditions,.logic-box,.route-strip,.blocks,.packing-strip,.pins-strip,.day-footer,.phase-divider,.daily-total,.city-transition{padding-left:20px;padding-right:20px}.masthead{padding-top:36px;padding-bottom:30px}.day-number{font-size:4rem}.block{grid-template-columns:68px 1fr;gap:0 14px}.food-stops{grid-template-columns:1fr}.options-row{grid-template-columns:1fr;gap:4px}}
+@media print{*,*::before,*::after{opacity:1!important;animation:none!important;transform:none!important;transition:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html,body{background:white!important;font-size:11pt!important;line-height:1.45!important;min-height:0!important}.page{max-width:100%!important;padding:0!important;margin:0!important}.masthead{padding:18pt 14pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important}.masthead::after,.masthead::before{display:none!important}.day-number,.summary-title,.title-text h1{font-size:32pt!important}.day-name{font-size:14pt!important}.day-title,.subtitle,.summary-subtitle{font-size:10.5pt!important;margin-top:6pt!important}.tour-label{margin-bottom:8pt!important;font-size:7pt!important}.day-eyebrow,.title-row{margin-bottom:4pt!important}.badges{margin-top:8pt!important}.badge,.chip,.legend-pill,.task-tag,.tag,.pack-item,.pin,.metro-tag,.highlight-chip{font-size:7.5pt!important;padding:1pt 5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.conditions,.legend-bar{padding:8pt 14pt!important;gap:4pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box,.transition-box,.opening,.notes-box,.closing-box,.guide-callouts,.priority-strip,.moments-box,.lessons-box{margin:8pt 14pt!important;padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box h3,.notes-box h3,.closing-box h3,.guide-callouts h2,.priority-strip,.moments-box h3,.lessons-box h3{font-size:10pt!important;margin-bottom:6pt!important}.logic-pillars{grid-template-columns:repeat(2,1fr)!important;gap:4pt!important}.pillar{padding:5pt 7pt!important;font-size:8.5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip{padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip h3{margin-bottom:6pt!important;font-size:7pt!important}.route-node{font-size:8.5pt!important}.phase-divider{padding:6pt 14pt 0!important;page-break-after:avoid!important;break-after:avoid!important}.phase-label{font-size:7pt!important}.blocks{padding:0 14pt!important}.block{padding:9pt 0!important;grid-template-columns:60pt 1fr!important;gap:0 12pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.b-time{padding-top:1pt!important}.b-clock{font-size:11pt!important}.b-duration{font-size:7pt!important;margin-top:2pt!important}.b-label{font-size:10.5pt!important;margin-bottom:3pt!important}.b-text{font-size:9.5pt!important;line-height:1.5!important}.callout{margin-top:5pt!important;padding:6pt 9pt!important;font-size:9pt!important;line-height:1.45!important;page-break-inside:avoid!important;break-inside:avoid!important}.metro-diagram,.walk-box,.ginza-box,.flight-box,.checklist-box,.arrival-box{margin-top:6pt!important;padding:8pt 10pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.walk-header,.ginza-header,.checklist-header,.arrival-header,.flight-header{padding:5pt 8pt!important;font-size:7.5pt!important}.walk-row,.ginza-row,.check-row,.arr-row{padding-bottom:5pt!important}.walk-text,.ginza-text,.check-row,.arr-text{font-size:9pt!important;line-height:1.45!important}.metro-step{margin-bottom:5pt!important}.metro-line-name{font-size:9pt!important}.metro-line-detail{font-size:8.5pt!important}.cost{font-size:8.5pt!important;padding:1pt 7pt!important}.cost .yen{font-size:9.5pt!important}.cost .aud{font-size:7.5pt!important}.daily-total,.cost-summary{margin:8pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.daily-total-header,.cost-header{padding:7pt 12pt!important;font-size:7.5pt!important}.cost-row,.cost-row-sum{padding:5pt 12pt!important;font-size:9pt!important}.cr-yen,.cr-sum-value{font-size:9.5pt!important}.cr-aud{font-size:8pt!important}.packing-strip,.pins-strip{margin:6pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.packing-header,.pins-header{padding:7pt 12pt!important;font-size:7.5pt!important}.packing-items,.pins-list{padding:8pt 12pt!important;gap:4pt!important}.day-footer,.footer{margin:8pt 14pt 0!important;padding:9pt 12pt!important;page-break-before:avoid!important;break-before:avoid!important}.footer-prev,.footer-next,.footer-text{font-size:8.5pt!important}.dot{width:4pt!important;height:4pt!important}.countdown-bar{page-break-inside:avoid!important;break-inside:avoid!important}.cd-cell{padding:8pt 10pt!important}.cd-num{font-size:14pt!important}.cd-label{font-size:7pt!important}.section-banner{margin:10pt 14pt 0!important;padding:7pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important;page-break-inside:avoid!important;break-inside:avoid!important}.section-banner h2{font-size:11pt!important}.tasks{padding:0 14pt!important;margin-top:6pt!important}.task-card,.guide-row,.moment-row,.lesson-item,.pri-item,.first-card,.flight-row,.cd-cell{page-break-inside:avoid!important;break-inside:avoid!important}.task-card{padding:7pt 10pt!important;margin-bottom:4pt!important;grid-template-columns:22pt 1fr auto!important}.checkbox{width:14pt!important;height:14pt!important;font-size:11pt!important}.task-title{font-size:10pt!important}.task-detail{font-size:8.5pt!important;line-height:1.45!important}.task-status{font-size:7pt!important;padding-top:2pt!important}.guide-row,.moment-row,.lesson-item{padding:7pt 0!important}.guide-content h4,.moment-text strong,.lesson-text strong{font-size:10pt!important}.guide-content p,.moment-text,.lesson-text{font-size:9pt!important;line-height:1.45!important}.guide-cost{font-size:9pt!important}.firsts-grid{padding:0 14pt!important;grid-template-columns:repeat(2,1fr)!important;gap:5pt!important}.first-card{padding:7pt 9pt!important}.first-label{font-size:7pt!important}.first-value{font-size:8.5pt!important;line-height:1.4!important}.section-header{padding:14pt 14pt 6pt!important;page-break-after:avoid!important;break-after:avoid!important}.section-header h2{font-size:13pt!important}.opening{padding:12pt 14pt!important}.opening p{font-size:10pt!important;line-height:1.55!important}.stats-bar{page-break-inside:avoid!important;break-inside:avoid!important}.stat{padding:8pt 10pt!important}.stat-num{font-size:16pt!important}.stat-label{font-size:7pt!important}.city-timeline{padding:0 14pt!important}.city-block{padding:9pt 0!important;grid-template-columns:75pt 1fr!important;gap:0 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.city-days{font-size:11pt!important}.city-dates,.city-nights{font-size:7.5pt!important}.city-body h4{font-size:10.5pt!important;margin-bottom:4pt!important}.city-body p{font-size:9pt!important;line-height:1.45!important;margin-bottom:5pt!important}.city-highlights{margin-top:6pt!important;gap:4pt!important}.sayonara{margin:14pt 14pt 0!important;padding:12pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.sayonara .kanji{font-size:18pt!important;margin-bottom:4pt!important}.sayonara .translit{font-size:7.5pt!important}.sayonara .next{margin-top:8pt!important;font-size:9.5pt!important}.priority-list{padding:8pt 14pt!important}.priority-header{padding:8pt 14pt!important;font-size:7.5pt!important}.pri-item{padding:5pt 0!important;font-size:9pt!important}.pri-num{font-size:11pt!important}.pri-when{font-size:7pt!important}@page{size:A4 portrait;margin:10mm 10mm 12mm 10mm}}</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── MASTHEAD ── -->
+<header class="masthead">
+  <div class="tour-label">🌏 Asia Grand Tour 2026 &nbsp;·&nbsp; Diamond Max Edition &nbsp;·&nbsp; Japan · Kyoto → Hiroshima</div>
+  <div class="day-eyebrow">
+    <div class="day-number">07</div>
+    <div>
+      <div class="day-name">Kyoto → Hiroshima</div>
+      <div class="day-date">Monday · 17 August 2026</div>
+    </div>
+  </div>
+  <div class="day-title">Last Kyoto Morning &nbsp;·&nbsp; Shinkansen Transfer &nbsp;·&nbsp; Peace Park First Walk &nbsp;·&nbsp; A-Bomb Dome &nbsp;·&nbsp; Okonomi-mura Dinner</div>
+  <div class="rating-badge">🚅 Transfer Day &nbsp;·&nbsp; Half Kyoto · Half Hiroshima &nbsp;·&nbsp; The Tone Changes</div>
+</header>
+
+<!-- ── CONDITIONS ── -->
+<div class="conditions">
+  <span class="chip chip-heat">🌡️ 33–36°C · Kyoto and Hiroshima both hot</span>
+  <span class="chip chip-gold">🚅 Shinkansen 100–110 min</span>
+  <span class="chip chip-hiro">🕊️ Hiroshima arrival ~12:00</span>
+  <span class="chip chip-info">👟 ~9,000 steps · Gentle pace</span>
+  <span class="chip chip-hiro">💡 Peace Park tonight — museum tomorrow</span>
+  <span class="chip chip-gold">🎫 Book museum tickets tonight</span>
+</div>
+
+<!-- ── CITY TRANSITION ── -->
+<div class="city-transition">
+  <div class="city-transition-icon">🕊️</div>
+  <div class="city-transition-text">
+    <h4>The Tone Changes Here</h4>
+    <p>Hiroshima is not a difficult city — it is an extraordinarily resilient one. But it asks something different of you than Kyoto did. The Peace Memorial Museum tomorrow morning is the most emotionally important place on this entire trip. Arrive today, walk the park quietly, let the setting register without the museum's interior weight. Then sleep. Tomorrow you will be ready.</p>
+  </div>
+</div>
+
+<!-- ── LOGIC BOX ── -->
+<div class="logic-box">
+  <h3>Transfer Day Logic</h3>
+  <div class="logic-pillars">
+    <div class="pillar"><strong>Morning</strong>Bags via takuhaibin to Hiroshima (next-day arrival). Final Kyoto breakfast. Easy check-out.</div>
+    <div class="pillar"><strong>Transfer</strong>Shinkansen Kyoto → Hiroshima. ~100–110 min. Window seat. Watch Japan scroll past.</div>
+    <div class="pillar"><strong>Arrival</strong>Hotel Granvia is attached to Hiroshima Station — drop daypack, out exploring in 5 minutes.</div>
+    <div class="pillar"><strong>Afternoon</strong>Peace Park outdoor only — no museum today. Let the space speak first.</div>
+    <div class="pillar"><strong>Evening</strong>Okonomi-mura — Hiroshima's signature dish in the building where it's done best. Home early.</div>
+    <div class="pillar"><strong>Tonight</strong>Book tomorrow's Peace Memorial Museum tickets online (¥200pp, time-slotted).</div>
+  </div>
+</div>
+
+<!-- ── ROUTE ── -->
+<div class="route-strip">
+  <h3>Today's Route</h3>
+  <div class="route-nodes">
+    <div class="route-node"><span>🏨</span><span class="label">Mitsui Garden</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🚇</span><span class="label">Subway</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🚅</span><span class="label">Shinkansen</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🏨</span><span class="label">Hotel Granvia</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🚃</span><span class="label">Tram</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🕊️</span><span class="label">Peace Park</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>☕</span><span class="label">Hondori Café</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🥞</span><span class="label">Okonomi-mura</span></div>
+  </div>
+</div>
+
+<!-- ════ PHASE 1 ════ -->
+<div class="phase-divider" style="animation-delay:0.52s">
+  <span class="phase-icon">🌅</span>
+  <span class="phase-label">Phase 1 — Last Kyoto Morning</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">08:00</span><span class="b-duration">45 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Breakfast + Takuhaibin to Hiroshima <span class="tag tag-rest">Start</span></span><span class="cost"><span class="yen">¥3,000</span><span class="aud">~A$31</span></span></div>
+      <div class="b-text">Hotel breakfast first. Then reception arranges <strong>takuhaibin</strong> to Hotel Granvia Hiroshima via Yamato Transport — ¥1,500/bag, <strong>next-day delivery</strong> on this route. Bags arrive tomorrow afternoon.</div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">🧳</span>
+        <span>Daypack tonight must be self-sufficient for 24 hours — sleep clothes, toothbrush, all medications, phone chargers, passports, valuables, clean shirt for tomorrow's Peace Memorial visit. Hotel Granvia is attached to Hiroshima Station so there's no luggage drag on arrival — but bags aren't with you tonight.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">08:45</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Kamo River Farewell Walk <span class="tag tag-key">Farewell</span></span><span class="cost free"><span class="yen">¥0</span><span class="aud">Free</span></span></div>
+      <div class="b-text">
+        Walk down to the Kamo River embankment before check-out. The morning light on the mountains to the east, the sound of the river, the city still waking. You won't be back this trip.
+        <br><br>
+        Take a last look at the Pontocho lanterns unlit in the morning — this is what they look like in daylight. Walk back to the hotel slowly.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">09:15</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Check Out + Subway to Kyoto Station <span class="tag tag-transit">Transit</span></span><span class="cost"><span class="yen">¥440</span><span class="aud">~A$5</span></span></div>
+      <div class="b-text">Check out, collect daypack. Walk 4 min to Shijo Station (Karasuma subway line), take the Karasuma Line south 4 stops to Kyoto Station. ~6 min ride, ¥220pp.</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot subway">K</div>
+          <div>
+            <div class="metro-line-name">Karasuma Line — Shijo → Kyoto Station</div>
+            <div class="metro-line-detail">4 stops · ~6 min · ¥220pp · tap Suica · direct, simple, no traffic</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-nav">
+        <span class="callout-icon">🚇</span>
+        <span>Subway is the right call over taxi on a Monday morning — ¥220pp vs ¥1,500–2,000 for a taxi, no traffic delays, drops you inside Kyoto Station with direct access to the shinkansen platforms via internal connection.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 2 ════ -->
+<div class="phase-divider" style="animation-delay:0.98s">
+  <span class="phase-icon">🚅</span>
+  <span class="phase-label">Phase 2 — Shinkansen · Kyoto → Hiroshima</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">09:50</span><span class="b-duration">25 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Buy Tickets + Find Platform <span class="tag tag-transit">Prep</span></span><span class="cost"><span class="yen">See below</span><span class="aud"></span></span></div>
+      <div class="b-text">
+        Kyoto Station shinkansen platforms are on the south side (Hachijo-guchi). Follow green 新幹線 signs — platforms 11–14. If tickets not pre-booked, buy at the JR <strong>Midori-no-Madoguchi</strong> ticket office or at a machine (English available).
+      </div>
+      <div class="options-box">
+        <div class="options-header">🚅 Nozomi vs Sakura / Hikari</div>
+        <div class="options-row">
+          <div class="option-label rec">Nozomi</div>
+          <div><strong>~¥11,420pp · 1h 40m.</strong> Fastest, runs every 10–15 min. Recommended if not on a JR Pass.</div>
+        </div>
+        <div class="options-row">
+          <div class="option-label">Sakura / Hikari</div>
+          <div><strong>~¥10,760pp · 1h 50m–2h 05m.</strong> JR Pass eligible. Only option if on a Pass. Runs every 20–30 min.</div>
+        </div>
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <span><strong>Reserved seat is worth it</strong> on this route — ¥500 extra for certainty of a seat together with luggage space. Unreserved cars (cars 1–3) can be standing-room-only on Monday mornings.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">10:15</span><span class="b-duration">100 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Shinkansen — Kyoto → Hiroshima 🚅 <span class="tag tag-key">Bullet</span></span><span class="cost"><span class="yen">¥21,520–22,840</span><span class="aud">~A$221–235</span></span></div>
+      <div class="b-text">
+        One of the great travel experiences — 300km/h through the Japanese countryside. The ride passes briefly through Shin-Osaka, then down along the Seto Inland Sea region, into the mountains above Hiroshima. Look out as you descend into the Hiroshima basin.
+      </div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot shinkansen">S</div>
+          <div>
+            <div class="metro-line-name">Nozomi / Sakura — Kyoto → Hiroshima</div>
+            <div class="metro-line-detail">100–125 min direct · reserved seat recommended · tap Suica through gates or show reserved ticket</div>
+            <div class="metro-detail-box">
+              <span class="metro-tag">D/E side — Seto Inland Sea views</span>
+              <span class="metro-tag">Car 3–5 for luggage racks</span>
+              <span class="metro-tag">Ekiben on platform before boarding</span>
+            </div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot walk">🏨</div>
+          <div>
+            <div class="metro-line-name">Hiroshima Station → Hotel Granvia</div>
+            <div class="metro-line-detail">Hotel directly attached to South Gate · 2 min walk · no transport needed</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-nav">
+        <span class="callout-icon">🪟</span>
+        <span><strong>D/E seats (right side in direction of travel)</strong> give the Seto Inland Sea glimpses on the approach to Hiroshima — distant islands, sea views. A/B (left side) gives mountain views. <strong>Mt Fuji is NOT visible on this leg</strong> — Fuji is only seen on the Tokyo-side of the Shinkansen network.</span>
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">🎒</span>
+        <span>Pick up an <strong>ekiben</strong> (station bento) from the platform kiosk before boarding — turn the ride into a picnic. Kyoto Station's ekiben selection is excellent: pressed sushi, unagi rice boxes, seasonal options. ¥1,200–1,800pp.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">12:00</span><span class="b-duration">60 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Arrive + Check In + Lunch <span class="tag tag-hiro">Hiroshima</span></span><span class="cost"><span class="yen">¥2,000–3,500</span><span class="aud">~A$21–36</span></span></div>
+      <div class="b-text">
+        Hotel Granvia Hiroshima is <strong>directly attached to the South Gate</strong> of Hiroshima Station — walk off the platform, follow signs, check in within 5 minutes. Drop daypack at reception (rooms ready 15:00; they'll hold it).
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">🍱</span>
+        <span><strong>Lunch at Hiroshima Station's Asse or Ekie underground food floors</strong> — excellent options including Hiroshima-style ramen (soy-based, different from Osaka/Kyoto), anago-meshi bento (conger eel over rice — a Miyajima/Hiroshima specialty; any station ekiben counter carries them), or a tsukemen shop (Hiroshima has its own spicy tsukemen style worth trying).</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 3 ════ -->
+<div class="phase-divider" style="animation-delay:1.15s">
+  <span class="phase-icon">🕊️</span>
+  <span class="phase-label">Phase 3 — Peace Park · First Walk</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">13:30</span><span class="b-duration">20 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Tram — Hiroshima Station → Peace Park <span class="tag tag-transit">Tram</span></span><span class="cost"><span class="yen">¥480</span><span class="aud">~A$5</span></span></div>
+      <div class="b-text">Hiroshima's tram network — old, slow, and completely charming. Board at Hiroshima Station tram stop (outside the South Gate, signposted from the station interior).</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot tram">T</div>
+          <div>
+            <div class="metro-line-name">Tram Line 2 (to Miyajimaguchi) or Line 6 — Hiroshima Station → Genbaku Dome-mae</div>
+            <div class="metro-line-detail">~18 min · flat <strong>¥240pp</strong> · board at any door, tap Suica or pay ¥240 cash on exit · runs every 6–8 min</div>
+            <div class="metro-detail-box">
+              <span class="metro-tag">Alight: Genbaku Dome-mae</span>
+              <span class="metro-tag">A-Bomb Dome visible from the stop</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-nav">
+        <span class="callout-icon">🚃</span>
+        <span>Suica/ICOCA works the same as elsewhere. The A-Bomb Dome is directly visible from the Genbaku Dome-mae stop — step off and it's there in front of you, which is deliberately jarring. This is your first moment.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">14:00</span><span class="b-duration">2 hrs</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Peace Memorial Park — Outdoor Grounds Only ⭐ <span class="tag tag-reflect">Reflection</span></span><span class="cost free"><span class="yen">¥0</span><span class="aud">Free</span></span></div>
+      <div class="b-text">
+        <strong>No museum today.</strong> Today is for the outdoor grounds — letting the space and setting register before the museum's interior tomorrow morning. The two together, experienced separately, work far better than rushing both at once.
+      </div>
+
+      <div class="walk-box">
+        <div class="walk-header">📍 Peace Park — Afternoon Walk Sequence</div>
+        <div class="walk-timeline">
+          <div class="walk-row">
+            <div class="walk-time">14:00</div>
+            <div class="walk-desc"><strong>A-Bomb Dome (Genbaku Dome)</strong> — the steel-framed skeleton preserved exactly as the blast left it on 6 August 1945. Stand here for 10 minutes. Don't rush past. The building is still speaking.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">14:15</div>
+            <div class="walk-desc"><strong>Aioi Bridge</strong> — the T-shaped bridge that was the aiming point for the bomb. Walk across slowly. Look both ways along the river. Ordinary city life on a bridge carrying extraordinary weight of history.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">14:30</div>
+            <div class="walk-desc"><strong>Children's Peace Monument</strong> — the statue of Sadako Sasaki holding a golden crane. 1,000 paper cranes sent from around the world are displayed year-round. The story is one of the most affecting in the park.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">14:45</div>
+            <div class="walk-desc"><strong>Flame of Peace</strong> — burning since 1964 · will be extinguished only when all nuclear weapons on earth are destroyed. Stand beside it.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">15:00</div>
+            <div class="walk-desc"><strong>Memorial Cenotaph</strong> — the arch frames the Flame and the A-Bomb Dome perfectly — one of the most intentionally composed views in the world. Pause.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">15:15</div>
+            <div class="walk-desc"><strong>Peace Bell</strong> — ring it once if you wish, mindfully, as an act rather than a tourist photo. The striker is heavy wood; the sound carries.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">15:25</div>
+            <div class="walk-desc"><strong>Atomic Bomb Memorial Mound</strong> (optional, deeper weight) — the ossuary holds the ashes of approximately 70,000 unidentified victims. Small, quiet, rarely visited by tourists. Worth five minutes if you want to meet the honest scale of the event.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-time">15:45</div>
+            <div class="walk-desc"><strong>Motoyasu River Walk</strong> — walk south along the bank. Quieter. The city of Hiroshima going about its life on the other side. The contrast is the point.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-hiro">
+        <span class="callout-icon">🕊️</span>
+        <span>The outdoor park is free and always open. Leave at 16:00 feeling what you feel — there's no correct emotional response, only an honest one. Tomorrow morning the museum will add the interior dimension. Don't try to anticipate it now.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">16:00</span><span class="b-duration">45 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Hondori Café — Slow Decompression ☕ <span class="tag tag-rest">Pause</span></span><span class="cost"><span class="yen">¥800–1,400</span><span class="aud">~A$8–14</span></span></div>
+      <div class="b-text">
+        Walk 10 minutes east from the park into the <strong>Hondori covered arcade</strong> — Hiroshima's main shopping street, about 8 minutes' walk from the A-Bomb Dome. Find a café with outdoor seating facing the arcade, sit down, cold drink or coffee.
+      </div>
+      <div class="callout callout-hiro">
+        <span class="callout-icon">☕</span>
+        <span>This is more restorative than returning to the hotel. The afternoon pedestrian energy of Hondori is a gentle counterpoint to the reflective quiet of the park — the visible fact of a Hiroshima that rebuilt, kept living, kept working. That contrast is part of what you came here to feel.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 4 ════ -->
+<div class="phase-divider" style="animation-delay:1.25s">
+  <span class="phase-icon">🥞</span>
+  <span class="phase-label">Phase 4 — Okonomi-mura</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">16:50</span><span class="b-duration">10 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Walk — Hondori → Okonomi-mura <span class="tag tag-transit">Walk</span></span><span class="cost free"><span class="yen">¥0</span><span class="aud">Free</span></span></div>
+      <div class="b-text">
+        Okonomi-mura is a <strong>5–8 minute walk</strong> from Hondori — just off the south-east corner of the arcade on Chuo-dori, across from Parco department store. The building is a tan 3-storey block. You'll smell it before you see it.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">17:00</span><span class="b-duration">90 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Okonomi-mura — Hiroshima's Signature Dish ⭐ <span class="tag tag-food">Dinner</span></span><span class="cost"><span class="yen">¥3,000–5,000</span><span class="aud">~A$31–51</span></span></div>
+      <div class="b-text">
+        A 3-floor building with ~24 individual stalls, each making their version of Hiroshima-style okonomiyaki. Unlike Osaka's mixed version, <strong>Hiroshima okonomiyaki is layered</strong> — thin crepe, mountain of cabbage, pork, noodles (yakisoba or udon), egg, sauce — cooked on a hot iron teppan right in front of you and eaten with a small metal spatula directly from the griddle.
+      </div>
+
+      <div class="food-stops">
+        <div class="food-stop">
+          <div class="food-stop-num">01</div>
+          <div class="food-stop-name">Pick Your Stall</div>
+          <div class="food-stop-item">Walk all three floors first. Pick the stall that's busiest with locals, not the one with English signage. Sit at the <strong>teppan counter</strong>, never the side tables — you want the iron in front of you.</div>
+          <div class="food-stop-note">Each stall seats 6–8. Queue if needed — moves fast.</div>
+        </div>
+        <div class="food-stop">
+          <div class="food-stop-num">02</div>
+          <div class="food-stop-name">What to Order</div>
+          <div class="food-stop-item">One okonomiyaki each (soba version with noodles is standard). Cold Hiroshima beer. Small side — oysters if on the menu, gyoza otherwise. Everything is ¥1,500–2,500pp.</div>
+          <div class="food-stop-note">Cash preferred at most stalls.</div>
+        </div>
+        <div class="food-stop">
+          <div class="food-stop-num">03</div>
+          <div class="food-stop-name">The Experience</div>
+          <div class="food-stop-item">The chef grills directly in front of you. Smell the cabbage charring, the noodles crisping. Born in the post-war rebuilding era when ingredients were scarce — a dish that carries Hiroshima's story.</div>
+          <div class="food-stop-note">Eat with the small spatula. Don't wait — it gets cold fast.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">🗓️</span>
+        <span><strong>Monday note:</strong> some individual stalls take Monday as their weekly rest day, so expect 15–18 of the 24 stalls operating. Not a problem — plenty to choose from — just don't be surprised by some shutters being down.</span>
+      </div>
+      <div class="callout callout-hiro">
+        <span class="callout-icon">🦪</span>
+        <span>Hiroshima is famous for oysters — Hiroshima Bay produces ~60% of Japan's oysters. If "kaki-yaki okonomiyaki" (oyster version) is offered, try it. Peak season is winter, but August versions are still good.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">18:30</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Tram Home + Book Museum Tickets <span class="tag tag-transit">Close</span></span><span class="cost"><span class="yen">¥480 + ¥400</span><span class="aud">~A$9</span></span></div>
+      <div class="b-text">
+        Tram Line 2 or Line 6 from Hatchobori back to Hiroshima Station. ~15 min. Daypack to the room, aircon on, then <strong>book tomorrow's Peace Memorial Museum tickets online</strong> — this is the critical task of the night.
+      </div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">🎫</span>
+        <span><strong>Peace Memorial Museum online booking:</strong> ¥200pp (¥400 for two), reserved time slot, significantly faster than the walk-up queue which can run 45+ min on weekday mornings. Book at <strong>hpmmuseum.jp</strong> for the 08:30 or 09:00 time slot tomorrow. Museum opens 08:30 in August.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">19:00</span><span class="b-duration">Sleep</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Early Rest — Protect Tomorrow <span class="tag tag-rest">Close</span></span><span class="cost hotel"><span class="yen">Incl.</span><span class="aud">Pre-paid</span></span></div>
+      <div class="b-text">
+        Hotel Granvia has a lovely lobby bar if you want one quiet drink. Otherwise — early night. Tomorrow morning is the emotional centre of gravity of the entire trip.
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">⏰</span>
+        <span><strong>Alarm 07:15.</strong> Breakfast at the hotel 07:30, tram to Peace Park 08:00, museum entry at your 08:30 time slot. The morning has no slack — but no dawn start either.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── DAILY TOTAL ── -->
+<div class="daily-total">
+  <div class="daily-total-header">💴 Day 7 — Cost Breakdown (2 people)</div>
+  <div class="daily-total-rows">
+    <div class="cost-row"><span class="cr-label">Kyoto hotel breakfast (included)</span><span class="cr-yen">¥0</span><span class="cr-aud">—</span></div>
+    <div class="cost-row"><span class="cr-label">Takuhaibin × 2 bags to Hiroshima (next-day)</span><span class="cr-yen">¥3,000</span><span class="cr-aud">~A$31</span></div>
+    <div class="cost-row"><span class="cr-label">Karasuma subway × 2 (Shijo → Kyoto Station)</span><span class="cr-yen">¥440</span><span class="cr-aud">~A$5</span></div>
+    <div class="cost-row"><span class="cr-label">Shinkansen × 2 (Nozomi reserved Kyoto → Hiroshima)</span><span class="cr-yen">¥21,520–22,840</span><span class="cr-aud">~A$221–235</span></div>
+    <div class="cost-row"><span class="cr-label">Ekiben on train (optional)</span><span class="cr-yen">¥2,400–3,600</span><span class="cr-aud">~A$25–37</span></div>
+    <div class="cost-row"><span class="cr-label">Lunch at Hiroshima Station food hall</span><span class="cr-yen">¥2,000–3,500</span><span class="cr-aud">~A$21–36</span></div>
+    <div class="cost-row"><span class="cr-label">Tram × 2 (Hiroshima Station → Peace Park)</span><span class="cr-yen">¥480</span><span class="cr-aud">~A$5</span></div>
+    <div class="cost-row"><span class="cr-label">Peace Park outdoor (free)</span><span class="cr-yen">¥0</span><span class="cr-aud">Free</span></div>
+    <div class="cost-row"><span class="cr-label">Hondori café × 2</span><span class="cr-yen">¥800–1,400</span><span class="cr-aud">~A$8–14</span></div>
+    <div class="cost-row"><span class="cr-label">Okonomi-mura dinner × 2 + drinks</span><span class="cr-yen">¥3,000–5,000</span><span class="cr-aud">~A$31–51</span></div>
+    <div class="cost-row"><span class="cr-label">Tram × 2 (Okonomi-mura → Hotel)</span><span class="cr-yen">¥480</span><span class="cr-aud">~A$5</span></div>
+    <div class="cost-row"><span class="cr-label">Museum tickets × 2 (online pre-book for tomorrow)</span><span class="cr-yen">¥400</span><span class="cr-aud">~A$4</span></div>
+    <div class="cost-row"><span class="cr-label">Hotel Granvia Night 1 of 2 (pre-paid)</span><span class="cr-yen">Pre-paid</span><span class="cr-aud">—</span></div>
+    <div class="cost-row total-row"><span class="cr-label">🧮 Day 7 Total (2 people, excl. hotel)</span><span class="cr-yen">¥34,520–40,740</span><span class="cr-aud">~A$355–419</span></div>
+  </div>
+</div>
+
+<!-- ── PACKING ── -->
+<div class="packing-strip">
+  <div class="packing-header">🎒 Day 7 Bag — Daypack Only</div>
+  <div class="packing-items">
+    <span class="pack-item">🎒 Daypack only (bags sent ahead)</span>
+    <span class="pack-item">👕 Overnight kit inside</span>
+    <span class="pack-item">👔 Clean shirt for tomorrow</span>
+    <span class="pack-item">📱 Suica × 2</span>
+    <span class="pack-item">💴 ¥10,000 cash</span>
+    <span class="pack-item">🧴 SPF 50</span>
+    <span class="pack-item">💧 Water bottle</span>
+    <span class="pack-item">📱 Offline maps</span>
+    <span class="pack-item">💊 Medications</span>
+    <span class="pack-item">🎫 Museum booking confirmation</span>
+  </div>
+</div>
+
+<!-- ── PINS ── -->
+<div class="pins-strip">
+  <div class="pins-header">📍 Google Maps — Save These Now</div>
+  <div class="pins-list">
+    <span class="pin">📌 Shijo Station (Karasuma Line)</span>
+    <span class="pin">📌 Kyoto Station — Shinkansen South Side (Hachijo-guchi)</span>
+    <span class="pin">📌 Hotel Granvia Hiroshima</span>
+    <span class="pin">📌 Hiroshima Station South Gate Tram Stop</span>
+    <span class="pin">📌 Genbaku Dome-mae Tram Stop</span>
+    <span class="pin">📌 A-Bomb Dome (Genbaku Dome)</span>
+    <span class="pin">📌 Aioi Bridge</span>
+    <span class="pin">📌 Children's Peace Monument</span>
+    <span class="pin">📌 Memorial Cenotaph + Flame of Peace</span>
+    <span class="pin">📌 Atomic Bomb Memorial Mound</span>
+    <span class="pin">📌 Peace Memorial Museum (tomorrow)</span>
+    <span class="pin">📌 Hondori Arcade</span>
+    <span class="pin">📌 Okonomi-mura (Shintenchi)</span>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="day-footer">
+  <div class="footer-prev">← Day 6 · Arashiyama &amp; Kinkaku-ji</div>
+  <div class="footer-dots">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot active"></div>
+  </div>
+  <div class="footer-next">Tomorrow → <strong>Peace Memorial Museum &amp; Miyajima Island</strong> ›</div>
+</div>
+
+</div>
+</body>
+</html>
