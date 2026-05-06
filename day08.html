@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 8 · Hiroshima · Asia Grand Tour 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg-soft:#f7f5f2;--bg-card:#f2efe9;--bg-deep:#ede9e1;
+  --rule:#d8d0c0;--muted:#888070;--body:#2a2420;--heading:#0d0a08;
+  --gold:#a06820;--gold-lo:rgba(160,104,32,0.09);
+  --teal:#1e6860;--teal-lo:rgba(30,104,96,0.08);
+  --red:#8a2018;--red-lo:rgba(138,32,24,0.07);
+  --hiro:#4a8a6a;--hiro-lo:rgba(74,138,106,0.09);
+  --slate:#4a6a8a;--slate-lo:rgba(74,106,138,0.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--body);font-size:15px;line-height:1.65;min-height:100vh}
+.page{max-width:860px;margin:0 auto;padding:0 0 80px}
+.masthead{position:relative;padding:52px 48px 40px;border-bottom:2px solid var(--heading);overflow:hidden}
+.masthead::after{content:'';position:absolute;top:0;right:0;width:320px;height:100%;background:linear-gradient(to left,rgba(74,138,106,0.05),transparent);pointer-events:none}
+.tour-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.1s}
+.tour-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--rule),transparent)}
+.day-eyebrow{display:flex;align-items:baseline;gap:18px;margin-bottom:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.2s}
+.day-number{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:300;line-height:0.85;color:var(--gold);letter-spacing:-3px}
+.day-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--heading);line-height:1}
+.day-date{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;font-style:italic;color:var(--body);margin-top:14px;line-height:1.3;max-width:620px;opacity:0;animation:fadeUp 0.5s ease forwards 0.3s}
+.rating-badge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--hiro-lo);border:1px solid rgba(74,138,106,0.25);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--hiro);opacity:0;animation:fadeUp 0.5s ease forwards 0.35s}
+.conditions{display:flex;flex-wrap:wrap;gap:8px;padding:20px 48px;border-bottom:1px solid var(--rule);background:var(--bg-soft);opacity:0;animation:fadeUp 0.5s ease forwards 0.4s}
+.chip{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid}
+.chip-heat{background:var(--red-lo);border-color:rgba(138,32,24,0.2);color:var(--red)}
+.chip-info{background:var(--teal-lo);border-color:rgba(30,104,96,0.22);color:var(--teal)}
+.chip-gold{background:var(--gold-lo);border-color:rgba(160,104,32,0.22);color:var(--gold)}
+.chip-hiro{background:var(--hiro-lo);border-color:rgba(74,138,106,0.25);color:var(--hiro)}
+.chip-slate{background:var(--slate-lo);border-color:rgba(74,106,138,0.2);color:var(--slate)}
+.logic-box{margin:28px 48px;border-left:3px solid var(--hiro);border-radius:0 8px 8px 0;border-top:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 22px;background:var(--bg-card);opacity:0;animation:fadeUp 0.5s ease forwards 0.45s}
+.logic-box h3{font-size:10px;font-weight:600;color:var(--hiro);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px}
+.logic-pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.pillar{background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:9px 12px;font-size:12.5px;color:var(--body)}
+.pillar strong{color:var(--hiro);display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.route-strip{padding:20px 48px;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.5s ease forwards 0.5s}
+.route-strip h3{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.route-nodes{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.route-node{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--body)}
+.route-node .label{font-weight:600;color:var(--heading)}
+.route-node .sub{font-size:10px;color:var(--muted)}
+.route-arrow{color:var(--rule);margin:0 4px}
+.phase-divider{padding:10px 48px 0;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.4s ease forwards}
+.phase-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;font-weight:600}
+.phase-line{flex:1;height:1px;background:var(--rule)}
+.phase-icon{font-size:14px}
+.blocks{padding:0 48px}
+.block{display:grid;grid-template-columns:86px 1fr;gap:0 22px;padding:22px 0;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.4s ease forwards}
+.block:last-child{border-bottom:none}
+.block:nth-child(1){animation-delay:0.55s}.block:nth-child(2){animation-delay:0.62s}.block:nth-child(3){animation-delay:0.69s}.block:nth-child(4){animation-delay:0.76s}.block:nth-child(5){animation-delay:0.83s}.block:nth-child(6){animation-delay:0.90s}.block:nth-child(7){animation-delay:0.97s}.block:nth-child(8){animation-delay:1.04s}.block:nth-child(9){animation-delay:1.11s}.block:nth-child(10){animation-delay:1.18s}.block:nth-child(11){animation-delay:1.25s}
+.b-time{display:flex;flex-direction:column;align-items:flex-end;padding-top:2px}
+.b-clock{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold);line-height:1}
+.b-duration{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:4px;text-align:right}
+.b-label{font-size:14px;font-weight:600;color:var(--heading);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between}
+.tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-weight:600}
+.tag-rest{background:var(--teal-lo);color:var(--teal);border:1px solid rgba(30,104,96,0.2)}
+.tag-key{background:var(--gold-lo);color:var(--gold);border:1px solid rgba(160,104,32,0.2)}
+.tag-food{background:var(--red-lo);color:var(--red);border:1px solid rgba(138,32,24,0.15)}
+.tag-transit{background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.15)}
+.tag-hiro{background:var(--hiro-lo);color:var(--hiro);border:1px solid rgba(74,138,106,0.2)}
+.tag-reflect{background:var(--slate-lo);color:var(--slate);border:1px solid rgba(74,106,138,0.15)}
+.tag-peak{background:var(--gold-lo);color:var(--gold);border:1px solid rgba(160,104,32,0.25)}
+.b-text{font-size:13.5px;color:var(--body);line-height:1.72}
+.b-text strong{color:var(--heading);font-weight:600}
+.callout{margin-top:10px;padding:11px 14px;border-radius:6px;font-size:12.5px;line-height:1.65;display:flex;gap:9px;align-items:flex-start}
+.callout-nav{background:var(--teal-lo);border:1px solid rgba(30,104,96,0.18);color:#155248}
+.callout-tip{background:var(--gold-lo);border:1px solid rgba(160,104,32,0.18);color:#7a4e10}
+.callout-warn{background:var(--red-lo);border:1px solid rgba(138,32,24,0.15);color:#8a2018}
+.callout-hiro{background:var(--hiro-lo);border:1px solid rgba(74,138,106,0.2);color:#2a5a48}
+.callout-slate{background:var(--slate-lo);border:1px solid rgba(74,106,138,0.2);color:#2a3a5a}
+.callout-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.metro-diagram{margin-top:12px;background:var(--bg-soft);border:1px solid var(--rule);border-radius:8px;padding:14px 16px}
+.metro-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.metro-step:last-child{margin-bottom:0}
+.metro-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.metro-dot.tram{background:#c83a8a;color:white}
+.metro-dot.jr{background:#2a6e2a;color:white}
+.metro-dot.ferry{background:#2a5a9a;color:white}
+.metro-dot.walk{background:var(--bg-deep);color:var(--body);font-size:13px}
+.metro-connector{width:2px;height:12px;background:var(--rule);margin:0 11px}
+.metro-line-name{font-size:12px;font-weight:600;color:var(--heading)}
+.metro-line-detail{font-size:11.5px;color:var(--muted);margin-top:2px}
+.metro-detail-box{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.metro-tag{font-size:10.5px;padding:2px 8px;border-radius:10px;background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.12)}
+
+/* ── MUSEUM BOX ── */
+.museum-box{margin-top:12px;border:1.5px solid rgba(74,106,138,0.25);border-radius:8px;overflow:hidden}
+.museum-header{background:linear-gradient(135deg,var(--slate-lo),rgba(74,138,106,0.04));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--slate);font-weight:600;border-bottom:1px solid rgba(74,106,138,0.15)}
+.museum-body{background:var(--bg);padding:14px}
+.museum-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.museum-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.museum-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.museum-text{font-size:13px;color:var(--body);line-height:1.6}
+.museum-text strong{color:var(--heading)}
+
+/* ── MIYAJIMA BOX ── */
+.miyajima-box{margin-top:12px;border:1.5px solid rgba(74,138,106,0.25);border-radius:8px;overflow:hidden}
+.miyajima-header{background:linear-gradient(135deg,var(--hiro-lo),rgba(74,106,138,0.04));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--hiro);font-weight:600;border-bottom:1px solid rgba(74,138,106,0.15)}
+.miyajima-timeline{background:var(--bg);padding:12px 14px;display:flex;flex-direction:column;gap:9px}
+.miy-row{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:baseline}
+.miy-time{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--hiro);text-align:right}
+.miy-desc{font-size:13px;color:var(--body);line-height:1.55}
+.miy-desc strong{color:var(--heading)}
+
+/* ── TIDE BOX ── */
+.tide-box{margin-top:10px;background:var(--slate-lo);border:1px solid rgba(74,106,138,0.2);border-radius:6px;padding:11px 14px;font-size:12.5px;color:var(--slate);display:flex;gap:9px;align-items:flex-start}
+
+/* ── COST ── */
+.cost{display:inline-flex;align-items:center;gap:5px;margin-left:auto;background:rgba(30,104,96,0.07);border:1px solid rgba(30,104,96,0.2);border-radius:20px;padding:3px 11px;font-size:11.5px;font-weight:600;color:var(--teal);white-space:nowrap;flex-shrink:0}
+.cost .yen{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700}
+.cost .aud{font-size:10.5px;color:var(--muted);font-weight:500}
+.cost.free{background:var(--red-lo);border-color:rgba(138,32,24,0.15);color:var(--red)}
+.cost.hotel{background:var(--gold-lo);border-color:rgba(160,104,32,0.2);color:var(--gold)}
+
+/* ── DAILY TOTAL ── */
+.daily-total{margin:28px 48px 0;border:1.5px solid rgba(30,104,96,0.25);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.32s}
+.daily-total-header{background:rgba(30,104,96,0.08);border-bottom:1px solid rgba(30,104,96,0.18);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:600}
+.cost-row{display:grid;grid-template-columns:1fr 110px 80px;padding:9px 18px;border-bottom:1px solid var(--rule);font-size:13px;align-items:center;gap:8px}
+.cost-row:last-child{border-bottom:none}
+.cost-row:nth-child(even){background:var(--bg-soft)}
+.cost-row.total-row{background:rgba(30,104,96,0.07)!important;border-top:2px solid rgba(30,104,96,0.2);font-weight:700}
+.cr-label{color:var(--body)}.cr-yen{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--teal);text-align:right}.cr-aud{font-size:11.5px;color:var(--muted);text-align:right}
+.cost-row.total-row .cr-label{color:var(--heading);font-size:13.5px}.cost-row.total-row .cr-yen{font-size:1.15rem}.cost-row.total-row .cr-aud{color:var(--body);font-weight:600;font-size:12px}
+
+/* ── PACKING ── */
+.packing-strip{margin:14px 48px 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.42s}
+.packing-header{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.packing-items{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;background:var(--bg-soft)}
+.pack-item{font-size:12px;color:var(--body);padding:4px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:16px}
+
+/* ── PINS ── */
+.pins-strip{margin:14px 48px 0;border:1px solid rgba(66,133,244,0.18);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.52s}
+.pins-header{background:#e8f0fe;border-bottom:1px solid rgba(66,133,244,0.15);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1a5bbf}
+.pins-list{display:flex;flex-wrap:wrap;gap:7px;padding:14px 18px;background:#f5f8ff}
+.pin{font-size:11.5px;color:#1a5bbf;padding:4px 11px;background:rgba(66,133,244,0.06);border:1px solid rgba(66,133,244,0.16);border-radius:14px}
+
+/* ── FOOTER ── */
+.day-footer{margin:20px 48px 0;padding:18px 22px;background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:0;animation:fadeUp 0.5s ease forwards 1.62s}
+.footer-prev{font-size:12px;color:var(--muted)}
+.footer-next{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--body);display:flex;align-items:center;gap:8px}
+.footer-next strong{color:var(--heading);font-style:italic}
+.footer-dots{display:flex;gap:5px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--rule)}
+.dot.active{background:var(--gold)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){.masthead,.conditions,.logic-box,.route-strip,.blocks,.packing-strip,.pins-strip,.day-footer,.phase-divider,.daily-total{padding-left:20px;padding-right:20px}.masthead{padding-top:36px;padding-bottom:30px}.day-number{font-size:4rem}.block{grid-template-columns:68px 1fr;gap:0 14px}}
+@media print{*,*::before,*::after{opacity:1!important;animation:none!important;transform:none!important;transition:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html,body{background:white!important;font-size:11pt!important;line-height:1.45!important;min-height:0!important}.page{max-width:100%!important;padding:0!important;margin:0!important}.masthead{padding:18pt 14pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important}.masthead::after,.masthead::before{display:none!important}.day-number,.summary-title,.title-text h1{font-size:32pt!important}.day-name{font-size:14pt!important}.day-title,.subtitle,.summary-subtitle{font-size:10.5pt!important;margin-top:6pt!important}.tour-label{margin-bottom:8pt!important;font-size:7pt!important}.day-eyebrow,.title-row{margin-bottom:4pt!important}.badges{margin-top:8pt!important}.badge,.chip,.legend-pill,.task-tag,.tag,.pack-item,.pin,.metro-tag,.highlight-chip{font-size:7.5pt!important;padding:1pt 5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.conditions,.legend-bar{padding:8pt 14pt!important;gap:4pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box,.transition-box,.opening,.notes-box,.closing-box,.guide-callouts,.priority-strip,.moments-box,.lessons-box{margin:8pt 14pt!important;padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box h3,.notes-box h3,.closing-box h3,.guide-callouts h2,.priority-strip,.moments-box h3,.lessons-box h3{font-size:10pt!important;margin-bottom:6pt!important}.logic-pillars{grid-template-columns:repeat(2,1fr)!important;gap:4pt!important}.pillar{padding:5pt 7pt!important;font-size:8.5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip{padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip h3{margin-bottom:6pt!important;font-size:7pt!important}.route-node{font-size:8.5pt!important}.phase-divider{padding:6pt 14pt 0!important;page-break-after:avoid!important;break-after:avoid!important}.phase-label{font-size:7pt!important}.blocks{padding:0 14pt!important}.block{padding:9pt 0!important;grid-template-columns:60pt 1fr!important;gap:0 12pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.b-time{padding-top:1pt!important}.b-clock{font-size:11pt!important}.b-duration{font-size:7pt!important;margin-top:2pt!important}.b-label{font-size:10.5pt!important;margin-bottom:3pt!important}.b-text{font-size:9.5pt!important;line-height:1.5!important}.callout{margin-top:5pt!important;padding:6pt 9pt!important;font-size:9pt!important;line-height:1.45!important;page-break-inside:avoid!important;break-inside:avoid!important}.metro-diagram,.walk-box,.ginza-box,.flight-box,.checklist-box,.arrival-box{margin-top:6pt!important;padding:8pt 10pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.walk-header,.ginza-header,.checklist-header,.arrival-header,.flight-header{padding:5pt 8pt!important;font-size:7.5pt!important}.walk-row,.ginza-row,.check-row,.arr-row{padding-bottom:5pt!important}.walk-text,.ginza-text,.check-row,.arr-text{font-size:9pt!important;line-height:1.45!important}.metro-step{margin-bottom:5pt!important}.metro-line-name{font-size:9pt!important}.metro-line-detail{font-size:8.5pt!important}.cost{font-size:8.5pt!important;padding:1pt 7pt!important}.cost .yen{font-size:9.5pt!important}.cost .aud{font-size:7.5pt!important}.daily-total,.cost-summary{margin:8pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.daily-total-header,.cost-header{padding:7pt 12pt!important;font-size:7.5pt!important}.cost-row,.cost-row-sum{padding:5pt 12pt!important;font-size:9pt!important}.cr-yen,.cr-sum-value{font-size:9.5pt!important}.cr-aud{font-size:8pt!important}.packing-strip,.pins-strip{margin:6pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.packing-header,.pins-header{padding:7pt 12pt!important;font-size:7.5pt!important}.packing-items,.pins-list{padding:8pt 12pt!important;gap:4pt!important}.day-footer,.footer{margin:8pt 14pt 0!important;padding:9pt 12pt!important;page-break-before:avoid!important;break-before:avoid!important}.footer-prev,.footer-next,.footer-text{font-size:8.5pt!important}.dot{width:4pt!important;height:4pt!important}.countdown-bar{page-break-inside:avoid!important;break-inside:avoid!important}.cd-cell{padding:8pt 10pt!important}.cd-num{font-size:14pt!important}.cd-label{font-size:7pt!important}.section-banner{margin:10pt 14pt 0!important;padding:7pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important;page-break-inside:avoid!important;break-inside:avoid!important}.section-banner h2{font-size:11pt!important}.tasks{padding:0 14pt!important;margin-top:6pt!important}.task-card,.guide-row,.moment-row,.lesson-item,.pri-item,.first-card,.flight-row,.cd-cell{page-break-inside:avoid!important;break-inside:avoid!important}.task-card{padding:7pt 10pt!important;margin-bottom:4pt!important;grid-template-columns:22pt 1fr auto!important}.checkbox{width:14pt!important;height:14pt!important;font-size:11pt!important}.task-title{font-size:10pt!important}.task-detail{font-size:8.5pt!important;line-height:1.45!important}.task-status{font-size:7pt!important;padding-top:2pt!important}.guide-row,.moment-row,.lesson-item{padding:7pt 0!important}.guide-content h4,.moment-text strong,.lesson-text strong{font-size:10pt!important}.guide-content p,.moment-text,.lesson-text{font-size:9pt!important;line-height:1.45!important}.guide-cost{font-size:9pt!important}.firsts-grid{padding:0 14pt!important;grid-template-columns:repeat(2,1fr)!important;gap:5pt!important}.first-card{padding:7pt 9pt!important}.first-label{font-size:7pt!important}.first-value{font-size:8.5pt!important;line-height:1.4!important}.section-header{padding:14pt 14pt 6pt!important;page-break-after:avoid!important;break-after:avoid!important}.section-header h2{font-size:13pt!important}.opening{padding:12pt 14pt!important}.opening p{font-size:10pt!important;line-height:1.55!important}.stats-bar{page-break-inside:avoid!important;break-inside:avoid!important}.stat{padding:8pt 10pt!important}.stat-num{font-size:16pt!important}.stat-label{font-size:7pt!important}.city-timeline{padding:0 14pt!important}.city-block{padding:9pt 0!important;grid-template-columns:75pt 1fr!important;gap:0 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.city-days{font-size:11pt!important}.city-dates,.city-nights{font-size:7.5pt!important}.city-body h4{font-size:10.5pt!important;margin-bottom:4pt!important}.city-body p{font-size:9pt!important;line-height:1.45!important;margin-bottom:5pt!important}.city-highlights{margin-top:6pt!important;gap:4pt!important}.sayonara{margin:14pt 14pt 0!important;padding:12pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.sayonara .kanji{font-size:18pt!important;margin-bottom:4pt!important}.sayonara .translit{font-size:7.5pt!important}.sayonara .next{margin-top:8pt!important;font-size:9.5pt!important}.priority-list{padding:8pt 14pt!important}.priority-header{padding:8pt 14pt!important;font-size:7.5pt!important}.pri-item{padding:5pt 0!important;font-size:9pt!important}.pri-num{font-size:11pt!important}.pri-when{font-size:7pt!important}@page{size:A4 portrait;margin:10mm 10mm 12mm 10mm}}</style>
+</head>
+<body>
+<div class="page">
+
+<header class="masthead">
+  <div class="tour-label">🌏 Asia Grand Tour 2026 &nbsp;·&nbsp; Diamond Max Edition &nbsp;·&nbsp; Japan · Hiroshima</div>
+  <div class="day-eyebrow">
+    <div class="day-number">08</div>
+    <div>
+      <div class="day-name">Hiroshima</div>
+      <div class="day-date">Tuesday · 18 August 2026</div>
+    </div>
+  </div>
+  <div class="day-title">Peace Memorial Museum at Opening &nbsp;·&nbsp; Miyajima Afternoon &nbsp;·&nbsp; Walk to the Torii &nbsp;·&nbsp; Anago-meshi &nbsp;·&nbsp; Quiet Oyster Evening</div>
+  <div class="rating-badge">🕊️ The Most Important Morning of the Japan Leg</div>
+</header>
+
+<div class="conditions">
+  <span class="chip chip-heat">🌡️ 32–35°C · Slightly cooler than Kyoto</span>
+  <span class="chip chip-gold">⏰ 08:30 museum opening — be there</span>
+  <span class="chip chip-hiro">🏝️ Miyajima afternoon</span>
+  <span class="chip chip-info">👟 ~11,000 steps · gentler than draft</span>
+  <span class="chip chip-slate">🌊 Low tide afternoon — walk to torii base</span>
+</div>
+
+<div class="logic-box">
+  <h3>Diamond-Max Logic — Day 8</h3>
+  <div class="logic-pillars">
+    <div class="pillar"><strong>Morning</strong>Peace Memorial Museum at 08:30 opening. 2.5 hours. Go slowly. The emotional centre of the trip.</div>
+    <div class="pillar"><strong>Decompress</strong>No rush out. Sit by the river after the museum. Let the morning land before moving on.</div>
+    <div class="pillar"><strong>Afternoon</strong>Miyajima — torii, shrine, anago-meshi, deer. Daisho-in cut. One island, three anchors, home by 17:00.</div>
+    <div class="pillar"><strong>Evening</strong>Gentle only. Hiroshima oysters near the hotel. Simple food. Early night.</div>
+    <div class="pillar"><strong>Tonight</strong>Takuhaibin to Hakone lodged. Daypack for 2 nights (Day 9 Shinkansen + Hakone Day 10 arrival).</div>
+  </div>
+</div>
+
+<div class="route-strip">
+  <h3>Today's Route</h3>
+  <div class="route-nodes">
+    <div class="route-node"><span>🏨</span><span class="label">Hotel Granvia</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🕊️</span><span class="label">Peace Museum</span><span class="sub">&nbsp;08:30</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🌊</span><span class="label">River Pause</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🚆</span><span class="label">JR San-yo</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>⛴️</span><span class="label">Ferry</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>⛩️</span><span class="label">Miyajima</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🦪</span><span class="label">Oysters</span></div>
+  </div>
+</div>
+
+<!-- ════ PHASE 1 ════ -->
+<div class="phase-divider" style="animation-delay:0.52s">
+  <span class="phase-icon">🕊️</span>
+  <span class="phase-label">Phase 1 — Morning · Peace Memorial Museum</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">07:30</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Breakfast + Prep <span class="tag tag-rest">Start</span></span><span class="cost hotel"><span class="yen">Incl.</span><span class="aud">Pre-paid</span></span></div>
+      <div class="b-text">Light breakfast at Hotel Granvia. Travel minimal — Suica, water, cash, pre-booked museum tickets (booked last night at <strong>hpmmuseum.jp</strong>). Wear something you'd be comfortable sitting quietly in.</div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">🎫</span>
+        <span>If tickets weren't booked last night: go to <strong>hpmmuseum.jp</strong> now. ¥200pp, timed entry for 08:30 or 09:00. Walk-up queue can run 45+ minutes on weekday mornings. The booking confirmation QR comes to email — screenshot it.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">08:00</span><span class="b-duration">25 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Tram — Hotel → Peace Museum <span class="tag tag-transit">Tram</span></span><span class="cost"><span class="yen">¥480</span><span class="aud">~A$5</span></span></div>
+      <div class="b-text">Tram Line 2 or Line 6 from Hiroshima Station → Genbaku Dome-mae. ~18 min. Flat <strong>¥240pp</strong> (2024 fare revision). Tap Suica. Museum is 3 min walk south through the park from the tram stop.</div>
+      <div class="callout callout-nav">
+        <span class="callout-icon">🗺️</span>
+        <span>Walk through the park entrance, past the Cenotaph you stood beside yesterday. The museum is the long horizontal building at the south end of the park axis. Enter through the east wing.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">08:30</span><span class="b-duration">2.5 hrs</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Peace Memorial Museum ⭐⭐ <span class="tag tag-reflect">Essential</span></span><span class="cost"><span class="yen">¥1,000</span><span class="aud">~A$10</span></span></div>
+      <div class="b-text">
+        The most important place on this 42-day trip. ¥200pp admission + ¥300pp audio guide — budget ¥1,000 total for two including guides. Allow the full 2.5 hours. Go at whatever pace feels right — there is no correct speed through here, only an honest one.
+      </div>
+
+      <div class="museum-box">
+        <div class="museum-header">🕊️ How to Move Through the Museum</div>
+        <div class="museum-body">
+          <div class="museum-row">
+            <div class="museum-icon">📐</div>
+            <div class="museum-text"><strong>East Building first</strong> — historical context: why Hiroshima, what happened on 6 August 1945, the science of the bomb. This grounds everything that follows. The audio guide (¥300pp) is worth it; it pulls in survivor voices the signage alone doesn't carry.</div>
+          </div>
+          <div class="museum-row">
+            <div class="museum-icon">🕯️</div>
+            <div class="museum-text"><strong>Main Building — personal stories</strong> — this is the part that stays with you. Clothing, personal belongings, the shadows burned into stone, survivor testimonies. Sadako's paper cranes. Walk slowly. Read the small print on the exhibits.</div>
+          </div>
+          <div class="museum-row">
+            <div class="museum-icon">🌅</div>
+            <div class="museum-text"><strong>The panoramic window at the end</strong> — the museum is oriented so the final exhibit hall frames the A-Bomb Dome through a wide horizontal window, with the rebuilt city behind it. The message is unmissable.</div>
+          </div>
+          <div class="museum-row">
+            <div class="museum-icon">🪑</div>
+            <div class="museum-text"><strong>Take breaks if needed</strong> — seating is provided mid-way through. The museum is emotionally heavy; sitting for a few minutes is completely normal here. There is no requirement to push through.</div>
+          </div>
+          <div class="museum-row">
+            <div class="museum-icon">📖</div>
+            <div class="museum-text"><strong>National Peace Memorial Hall (free, adjacent)</strong> — after the main museum, the underground memorial hall. A circular space with names and photographs of victims. Small, profound, often empty. Worth 15 minutes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-slate">
+        <span class="callout-icon">🕊️</span>
+        <span>Yesterday you stood outside and let the space speak. Today the museum gives it language. The combination — outdoor grounds then interior museum — is by design more powerful than either alone. You will leave this building changed in some small but real way. That is the point.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">~11:00</span><span class="b-duration">30–45 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Quiet Walk + River Pause <span class="tag tag-rest">Decompress</span></span><span class="cost free"><span class="yen">¥0</span><span class="aud">Free</span></span></div>
+      <div class="b-text">
+        Exit when you're done — not at a set time. If the museum takes 3 hours instead of 2.5, that is correct. This is the one place on the trip where a schedule does not apply.
+        <br><br>
+        Walk to the Motoyasu River bank. Sit for 15–20 minutes on the stone steps near the A-Bomb Dome. Don't go straight to the tram. The museum needs open air before the next thing.
+        <br><br>
+        You don't need to talk much. Just sit. Then when you're ready — around 12:00 — walk or tram to Hiroshima Station for the JR to Miyajima.
+      </div>
+      <div class="callout callout-slate">
+        <span class="callout-icon">⏱️</span>
+        <span><strong>No pressure on the Miyajima ferry departure.</strong> Trains to Miyajimaguchi run every 15–20 min, ferries every 10–15 min. Leave when you're ready — even a 12:30 departure gives you 4+ hours on the island.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 2 ════ -->
+<div class="phase-divider" style="animation-delay:1.05s">
+  <span class="phase-icon">⛴️</span>
+  <span class="phase-label">Phase 2 — Transfer · Hiroshima → Miyajima</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">~12:00</span><span class="b-duration">~50 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>JR San-yo Line + Ferry → Miyajima <span class="tag tag-transit">JR + Ferry</span></span><span class="cost"><span class="yen">¥1,240</span><span class="aud">~A$13</span></span></div>
+      <div class="b-text">The simplest combination. JR from Hiroshima Station to Miyajimaguchi, walk across to the ferry terminal (signposted, 2 min), JR Ferry to Miyajima.</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot jr">J</div>
+          <div>
+            <div class="metro-line-name">JR San-yo Line — Hiroshima → Miyajimaguchi</div>
+            <div class="metro-line-detail">~26 min · ¥420pp · every 15–20 min · Platform 1 at Hiroshima Station</div>
+            <div class="metro-detail-box">
+              <span class="metro-tag">Tap Suica through gates</span>
+              <span class="metro-tag">Covered by JR Pass if held</span>
+              <span class="metro-tag">Faster than the Hiroden tram (70 min)</span>
+            </div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot ferry">F</div>
+          <div>
+            <div class="metro-line-name">JR Ferry — Miyajimaguchi → Miyajima</div>
+            <div class="metro-line-detail">10 min crossing · ¥200pp · every 10–15 min · torii visible from the boat</div>
+            <div class="metro-detail-box">
+              <span class="metro-tag">Tap Suica — covered</span>
+              <span class="metro-tag">Stand on deck for approach view</span>
+            </div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot walk">💴</div>
+          <div>
+            <div class="metro-line-name">Miyajima Visitor Tax</div>
+            <div class="metro-line-detail"><strong>¥100pp</strong> paid at ferry terminal (introduced October 2023) — separate from the ferry fare</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-nav">
+        <span class="callout-icon">⛴️</span>
+        <span><strong>Stand on the ferry deck for the approach.</strong> The floating torii appears as you cross — your first sight of it from the water, with the Seto Inland Sea around you, is the defining arrival of Miyajima. Don't sit inside for this.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 3 ════ -->
+<div class="phase-divider" style="animation-delay:1.12s">
+  <span class="phase-icon">⛩️</span>
+  <span class="phase-label">Phase 3 — Miyajima · Afternoon</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">~12:45</span><span class="b-duration">3.5 hrs</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Miyajima Island — Three Anchors ⭐ <span class="tag tag-peak">Peak Experience</span></span><span class="cost"><span class="yen">¥400 + food</span><span class="aud">~A$4 + lunch</span></span></div>
+      <div class="b-text">
+        One of the three official "Views of Japan" (Nihon Sankei). Sacred island, free-roaming deer, the great torii of Itsukushima, and one of the oldest shrines built over water in the country. <strong>Daisho-in has been cut from today</strong> — on this emotionally heavy day, in August heat, after a 2.5-hour museum, adding a vertical temple climb is the wrong trade. The island gives you plenty without it.
+      </div>
+
+      <div class="tide-box">
+        <span style="font-size:16px;flex-shrink:0">🌊</span>
+        <div>
+          <strong>Tide note for 18 August 2026:</strong> predicted low tide in Hiroshima Bay falls across most of your afternoon window. This means the torii will <em>not</em> appear to float today — it'll be standing on exposed mudflat, and you can <strong>walk directly to its base and touch the wood</strong>. This is a different experience to the classic image — and in many ways more remarkable. Most visitors never get to do it. Confirm live tide times tonight at <strong>tide-forecast.com/miyajima</strong> before you sleep.
+        </div>
+      </div>
+
+      <div class="miyajima-box">
+        <div class="miyajima-header">⛩️ Miyajima — Low-Tide Walk Sequence</div>
+        <div class="miyajima-timeline">
+          <div class="miy-row">
+            <div class="miy-time">Arrive</div>
+            <div class="miy-desc"><strong>First view from the ferry terminal beach.</strong> Walk west along the waterfront. The torii appears immediately, planted on the exposed mudflat. Stand here. Sit and look at it for 5 minutes without a phone. Let the scale register.</div>
+          </div>
+          <div class="miy-row">
+            <div class="miy-time">13:00</div>
+            <div class="miy-desc"><strong>Walk to the torii base</strong> — while the tide is out, you can walk straight across the mudflat to stand beside the gate. The wood is 600 years of salt and weather. Touch it. Take one photograph. The scale up close is different from the postcard view.</div>
+          </div>
+          <div class="miy-row">
+            <div class="miy-time">13:30</div>
+            <div class="miy-desc"><strong>Itsukushima Shrine</strong> (¥300pp · combo with treasure hall ¥500pp). Even at low tide the wooden corridor over the mudflat has a different, more architectural beauty — you see the stilts and construction that are usually hidden underwater. Walk the full length slowly.</div>
+          </div>
+          <div class="miy-row">
+            <div class="miy-time">14:15</div>
+            <div class="miy-desc"><strong>Anago-meshi lunch at Fujitaya or equivalent</strong> — conger eel over rice, the island's signature dish. Queue expected but moves. <strong>~¥3,000pp</strong> for the full meal set. Eat near the waterfront in the shade. This is the correct Miyajima lunch.</div>
+          </div>
+          <div class="miy-row">
+            <div class="miy-time">15:30</div>
+            <div class="miy-desc"><strong>Omotesando shopping street</strong> — 10 min wander. Momiji manju (maple-leaf cakes, red bean or custard), knife-makers, oyster stands. Buy a warm bag of manju for the ferry home. Deer will try to eat your map — they're designated national treasures <em>and</em> shameless thieves.</div>
+          </div>
+          <div class="miy-row">
+            <div class="miy-time">16:00</div>
+            <div class="miy-desc"><strong>One more look at the torii</strong> from the western shore, then back to the ferry terminal. The light is softer now. The island quiets as the day visitors leave.</div>
+          </div>
+          <div class="miy-row">
+            <div class="miy-time">~16:30</div>
+            <div class="miy-desc"><strong>Ferry back</strong> — stand on deck for the departure view. The torii receding as you cross. Wave at it. You'll likely never see it again in this lifetime; give it a moment.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">☀️</span>
+        <span><strong>August heat note:</strong> Miyajima's waterfront walks are exposed. Drink water in the shade, not while walking. If either of you is flagging by 15:30, come back early — there's no ceremony about ferry departure times. The island's gift is the torii and the shrine. Everything after that is optional.</span>
+      </div>
+
+      <div class="callout callout-hiro">
+        <span class="callout-icon">🦌</span>
+        <span><strong>The deer are sacred and shameless.</strong> Keep bags zipped. They will eat guidebooks, paper maps, receipts, anything within reach. Let them approach rather than chasing them for photos. Do not feed them — it's illegal, and also they'll follow you for an hour.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">~16:30</span><span class="b-duration">45 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Return — Miyajima → Hiroshima Station <span class="tag tag-transit">Ferry + JR</span></span><span class="cost"><span class="yen">¥620</span><span class="aud">~A$6</span></span></div>
+      <div class="b-text">JR Ferry → Miyajimaguchi → JR San-yo back to Hiroshima Station. Back at Hotel Granvia by 17:30. Same Suica taps through the whole journey.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 4 ════ -->
+<div class="phase-divider" style="animation-delay:1.19s">
+  <span class="phase-icon">🦪</span>
+  <span class="phase-label">Phase 4 — Evening · Gentle Dinner</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">17:30</span><span class="b-duration">45 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Hotel — Shower + Sit Down <span class="tag tag-rest">Rest</span></span><span class="cost hotel"><span class="yen">Incl.</span><span class="aud">Pre-paid</span></span></div>
+      <div class="b-text">Today has been the fullest day emotionally of the entire trip so far. 45 minutes down before dinner — not because you're tired physically, but because the day deserves a pause before it ends.</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">18:30</span><span class="b-duration">90 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Hiroshima Oysters — Simple Evening <span class="tag tag-food">Dinner</span></span><span class="cost"><span class="yen">¥6,000–10,000</span><span class="aud">~A$62–103</span></span></div>
+      <div class="b-text">
+        Hiroshima is Japan's largest oyster producer — ~60% of national output comes from Hiroshima Bay. Tonight is for oysters, simply prepared, with cold Sapporo. No elaborate cuisine. After the museum and Miyajima, simple is right.
+        <br><br>
+        <strong>How to pick a place:</strong> walk the Hondori / Nagarekawa area (10 min from the hotel by tram or taxi). Look for places with "kaki-tei" (牡蠣亭) or "kaki ryori" (牡蠣料理) signage — Hiroshima oyster specialists. Counter seating, visible kitchen, locals after work. Several good options within two blocks of each other.
+        <br><br>
+        Order a mixed plate: <strong>raw, grilled with ponzu, deep-fried (kaki furai)</strong>. ¥300–500 per oyster depending on preparation. Add Hiroshima tsukemen or yakiniku sides if still hungry.
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">🦪</span>
+        <span>Hiroshima oysters are meatier, more mineral, and larger than Sydney rock oysters — peak season is winter, but August oysters are still good. The hotel concierge can name two or three current specialists within walking distance; ask rather than commit to a name online.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">20:00</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Walk Home + Takuhaibin Prep <span class="tag tag-rest">Close</span></span><span class="cost"><span class="yen">¥3,000</span><span class="aud">~A$31</span></span></div>
+      <div class="b-text">
+        Tram or short walk back to Hotel Granvia. Tomorrow is the Hakone transfer — alarm at <strong>07:30</strong>. Tonight: arrange takuhaibin at reception for Laforet Hakone. ¥1,500/bag. Distance to Hakone is long and the mountain is a second-tier destination — budget for <strong>2-day delivery</strong>, arriving Day 10.
+      </div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">🎒</span>
+        <span><strong>Daypack tonight must cover 2 nights.</strong> You're on daypack-only Day 9 (Shinkansen transfer day) and possibly early Day 10 until bags arrive. Pack: two shirts/tops, two changes of underwear, sleep clothes, all medications, chargers, passports, tomorrow's travel-day outfit + Day 10 arrival outfit. Check tide forecast for tomorrow's Mt Fuji views from the train (if weather clear, D/E seats).</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── DAILY TOTAL ── -->
+<div class="daily-total">
+  <div class="daily-total-header">💴 Day 8 — Cost Breakdown (2 people)</div>
+  <div class="cost-row"><span class="cr-label">Tram × 2 (Hotel → Museum + return)</span><span class="cr-yen">¥960</span><span class="cr-aud">~A$10</span></div>
+  <div class="cost-row"><span class="cr-label">Peace Memorial Museum × 2 (pre-booked ¥200pp)</span><span class="cr-yen">¥400</span><span class="cr-aud">~A$4</span></div>
+  <div class="cost-row"><span class="cr-label">Museum audio guide × 2 (¥300pp · recommended)</span><span class="cr-yen">¥600</span><span class="cr-aud">~A$6</span></div>
+  <div class="cost-row"><span class="cr-label">JR San-yo + Ferry × 2 return (Miyajima)</span><span class="cr-yen">¥2,480</span><span class="cr-aud">~A$25</span></div>
+  <div class="cost-row"><span class="cr-label">Miyajima visitor tax × 2 (¥100pp)</span><span class="cr-yen">¥200</span><span class="cr-aud">~A$2</span></div>
+  <div class="cost-row"><span class="cr-label">Itsukushima Shrine × 2 (¥300pp shrine only)</span><span class="cr-yen">¥600</span><span class="cr-aud">~A$6</span></div>
+  <div class="cost-row"><span class="cr-label">Anago-meshi lunch × 2 (Fujitaya)</span><span class="cr-yen">¥6,000</span><span class="cr-aud">~A$62</span></div>
+  <div class="cost-row"><span class="cr-label">Momiji manju + ferry snacks</span><span class="cr-yen">¥600–1,000</span><span class="cr-aud">~A$6–10</span></div>
+  <div class="cost-row"><span class="cr-label">Hiroshima oyster dinner × 2</span><span class="cr-yen">¥6,000–10,000</span><span class="cr-aud">~A$62–103</span></div>
+  <div class="cost-row"><span class="cr-label">Takuhaibin × 2 bags (Hiroshima → Hakone · 2-day)</span><span class="cr-yen">¥3,000</span><span class="cr-aud">~A$31</span></div>
+  <div class="cost-row"><span class="cr-label">Hotel Granvia Night 2 of 2 (pre-paid)</span><span class="cr-yen">Pre-paid</span><span class="cr-aud">—</span></div>
+  <div class="cost-row total-row"><span class="cr-label">🧮 Day 8 Total (2 people, excl. hotel)</span><span class="cr-yen">¥20,840–25,240</span><span class="cr-aud">~A$214–259</span></div>
+</div>
+
+<!-- ── PACKING ── -->
+<div class="packing-strip">
+  <div class="packing-header">🎒 Day 8 Bag</div>
+  <div class="packing-items">
+    <span class="pack-item">📱 Suica × 2</span>
+    <span class="pack-item">💴 ¥15,000 cash (visitor tax + lunch + dinner)</span>
+    <span class="pack-item">🧴 SPF 50</span>
+    <span class="pack-item">💧 Water bottle × 2</span>
+    <span class="pack-item">🎫 Museum QR screenshot</span>
+    <span class="pack-item">🧢 Hat + sunglasses</span>
+    <span class="pack-item">🌊 Tide forecast checked</span>
+    <span class="pack-item">👜 Bags zipped tight (Miyajima deer)</span>
+    <span class="pack-item">👟 Proper walking shoes — mudflat + shrine planks</span>
+  </div>
+</div>
+
+<!-- ── PINS ── -->
+<div class="pins-strip">
+  <div class="pins-header">📍 Google Maps — Save These Now</div>
+  <div class="pins-list">
+    <span class="pin">📌 Hiroshima Peace Memorial Museum</span>
+    <span class="pin">📌 National Peace Memorial Hall</span>
+    <span class="pin">📌 Motoyasu River bank (decompress)</span>
+    <span class="pin">📌 Hiroshima Station JR Platform 1</span>
+    <span class="pin">📌 Miyajimaguchi Ferry Terminal</span>
+    <span class="pin">📌 Miyajima Ferry Terminal</span>
+    <span class="pin">📌 O-Torii Gate (Floating Torii)</span>
+    <span class="pin">📌 Itsukushima Shrine</span>
+    <span class="pin">📌 Fujitaya Anago-meshi</span>
+    <span class="pin">📌 Omotesando Shopping Street (Miyajima)</span>
+    <span class="pin">📌 Hondori / Nagarekawa oyster district</span>
+    <span class="pin">📌 Hotel Granvia Hiroshima</span>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="day-footer">
+  <div class="footer-prev">← Day 7 · Kyoto → Hiroshima Transfer</div>
+  <div class="footer-dots">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot active"></div>
+  </div>
+  <div class="footer-next">Tomorrow → <strong>Hiroshima → Hakone · Shinkansen &amp; Mountain Air</strong> ›</div>
+</div>
+
+</div>
+</body>
+</html>
