@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 12 · Tokyo · Asia Grand Tour 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg-soft:#f7f5f2;--bg-card:#f2efe9;--bg-deep:#ede9e1;
+  --rule:#d8d0c0;--muted:#888070;--body:#2a2420;--heading:#0d0a08;
+  --gold:#a06820;--gold-lo:rgba(160,104,32,0.09);
+  --teal:#1e6860;--teal-lo:rgba(30,104,96,0.08);
+  --red:#8a2018;--red-lo:rgba(138,32,24,0.07);
+  --tokyo:#6a3a9a;--tokyo-lo:rgba(106,58,154,0.08);
+  --teamlab:#1a6a8a;--teamlab-lo:rgba(26,106,138,0.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--body);font-size:15px;line-height:1.65;min-height:100vh}
+.page{max-width:860px;margin:0 auto;padding:0 0 80px}
+.masthead{position:relative;padding:52px 48px 40px;border-bottom:2px solid var(--heading);overflow:hidden}
+.masthead::after{content:'';position:absolute;top:0;right:0;width:320px;height:100%;background:linear-gradient(to left,rgba(26,106,138,0.06),transparent);pointer-events:none}
+.tour-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.1s}
+.tour-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--rule),transparent)}
+.day-eyebrow{display:flex;align-items:baseline;gap:18px;margin-bottom:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.2s}
+.day-number{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:300;line-height:0.85;color:var(--gold);letter-spacing:-3px}
+.day-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--heading);line-height:1}
+.day-date{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;font-style:italic;color:var(--body);margin-top:14px;line-height:1.3;max-width:640px;opacity:0;animation:fadeUp 0.5s ease forwards 0.3s}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;opacity:0;animation:fadeUp 0.5s ease forwards 0.35s}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-teamlab{background:var(--teamlab-lo);border:1px solid rgba(26,106,138,0.22);color:var(--teamlab)}
+.badge-shared{background:rgba(30,104,96,0.07);border:1px solid rgba(30,104,96,0.2);color:var(--teal)}
+.conditions{display:flex;flex-wrap:wrap;gap:8px;padding:20px 48px;border-bottom:1px solid var(--rule);background:var(--bg-soft);opacity:0;animation:fadeUp 0.5s ease forwards 0.4s}
+.chip{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid}
+.chip-heat{background:var(--red-lo);border-color:rgba(138,32,24,0.2);color:var(--red)}
+.chip-info{background:var(--teal-lo);border-color:rgba(30,104,96,0.22);color:var(--teal)}
+.chip-gold{background:var(--gold-lo);border-color:rgba(160,104,32,0.22);color:var(--gold)}
+.chip-teamlab{background:var(--teamlab-lo);border-color:rgba(26,106,138,0.22);color:var(--teamlab)}
+.logic-box{margin:28px 48px;border-left:3px solid var(--teamlab);border-radius:0 8px 8px 0;border-top:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 22px;background:var(--bg-card);opacity:0;animation:fadeUp 0.5s ease forwards 0.45s}
+.logic-box h3{font-size:10px;font-weight:600;color:var(--teamlab);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px}
+.logic-pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.pillar{background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:9px 12px;font-size:12.5px;color:var(--body)}
+.pillar strong{color:var(--teamlab);display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.route-strip{padding:20px 48px;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.5s ease forwards 0.5s}
+.route-strip h3{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.route-nodes{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.route-node{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--body)}
+.route-node .label{font-weight:600;color:var(--heading)}
+.route-node .sub{font-size:10px;color:var(--muted)}
+.route-arrow{color:var(--rule);margin:0 4px}
+.phase-divider{padding:10px 48px 0;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.4s ease forwards}
+.phase-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;font-weight:600}
+.phase-line{flex:1;height:1px;background:var(--rule)}
+.phase-icon{font-size:14px}
+.blocks{padding:0 48px}
+.block{display:grid;grid-template-columns:86px 1fr;gap:0 22px;padding:22px 0;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.4s ease forwards}
+.block:last-child{border-bottom:none}
+.block:nth-child(1){animation-delay:0.55s}.block:nth-child(2){animation-delay:0.62s}.block:nth-child(3){animation-delay:0.69s}.block:nth-child(4){animation-delay:0.76s}.block:nth-child(5){animation-delay:0.83s}.block:nth-child(6){animation-delay:0.90s}.block:nth-child(7){animation-delay:0.97s}.block:nth-child(8){animation-delay:1.04s}.block:nth-child(9){animation-delay:1.11s}.block:nth-child(10){animation-delay:1.18s}
+.b-time{display:flex;flex-direction:column;align-items:flex-end;padding-top:2px}
+.b-clock{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold);line-height:1}
+.b-duration{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:4px;text-align:right}
+.b-label{font-size:14px;font-weight:600;color:var(--heading);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between}
+.tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-weight:600}
+.tag-rest{background:var(--teal-lo);color:var(--teal);border:1px solid rgba(30,104,96,0.2)}
+.tag-food{background:var(--red-lo);color:var(--red);border:1px solid rgba(138,32,24,0.15)}
+.tag-transit{background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.15)}
+.tag-tokyo{background:var(--tokyo-lo);color:var(--tokyo);border:1px solid rgba(106,58,154,0.2)}
+.tag-teamlab{background:var(--teamlab-lo);color:var(--teamlab);border:1px solid rgba(26,106,138,0.2)}
+.tag-peak{background:var(--gold-lo);color:var(--gold);border:1px solid rgba(160,104,32,0.25)}
+.b-text{font-size:13.5px;color:var(--body);line-height:1.72}
+.b-text strong{color:var(--heading);font-weight:600}
+.callout{margin-top:10px;padding:11px 14px;border-radius:6px;font-size:12.5px;line-height:1.65;display:flex;gap:9px;align-items:flex-start}
+.callout-nav{background:var(--teal-lo);border:1px solid rgba(30,104,96,0.18);color:#155248}
+.callout-tip{background:var(--gold-lo);border:1px solid rgba(160,104,32,0.18);color:#7a4e10}
+.callout-warn{background:var(--red-lo);border:1px solid rgba(138,32,24,0.15);color:#8a2018}
+.callout-teamlab{background:var(--teamlab-lo);border:1px solid rgba(26,106,138,0.2);color:#0a3a5a}
+.callout-tokyo{background:var(--tokyo-lo);border:1px solid rgba(106,58,154,0.18);color:#3a1a6a}
+.callout-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.metro-diagram{margin-top:12px;background:var(--bg-soft);border:1px solid var(--rule);border-radius:8px;padding:14px 16px}
+.metro-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.metro-step:last-child{margin-bottom:0}
+.metro-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.metro-dot.hibiya{background:#b5b5ac;color:white}
+.metro-dot.oedo{background:#b51e5f;color:white}
+.metro-dot.yurikamome{background:#009bbf;color:white}
+.metro-dot.ginza{background:#f5921e;color:white}
+.metro-dot.yamanote{background:#9acd32;color:white}
+.metro-dot.marunouchi{background:#d4272e;color:white}
+.metro-dot.walk{background:var(--bg-deep);color:var(--body);font-size:13px}
+.metro-connector{width:2px;height:12px;background:var(--rule);margin:0 11px}
+.metro-line-name{font-size:12px;font-weight:600;color:var(--heading)}
+.metro-line-detail{font-size:11.5px;color:var(--muted);margin-top:2px}
+.metro-detail-box{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.metro-tag{font-size:10.5px;padding:2px 8px;border-radius:10px;background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.12)}
+.graze-box{margin-top:12px;border:1.5px solid rgba(138,32,24,0.18);border-radius:8px;overflow:hidden}
+.graze-header{background:linear-gradient(135deg,var(--red-lo),rgba(160,104,32,0.04));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;border-bottom:1px solid rgba(138,32,24,0.12)}
+.graze-items{background:var(--bg);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.graze-row{display:grid;grid-template-columns:1fr 80px;gap:10px;align-items:baseline;font-size:13px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.graze-row:last-child{border-bottom:none;padding-bottom:0}
+.graze-item strong{color:var(--heading)}
+.graze-price{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--teal);text-align:right}
+.teamlab-box{margin-top:12px;border:1.5px solid rgba(26,106,138,0.22);border-radius:8px;overflow:hidden}
+.teamlab-header{background:linear-gradient(135deg,var(--teamlab-lo),rgba(106,58,154,0.04));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teamlab);font-weight:600;border-bottom:1px solid rgba(26,106,138,0.15)}
+.teamlab-body{background:var(--bg);padding:14px;display:flex;flex-direction:column;gap:9px}
+.tl-row{display:flex;gap:10px;align-items:flex-start;padding-bottom:9px;border-bottom:1px solid var(--rule)}
+.tl-row:last-child{padding-bottom:0;border-bottom:none}
+.tl-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.tl-text{font-size:13px;color:var(--body);line-height:1.6}
+.tl-text strong{color:var(--heading)}
+.walk-box{margin-top:12px;border:1.5px solid rgba(106,58,154,0.18);border-radius:8px;overflow:hidden}
+.walk-header{background:linear-gradient(135deg,var(--tokyo-lo),rgba(160,104,32,0.03));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tokyo);font-weight:600;border-bottom:1px solid rgba(106,58,154,0.12)}
+.walk-body{background:var(--bg);padding:14px;display:flex;flex-direction:column;gap:9px}
+.walk-row{display:flex;gap:10px;align-items:flex-start;padding-bottom:9px;border-bottom:1px solid var(--rule)}
+.walk-row:last-child{padding-bottom:0;border-bottom:none}
+.walk-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.walk-text{font-size:13px;color:var(--body);line-height:1.6}
+.walk-text strong{color:var(--heading)}
+.cost{display:inline-flex;align-items:center;gap:5px;margin-left:auto;background:rgba(30,104,96,0.07);border:1px solid rgba(30,104,96,0.2);border-radius:20px;padding:3px 11px;font-size:11.5px;font-weight:600;color:var(--teal);white-space:nowrap;flex-shrink:0}
+.cost .yen{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700}
+.cost .aud{font-size:10.5px;color:var(--muted);font-weight:500}
+.cost.free{background:var(--red-lo);border-color:rgba(138,32,24,0.15);color:var(--red)}
+.cost.hotel{background:var(--gold-lo);border-color:rgba(160,104,32,0.2);color:var(--gold)}
+.daily-total{margin:28px 48px 0;border:1.5px solid rgba(30,104,96,0.25);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.25s}
+.daily-total-header{background:rgba(30,104,96,0.08);border-bottom:1px solid rgba(30,104,96,0.18);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:600}
+.cost-row{display:grid;grid-template-columns:1fr 110px 80px;padding:9px 18px;border-bottom:1px solid var(--rule);font-size:13px;align-items:center;gap:8px}
+.cost-row:last-child{border-bottom:none}
+.cost-row:nth-child(even){background:var(--bg-soft)}
+.cost-row.total-row{background:rgba(30,104,96,0.07)!important;border-top:2px solid rgba(30,104,96,0.2);font-weight:700}
+.cr-label{color:var(--body)}.cr-yen{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--teal);text-align:right}.cr-aud{font-size:11.5px;color:var(--muted);text-align:right}
+.cost-row.total-row .cr-label{color:var(--heading);font-size:13.5px}.cost-row.total-row .cr-yen{font-size:1.15rem}.cost-row.total-row .cr-aud{color:var(--body);font-weight:600;font-size:12px}
+.packing-strip{margin:14px 48px 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.35s}
+.packing-header{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.packing-items{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;background:var(--bg-soft)}
+.pack-item{font-size:12px;color:var(--body);padding:4px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:16px}
+.pins-strip{margin:14px 48px 0;border:1px solid rgba(66,133,244,0.18);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.45s}
+.pins-header{background:#e8f0fe;border-bottom:1px solid rgba(66,133,244,0.15);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1a5bbf}
+.pins-list{display:flex;flex-wrap:wrap;gap:7px;padding:14px 18px;background:#f5f8ff}
+.pin{font-size:11.5px;color:#1a5bbf;padding:4px 11px;background:rgba(66,133,244,0.06);border:1px solid rgba(66,133,244,0.16);border-radius:14px}
+.day-footer{margin:20px 48px 0;padding:18px 22px;background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:0;animation:fadeUp 0.5s ease forwards 1.55s}
+.footer-prev{font-size:12px;color:var(--muted)}
+.footer-next{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--body);display:flex;align-items:center;gap:8px}
+.footer-next strong{color:var(--heading);font-style:italic}
+.footer-dots{display:flex;gap:5px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--rule)}
+.dot.active{background:var(--gold)}
+.fork-note{margin:16px 48px 0;background:linear-gradient(135deg,var(--tokyo-lo),rgba(26,106,138,0.04));border:1px solid rgba(106,58,154,0.18);border-radius:10px;padding:14px 18px;opacity:0;animation:fadeUp 0.5s ease forwards 1.60s}
+.fork-note p{font-size:12.5px;color:var(--body);line-height:1.65}
+.fork-note strong{color:var(--tokyo)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){.masthead,.conditions,.logic-box,.route-strip,.blocks,.packing-strip,.pins-strip,.day-footer,.phase-divider,.daily-total,.fork-note{padding-left:20px;padding-right:20px}.masthead{padding-top:36px;padding-bottom:30px}.day-number{font-size:4rem}.block{grid-template-columns:68px 1fr;gap:0 14px}}
+@media print{*,*::before,*::after{opacity:1!important;animation:none!important;transform:none!important;transition:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html,body{background:white!important;font-size:11pt!important;line-height:1.45!important;min-height:0!important}.page{max-width:100%!important;padding:0!important;margin:0!important}.masthead{padding:18pt 14pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important}.masthead::after,.masthead::before{display:none!important}.day-number,.summary-title,.title-text h1{font-size:32pt!important}.day-name{font-size:14pt!important}.day-title,.subtitle,.summary-subtitle{font-size:10.5pt!important;margin-top:6pt!important}.tour-label{margin-bottom:8pt!important;font-size:7pt!important}.day-eyebrow,.title-row{margin-bottom:4pt!important}.badges{margin-top:8pt!important}.badge,.chip,.legend-pill,.task-tag,.tag,.pack-item,.pin,.metro-tag,.highlight-chip{font-size:7.5pt!important;padding:1pt 5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.conditions,.legend-bar{padding:8pt 14pt!important;gap:4pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box,.transition-box,.opening,.notes-box,.closing-box,.guide-callouts,.priority-strip,.moments-box,.lessons-box{margin:8pt 14pt!important;padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box h3,.notes-box h3,.closing-box h3,.guide-callouts h2,.priority-strip,.moments-box h3,.lessons-box h3{font-size:10pt!important;margin-bottom:6pt!important}.logic-pillars{grid-template-columns:repeat(2,1fr)!important;gap:4pt!important}.pillar{padding:5pt 7pt!important;font-size:8.5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip{padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip h3{margin-bottom:6pt!important;font-size:7pt!important}.route-node{font-size:8.5pt!important}.phase-divider{padding:6pt 14pt 0!important;page-break-after:avoid!important;break-after:avoid!important}.phase-label{font-size:7pt!important}.blocks{padding:0 14pt!important}.block{padding:9pt 0!important;grid-template-columns:60pt 1fr!important;gap:0 12pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.b-time{padding-top:1pt!important}.b-clock{font-size:11pt!important}.b-duration{font-size:7pt!important;margin-top:2pt!important}.b-label{font-size:10.5pt!important;margin-bottom:3pt!important}.b-text{font-size:9.5pt!important;line-height:1.5!important}.callout{margin-top:5pt!important;padding:6pt 9pt!important;font-size:9pt!important;line-height:1.45!important;page-break-inside:avoid!important;break-inside:avoid!important}.metro-diagram,.walk-box,.ginza-box,.flight-box,.checklist-box,.arrival-box{margin-top:6pt!important;padding:8pt 10pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.walk-header,.ginza-header,.checklist-header,.arrival-header,.flight-header{padding:5pt 8pt!important;font-size:7.5pt!important}.walk-row,.ginza-row,.check-row,.arr-row{padding-bottom:5pt!important}.walk-text,.ginza-text,.check-row,.arr-text{font-size:9pt!important;line-height:1.45!important}.metro-step{margin-bottom:5pt!important}.metro-line-name{font-size:9pt!important}.metro-line-detail{font-size:8.5pt!important}.cost{font-size:8.5pt!important;padding:1pt 7pt!important}.cost .yen{font-size:9.5pt!important}.cost .aud{font-size:7.5pt!important}.daily-total,.cost-summary{margin:8pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.daily-total-header,.cost-header{padding:7pt 12pt!important;font-size:7.5pt!important}.cost-row,.cost-row-sum{padding:5pt 12pt!important;font-size:9pt!important}.cr-yen,.cr-sum-value{font-size:9.5pt!important}.cr-aud{font-size:8pt!important}.packing-strip,.pins-strip{margin:6pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.packing-header,.pins-header{padding:7pt 12pt!important;font-size:7.5pt!important}.packing-items,.pins-list{padding:8pt 12pt!important;gap:4pt!important}.day-footer,.footer{margin:8pt 14pt 0!important;padding:9pt 12pt!important;page-break-before:avoid!important;break-before:avoid!important}.footer-prev,.footer-next,.footer-text{font-size:8.5pt!important}.dot{width:4pt!important;height:4pt!important}.countdown-bar{page-break-inside:avoid!important;break-inside:avoid!important}.cd-cell{padding:8pt 10pt!important}.cd-num{font-size:14pt!important}.cd-label{font-size:7pt!important}.section-banner{margin:10pt 14pt 0!important;padding:7pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important;page-break-inside:avoid!important;break-inside:avoid!important}.section-banner h2{font-size:11pt!important}.tasks{padding:0 14pt!important;margin-top:6pt!important}.task-card,.guide-row,.moment-row,.lesson-item,.pri-item,.first-card,.flight-row,.cd-cell{page-break-inside:avoid!important;break-inside:avoid!important}.task-card{padding:7pt 10pt!important;margin-bottom:4pt!important;grid-template-columns:22pt 1fr auto!important}.checkbox{width:14pt!important;height:14pt!important;font-size:11pt!important}.task-title{font-size:10pt!important}.task-detail{font-size:8.5pt!important;line-height:1.45!important}.task-status{font-size:7pt!important;padding-top:2pt!important}.guide-row,.moment-row,.lesson-item{padding:7pt 0!important}.guide-content h4,.moment-text strong,.lesson-text strong{font-size:10pt!important}.guide-content p,.moment-text,.lesson-text{font-size:9pt!important;line-height:1.45!important}.guide-cost{font-size:9pt!important}.firsts-grid{padding:0 14pt!important;grid-template-columns:repeat(2,1fr)!important;gap:5pt!important}.first-card{padding:7pt 9pt!important}.first-label{font-size:7pt!important}.first-value{font-size:8.5pt!important;line-height:1.4!important}.section-header{padding:14pt 14pt 6pt!important;page-break-after:avoid!important;break-after:avoid!important}.section-header h2{font-size:13pt!important}.opening{padding:12pt 14pt!important}.opening p{font-size:10pt!important;line-height:1.55!important}.stats-bar{page-break-inside:avoid!important;break-inside:avoid!important}.stat{padding:8pt 10pt!important}.stat-num{font-size:16pt!important}.stat-label{font-size:7pt!important}.city-timeline{padding:0 14pt!important}.city-block{padding:9pt 0!important;grid-template-columns:75pt 1fr!important;gap:0 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.city-days{font-size:11pt!important}.city-dates,.city-nights{font-size:7.5pt!important}.city-body h4{font-size:10.5pt!important;margin-bottom:4pt!important}.city-body p{font-size:9pt!important;line-height:1.45!important;margin-bottom:5pt!important}.city-highlights{margin-top:6pt!important;gap:4pt!important}.sayonara{margin:14pt 14pt 0!important;padding:12pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.sayonara .kanji{font-size:18pt!important;margin-bottom:4pt!important}.sayonara .translit{font-size:7.5pt!important}.sayonara .next{margin-top:8pt!important;font-size:9.5pt!important}.priority-list{padding:8pt 14pt!important}.priority-header{padding:8pt 14pt!important;font-size:7.5pt!important}.pri-item{padding:5pt 0!important;font-size:9pt!important}.pri-num{font-size:11pt!important}.pri-when{font-size:7pt!important}@page{size:A4 portrait;margin:10mm 10mm 12mm 10mm}}</style>
+</head>
+<body>
+<div class="page">
+
+<header class="masthead">
+  <div class="tour-label">🌏 Asia Grand Tour 2026 &nbsp;·&nbsp; Diamond Max Edition &nbsp;·&nbsp; Japan · Tokyo</div>
+  <div class="day-eyebrow">
+    <div class="day-number">12</div>
+    <div>
+      <div class="day-name">Tokyo — Day 2</div>
+      <div class="day-date">Saturday · 22 August 2026</div>
+    </div>
+  </div>
+  <div class="day-title">Tsukiji Outer Market Breakfast &nbsp;·&nbsp; TeamLab Planets &nbsp;·&nbsp; Deep Rest &nbsp;·&nbsp; Asakusa &amp; Senso-ji at Dusk &nbsp;·&nbsp; Omoide Yokocho Yakitori Night</div>
+  <div class="badges">
+    <span class="badge badge-teamlab">🌊 TeamLab Planets — Pre-booked</span>
+    <span class="badge badge-shared">✅ Shared — Both Itinerary Tracks</span>
+  </div>
+</header>
+
+<div class="conditions">
+  <span class="chip chip-heat">🌡️ 35–37°C · High humidity · Peak Tokyo heat day</span>
+  <span class="chip chip-teamlab">🌊 TeamLab indoor + barefoot · cool + wet floors</span>
+  <span class="chip chip-gold">⏰ Tsukiji: arrive 07:15 before the crowds</span>
+  <span class="chip chip-info">👟 ~10,000 steps · Front-loaded morning · Gentle after rest</span>
+  <span class="chip chip-teamlab">💡 Saturday — Asakusa is quieter at dusk than daytime</span>
+</div>
+
+<div class="logic-box">
+  <h3>Diamond-Max Logic — Day 12</h3>
+  <div class="logic-pillars">
+    <div class="pillar"><strong>Morning</strong>Tsukiji at 07:15 — tuna sashimi, tamagoyaki, uni. Best breakfast in Tokyo and done before the heat builds.</div>
+    <div class="pillar"><strong>TeamLab</strong>Pre-booked timed entry in Toyosu. Barefoot, flooded rooms, projected flowers, mirror universes. 90 min minimum.</div>
+    <div class="pillar"><strong>Rest</strong>Full 3-hour rest after TeamLab. Saturday afternoon heat is peak Tokyo August. Non-negotiable.</div>
+    <div class="pillar"><strong>Asakusa at dusk</strong>Senso-ji lit by lanterns after the day crowds thin. Cooler evening air, atmospheric not exhausting.</div>
+    <div class="pillar"><strong>Evening</strong>Omoide Yokocho — Memory Lane — smoky yakitori under the Shinjuku tracks. The most atmospheric street in Tokyo at night.</div>
+  </div>
+</div>
+
+<div class="route-strip">
+  <h3>Today's Route</h3>
+  <div class="route-nodes">
+    <div class="route-node"><span>🏨</span><span class="label">Hotel</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🐟</span><span class="label">Tsukiji</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🌊</span><span class="label">TeamLab</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🛏</span><span class="label">Rest</span><span class="sub">&nbsp;3 hrs</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>⛩️</span><span class="label">Asakusa</span><span class="sub">&nbsp;dusk</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node"><span>🍢</span><span class="label">Omoide Yokocho</span></div>
+  </div>
+</div>
+
+<!-- ════ PHASE 1 ════ -->
+<div class="phase-divider" style="animation-delay:0.52s">
+  <span class="phase-icon">🐟</span>
+  <span class="phase-label">Phase 1 — Morning · Tsukiji Outer Market</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">07:00</span><span class="b-duration">15 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Metro — Otemachi → Tsukiji <span class="tag tag-transit">Metro</span></span><span class="cost"><span class="yen">¥420</span><span class="aud">~A$4</span></span></div>
+      <div class="b-text">Chiyoda Line from Otemachi → Hibiya (1 stop, 2 min), transfer to Hibiya Line → Tsukiji (1 stop, 2 min). 10 minutes door-to-market.</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot hibiya">C</div>
+          <div>
+            <div class="metro-line-name">Chiyoda Line — Otemachi → Hibiya</div>
+            <div class="metro-line-detail">1 stop · 2 min · same-station transfer to Hibiya Line</div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot hibiya">H</div>
+          <div>
+            <div class="metro-line-name">Hibiya Line — Hibiya → Tsukiji</div>
+            <div class="metro-line-detail">1 stop · 2 min · ¥210pp combined · Exit 1 — market stalls immediately outside</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">07:15</span><span class="b-duration">90 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Tsukiji Outer Market — Breakfast Graze ⭐ <span class="tag tag-food">Breakfast</span></span><span class="cost"><span class="yen">¥6,000–10,000</span><span class="aud">~A$62–103</span></span></div>
+      <div class="b-text">
+        The <strong>outer market</strong> (always open to public) surrounds the former wholesale fish market site. Since the wholesale market moved to Toyosu in 2018, the outer market has thrived as the eating-on-the-spot destination. Most stalls open 06:00–14:00 with variation by vendor; Saturday is a good day (unlike Sunday when many stalls close).
+        <br><br>
+        <strong>The strategy:</strong> walk the market once end to end, then go back and eat. See what smells extraordinary, what has a queue of locals. Don't commit to the first thing you see.
+      </div>
+
+      <div class="graze-box">
+        <div class="graze-header">🐟 Tsukiji Graze — What to Eat</div>
+        <div class="graze-items">
+          <div class="graze-row">
+            <div class="graze-item"><strong>Tuna sashimi at an outer-market counter</strong> — fresh bluefin, eaten standing. Look for a counter with a queue of Japanese office workers on a Saturday morning — that's the sign. Most of the famous old inner-market sushi counters (Sushi Dai, Daiwa) moved to Toyosu in 2018 — outer-market options are very good and much easier to access.</div>
+            <div class="graze-price">¥1,000–2,000</div>
+          </div>
+          <div class="graze-row">
+            <div class="graze-item"><strong>Tamagoyaki on a stick</strong> — sweet rolled egg skewers sold warm from the pan. Tsukiji tamagoyaki is distinctively sweeter than elsewhere — a Tokyo-style speciality.</div>
+            <div class="graze-price">¥150–300</div>
+          </div>
+          <div class="graze-row">
+            <div class="graze-item"><strong>Uni don (sea urchin on rice)</strong> — if available. Creamy, oceanic, complex. One small bowl. The flavour that defines Tsukiji.</div>
+            <div class="graze-price">¥1,200–2,000</div>
+          </div>
+          <div class="graze-row">
+            <div class="graze-item"><strong>Grilled scallops or oysters</strong> — cooked in the shell over charcoal, ¥300–500 each. Briny, hot, eaten standing.</div>
+            <div class="graze-price">¥600–1,000</div>
+          </div>
+          <div class="graze-row">
+            <div class="graze-item"><strong>Canned coffee from a vending machine</strong> — the unofficial closing ritual. Warm or cold. Stand on the pavement, watch the vendors pack up. That is Tsukiji morning.</div>
+            <div class="graze-price">¥150</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💴</span>
+        <span><strong>Cash only at most stalls.</strong> Bring ¥8,000–10,000. Eating while walking is acceptable here (unlike Kyoto's Nishiki). By 09:30 the tourist crowds are heavy — leaving by 08:45 gives you the market at its best.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 2 ════ -->
+<div class="phase-divider" style="animation-delay:0.83s">
+  <span class="phase-icon">🌊</span>
+  <span class="phase-label">Phase 2 — TeamLab Planets · Toyosu</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">08:45</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Metro — Tsukiji → Shin-Toyosu <span class="tag tag-transit">Metro</span></span><span class="cost"><span class="yen">¥820</span><span class="aud">~A$8</span></span></div>
+      <div class="b-text">Walk 3 min east to Tsukijishijo Station (Toei Oedo Line) → Shiodome (1 stop) → change to Yurikamome → Shin-Toyosu (direct). ~25 min total. Shin-Toyosu (not Toyosu) is the correct station — 3 min walk to TeamLab entrance.</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot walk">🚶</div>
+          <div>
+            <div class="metro-line-name">Walk Tsukiji Market → Tsukijishijo Station</div>
+            <div class="metro-line-detail">~3 min east · Toei Oedo Line entrance</div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot oedo">E</div>
+          <div>
+            <div class="metro-line-name">Toei Oedo Line — Tsukijishijo → Shiodome</div>
+            <div class="metro-line-detail">1 stop · ~3 min · ¥180pp · change to Yurikamome at Shiodome</div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot yurikamome">Y</div>
+          <div>
+            <div class="metro-line-name">Yurikamome — Shiodome → Shin-Toyosu</div>
+            <div class="metro-line-detail">~17 min · ¥390pp · elevated rails across Rainbow Bridge — good views</div>
+            <div class="metro-detail-box">
+              <span class="metro-tag">Shin-Toyosu — not Toyosu — is correct for TeamLab</span>
+              <span class="metro-tag">Yurikamome is separate from Tokyo Metro fare zone</span>
+              <span class="metro-tag">3 min walk to TeamLab entrance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-nav">
+        <span class="callout-icon">🗺️</span>
+        <span>The Yurikamome ride itself is part of the experience — fully automated (driverless), elevated tracks, panoramic views of Tokyo Bay, Rainbow Bridge, and the Toyosu waterfront. Sit at the front for the best view.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">09:30</span><span class="b-duration">~2 hrs</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>TeamLab Planets — Immersive Digital Art ⭐⭐ <span class="tag tag-teamlab">Pre-booked</span></span><span class="cost"><span class="yen">¥7,600–8,800</span><span class="aud">~A$78–91</span></span></div>
+      <div class="b-text">
+        Multiple immersive environments across three themed zones (Water, Garden, Forest — with new spaces added in 2023 and 2024). Barefoot throughout. Some rooms with water up to the knee. Environments respond to your presence — flowers bloom around your feet, koi scatter as you walk, mirror universes extend infinitely in every direction.
+        <br><br>
+        This is not a gallery. You are inside the artwork.
+      </div>
+
+      <div class="teamlab-box">
+        <div class="teamlab-header">🌊 TeamLab Planets — Key Spaces</div>
+        <div class="teamlab-body">
+          <div class="tl-row">
+            <div class="tl-icon">💧</div>
+            <div class="tl-text"><strong>Water Area</strong> — wade through shallow water with projected koi around your feet. The fish scatter and reform around your body. Real water, knee-deep in places. Shoes off before entering; free lockers provided.</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-icon">🌸</div>
+            <div class="tl-text"><strong>Floating in the Falling Universe of Flowers</strong> — flowers bloom, die, and fall around you in a large mirrored space. Most visitors describe this as the defining TeamLab moment.</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-icon">💎</div>
+            <div class="tl-text"><strong>Crystal Universe</strong> — mirrored room with LED crystal structures extending infinitely. Stand inside, turn slowly. One of the most photographed rooms in the exhibition.</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-icon">🌿</div>
+            <div class="tl-text"><strong>Moss Garden (Garden Area)</strong> — softly lit moss spheres that glow and ring a tone when touched, triggering responses across the garden. Quiet, meditative.</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-icon">🌳</div>
+            <div class="tl-text"><strong>Forest Area (added 2023)</strong> — ecosystems of digital creatures that interact across multiple rooms. Newer, less photographed, often less crowded than the classic spaces.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-teamlab">
+        <span class="callout-icon">👗</span>
+        <span><strong>Dress code note:</strong> legs will get wet in the Water Area. <strong>TeamLab provides complimentary shorts</strong> for anyone wearing long pants or skirts that would get wet — available at the entrance. You don't need to dress specifically; they'll lend you what you need.</span>
+      </div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">📱</span>
+        <span><strong>Phones allowed</strong> throughout and the environments are photogenic — but spend at least half the time without a phone in your hand. Rooms are designed to be experienced, not documented. Better photographs come from putting the phone down first, then picking it up.</span>
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">✅</span>
+        <span><strong>Before trip:</strong> verify the venue is still operating for your date — TeamLab's Toyosu location has announced future relocation plans. Check teamlabplanets.com for current status and booking.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">11:30</span><span class="b-duration">40 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Return to Hotel — Shin-Toyosu → Otemachi <span class="tag tag-transit">Metro</span></span><span class="cost"><span class="yen">¥960</span><span class="aud">~A$10</span></span></div>
+      <div class="b-text">Reverse route to Otemachi. Back at the hotel by ~12:10. The TeamLab experience is quietly intense — a rest before the afternoon is correct.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 3 ════ -->
+<div class="phase-divider" style="animation-delay:1.00s">
+  <span class="phase-icon">🛏</span>
+  <span class="phase-label">Phase 3 — Midday Rest · Saturday Heat</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">12:15</span><span class="b-duration">3 hrs 15</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Deep Rest + Late Lunch in Room <span class="tag tag-rest">Rest</span></span><span class="cost"><span class="yen">¥1,500</span><span class="aud">~A$15</span></span></div>
+      <div class="b-text">
+        Grab a simple konbini lunch (Family Mart or 7-Eleven near the hotel) and eat in the room — onigiri, a bento, cold drinks. Don't seek out a restaurant in the heat.
+        <br><br>
+        Shower, aircon 24°C, lie down. 500ml water. This is not laziness — it's the engine of the evening. Saturday in Tokyo in August is the absolute peak of the city's heat; 35°C feels like 42°C in the afternoon sun. Any afternoon program without a proper rest block produces a wife who cannot enjoy Asakusa at dusk or Omoide Yokocho at night.
+      </div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">☀️</span>
+        <span>Tokyo August heat is extreme — more oppressive than Kyoto or Osaka due to the urban heat island effect of 14 million people and their air conditioning exhausting heat into the streets. Alarm at 15:30. Depart for Asakusa by 16:00.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 4 ════ -->
+<div class="phase-divider" style="animation-delay:1.09s">
+  <span class="phase-icon">⛩️</span>
+  <span class="phase-label">Phase 4 — Asakusa at Dusk</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">16:00</span><span class="b-duration">20 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Metro — Otemachi → Asakusa <span class="tag tag-transit">Metro</span></span><span class="cost"><span class="yen">¥420</span><span class="aud">~A$4</span></span></div>
+      <div class="b-text">Walk 8 min north to Mitsukoshimae Station, take Ginza Line direct to Asakusa (12 min). Exit 1 puts you directly at Kaminarimon Gate.</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot walk">🚶</div>
+          <div>
+            <div class="metro-line-name">Walk Otemachi Hotel → Mitsukoshimae Station</div>
+            <div class="metro-line-detail">~8 min north-east · Mitsukoshimae is the Ginza Line starting point for direct Asakusa service</div>
+          </div>
+        </div>
+        <div class="metro-connector"></div>
+        <div class="metro-step">
+          <div class="metro-dot ginza">G</div>
+          <div>
+            <div class="metro-line-name">Ginza Line — Mitsukoshimae → Asakusa</div>
+            <div class="metro-line-detail">~12 min direct · ¥210pp · Exit 1 · Kaminarimon Gate immediately visible</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">16:30</span><span class="b-duration">2 hrs</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Senso-ji + Asakusa at Dusk ⭐ <span class="tag tag-tokyo">Old Tokyo</span></span><span class="cost free"><span class="yen">¥0</span><span class="aud">Free</span></span></div>
+      <div class="b-text">
+        Tokyo's oldest temple, founded 628 AD. The contrast with modern Tokyo is complete — incense smoke, lanterns, paper fortunes tied to wire racks, the great five-storey pagoda. <strong>Arriving at dusk is the deliberate choice</strong> — the midday crowds have thinned, the air has cooled slightly, and the lanterns begin to light as the sun sets (~18:10 on 22 Aug). Golden hour on the temple complex is extraordinary.
+      </div>
+
+      <div class="walk-box">
+        <div class="walk-header">⛩️ Asakusa Walk Sequence — Dusk Version</div>
+        <div class="walk-body">
+          <div class="walk-row">
+            <div class="walk-icon">🏮</div>
+            <div class="walk-text"><strong>Kaminarimon Gate (16:30)</strong> — the giant red lantern. The photograph everyone takes. Take it, then look up at the underside — a carved dragon facing upward that most visitors miss entirely.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-icon">🛍️</div>
+            <div class="walk-text"><strong>Nakamise-dori (16:45)</strong> — the 250m covered shopping lane to the main hall. Most shops close 18:00–19:00, so you have a narrow window. Buy ningyo-yaki (small sponge cakes shaped like the temple) and a paper fortune (omikuji ¥100). If the fortune is bad, tie it to the wire rack and leave it behind — that is the correct custom.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-icon">⛩️</div>
+            <div class="walk-text"><strong>Senso-ji Main Hall (17:15)</strong> — stand at the giant incense cauldron. Fan the smoke toward you; it is said to bestow health wherever it touches. The hall itself is free to enter. Look up at the ceiling paintings.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-icon">🌇</div>
+            <div class="walk-text"><strong>Five-storey pagoda at sunset (17:45)</strong> — the pagoda lit by the last of the sun, then by its own illumination. This is the moment. Stand at the southern end of the complex and look back at the full temple group against the sky.</div>
+          </div>
+          <div class="walk-row">
+            <div class="walk-icon">🏘️</div>
+            <div class="walk-text"><strong>Backstreets after dark (18:15)</strong> — the quiet residential lanes east of the temple, or a short walk toward Sumida River (Skytree visible across the water, illuminated). A very different Asakusa from daytime.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-tokyo">
+        <span class="callout-icon">💡</span>
+        <span>Dusk Asakusa is the connoisseur's timing. Most tour groups have gone home by 17:00; the evening locals arrive; the lantern lights make the buildings look older and more alive. You could come at 10am with 50,000 other tourists, or come now with a few hundred. The choice is obvious.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ PHASE 5 ════ -->
+<div class="phase-divider" style="animation-delay:1.19s">
+  <span class="phase-icon">🍢</span>
+  <span class="phase-label">Phase 5 — Evening · Omoide Yokocho Memory Lane</span>
+  <div class="phase-line"></div>
+</div>
+
+<div class="blocks">
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">18:30</span><span class="b-duration">30 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Metro — Asakusa → Shinjuku <span class="tag tag-transit">Metro</span></span><span class="cost"><span class="yen">¥680</span><span class="aud">~A$7</span></span></div>
+      <div class="b-text">Ginza Line back to Asakusa-bashi, change at Kanda or Akihabara to Marunouchi or JR Yamanote to Shinjuku. Simpler: single seat on Toei Asakusa Line from Asakusa to Shinjuku-sanchome area, or Ginza Line to Akasaka-mitsuke → Marunouchi Line. ~25–30 min total. Shinjuku West Exit → Omoide Yokocho is 2 min walk under the tracks.</div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot ginza">G</div>
+          <div>
+            <div class="metro-line-name">Ginza Line — Asakusa → Akasaka-mitsuke → change → Marunouchi Line → Shinjuku</div>
+            <div class="metro-line-detail">~28 min · ¥340pp · clean single-change route</div>
+            <div class="metro-detail-box">
+              <span class="metro-tag">Or JR: Tawaramachi → Ueno → Yamanote to Shinjuku</span>
+              <span class="metro-tag">Exit West at Shinjuku for Omoide Yokocho</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">19:00</span><span class="b-duration">2 hrs</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Omoide Yokocho — Memory Lane ⭐ <span class="tag tag-food">Dinner</span></span><span class="cost"><span class="yen">¥8,000–12,000</span><span class="aud">~A$82–124</span></span></div>
+      <div class="b-text">
+        Memory Lane is a narrow alley running under the Shinjuku elevated railway — ~20+ tiny yakitori bars, each seating 8–12 people, charcoal grills at eye level, smoke rising into the corrugated iron above. Built in the 1940s and essentially unchanged. The most atmospheric place to eat in Tokyo.
+        <br><br>
+        Walk the full alley first, both sides. Then pick the bar that looks most alive — busy, smoke rising, chef working fast. Sit at the counter. Point at skewers on the grill. Order cold Sapporo.
+      </div>
+      <div class="callout callout-tip">
+        <span class="callout-icon">🍢</span>
+        <span><strong>What to order:</strong> negima (chicken and leek) · tsukune (chicken meatball with egg yolk) · kawa (chicken skin, crispy) · reba (chicken liver, silky) · shishito peppers charred on the grill. 2–3 rounds of 4–5 skewers each, plus beer or highball. <strong>Budget ¥4,000–6,000pp</strong> at 2024+ pricing — ¥300–600 per skewer is realistic in the tourist-heavy stretches.</span>
+      </div>
+      <div class="callout callout-warn">
+        <span class="callout-icon">🔥</span>
+        <span><strong>Fire damage note:</strong> Omoide Yokocho suffered a significant fire in November 2022 damaging ~10 bars; reconstruction has been ongoing. Most of the alley should be back by 2026, but verify on the night. If the atmosphere is disappointing or too tourist-heavy, <strong>Shinjuku Golden Gai</strong> is 10 min walk east — 200 tiny bars across six alleys, different vibe, many don't welcome tourists but the ones that do are excellent.</span>
+      </div>
+      <div class="callout callout-tokyo">
+        <span class="callout-icon">🌃</span>
+        <span>Omoide Yokocho is best experienced without a plan. Sit, eat, drink slowly, watch the Shinjuku night happen around you through the smoke. Trains pass overhead every few minutes. The noise, smoke, charcoal smell — this is Tokyo at its most itself.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="b-time"><span class="b-clock">21:15</span><span class="b-duration">25 min</span></div>
+    <div class="b-content">
+      <div class="b-label"><span>Metro Home — Shinjuku → Otemachi <span class="tag tag-rest">Close</span></span><span class="cost"><span class="yen">¥420</span><span class="aud">~A$4</span></span></div>
+      <div class="b-text">
+        Marunouchi Line direct from Shinjuku to Otemachi — ~18 min, one seat, no changes. In bed by 22:15. Day 13 is the fork — check which version you're following.
+      </div>
+      <div class="metro-diagram">
+        <div class="metro-step">
+          <div class="metro-dot marunouchi">M</div>
+          <div>
+            <div class="metro-line-name">Marunouchi Line — Shinjuku → Otemachi</div>
+            <div class="metro-line-detail">~18 min direct · ¥210pp · exits directly below the hotel</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-tokyo">
+        <span class="callout-icon">📋</span>
+        <span><strong>Tonight:</strong> confirm which Day 13 track — <strong>13A (DisneySea)</strong> or <strong>13B (Shibuya Sky + Harajuku)</strong>. If Disney: verify opening time, buy Premier Access and Fantasmic! dining package if not done, alarm 06:30. If Shibuya Sky: verify timed slot and sunset time, alarm 08:30.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── DAILY TOTAL ── -->
+<div class="daily-total">
+  <div class="daily-total-header">💴 Day 12 — Cost Breakdown (2 people)</div>
+  <div class="cost-row"><span class="cr-label">Metro + Yurikamome × 6 legs (2 people)</span><span class="cr-yen">¥3,300</span><span class="cr-aud">~A$34</span></div>
+  <div class="cost-row"><span class="cr-label">Tsukiji Outer Market graze breakfast × 2</span><span class="cr-yen">¥6,000–10,000</span><span class="cr-aud">~A$62–103</span></div>
+  <div class="cost-row"><span class="cr-label">TeamLab Planets × 2 (Saturday summer pricing)</span><span class="cr-yen">¥7,600–8,800</span><span class="cr-aud">~A$78–91</span></div>
+  <div class="cost-row"><span class="cr-label">Konbini lunch in room × 2</span><span class="cr-yen">¥1,500</span><span class="cr-aud">~A$15</span></div>
+  <div class="cost-row"><span class="cr-label">Asakusa — omikuji + ningyo-yaki snacks × 2</span><span class="cr-yen">¥600–1,000</span><span class="cr-aud">~A$6–10</span></div>
+  <div class="cost-row"><span class="cr-label">Omoide Yokocho yakitori dinner + drinks × 2</span><span class="cr-yen">¥8,000–12,000</span><span class="cr-aud">~A$82–124</span></div>
+  <div class="cost-row"><span class="cr-label">Mitsui Garden Otemachi Night 2 of 4 (pre-paid)</span><span class="cr-yen">Pre-paid</span><span class="cr-aud">—</span></div>
+  <div class="cost-row total-row"><span class="cr-label">🧮 Day 12 Total (2 people, excl. hotel)</span><span class="cr-yen">¥27,000–36,600</span><span class="cr-aud">~A$278–377</span></div>
+</div>
+
+<!-- ── PACKING ── -->
+<div class="packing-strip">
+  <div class="packing-header">🎒 Day 12 Bag</div>
+  <div class="packing-items">
+    <span class="pack-item">💴 ¥15,000 cash (Tsukiji + Yokocho = cash only)</span>
+    <span class="pack-item">💳 Suica × 2</span>
+    <span class="pack-item">🩳 Light clothes for TeamLab (shorts provided if needed)</span>
+    <span class="pack-item">🧴 SPF 50 + hat</span>
+    <span class="pack-item">💧 Water bottle × 2</span>
+    <span class="pack-item">🎫 TeamLab QR screenshot</span>
+    <span class="pack-item">📱 Phone + offline maps</span>
+    <span class="pack-item">🧥 Light layer for Memory Lane smoke</span>
+  </div>
+</div>
+
+<!-- ── PINS ── -->
+<div class="pins-strip">
+  <div class="pins-header">📍 Google Maps — Save These Now</div>
+  <div class="pins-list">
+    <span class="pin">📌 Tsukiji Outer Market</span>
+    <span class="pin">📌 Tsukiji Station (Hibiya Line)</span>
+    <span class="pin">📌 Tsukijishijo Station (Oedo Line)</span>
+    <span class="pin">📌 TeamLab Planets Tokyo (6-1-16 Toyosu)</span>
+    <span class="pin">📌 Shin-Toyosu Station (Yurikamome)</span>
+    <span class="pin">📌 Mitsukoshimae Station (Ginza Line)</span>
+    <span class="pin">📌 Kaminarimon Gate · Senso-ji</span>
+    <span class="pin">📌 Nakamise-dori</span>
+    <span class="pin">📌 Omoide Yokocho (Memory Lane) Shinjuku</span>
+    <span class="pin">📌 Shinjuku Golden Gai (backup)</span>
+    <span class="pin">📌 Shinjuku Station West Exit</span>
+  </div>
+</div>
+
+<!-- ── FORK NOTE ── -->
+<div class="fork-note">
+  <p><strong>Day 13 fork tomorrow:</strong> two versions in your pack. <strong>13A DisneySea</strong> — full day at Tokyo DisneySea, alarm 06:30, Yurakucho/Keiyo Line to Maihama. Sunday in August is the highest-crowd day of the year; Premier Access upgrades strongly recommended. <strong>13B Shibuya Sky + Harajuku</strong> — Harajuku/Meiji Shrine morning, rest afternoon, Shibuya Sky at sunset, Shinjuku evening. Pick up the right card tonight.</p>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="day-footer">
+  <div class="footer-prev">← Day 11 · Tokyo Arrival · Skytree</div>
+  <div class="footer-dots">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div>
+    <div class="dot active"></div>
+  </div>
+  <div class="footer-next">Tomorrow → <strong>Day 13A: DisneySea · OR · Day 13B: Shibuya Sky &amp; Harajuku</strong> ›</div>
+</div>
+
+</div>
+</body>
+</html>
