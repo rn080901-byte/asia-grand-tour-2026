@@ -165,13 +165,38 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--b
 <div class="badges">
 <span class="badge badge-shared">✅ Shared — Both Itinerary Tracks</span>
 <span class="badge badge-korea">🇰🇷 Korea Leg Begins Today</span>
-<div style="padding:0 48px">
+<div class="hero-wrap">
 <img
 class="hero"
 src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=2000&q=100"
 >
+.hero-wrap{
+  position:relative;
+  padding:0 48px;
+}
+
+.hero-wrap::after{
+  content:'';
+  position:absolute;
+  left:48px;
+  right:48px;
+  top:0;
+  bottom:0;
+  border-radius:12px;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,0.52),
+    rgba(0,0,0,0.08) 45%,
+    rgba(0,0,0,0)
+  );
+  pointer-events:none;
+}
+<div class="hero-caption">
+Tokyo closes tonight.<br>
+Busan begins under neon.
 </div>
 </div>
+
 </header>
 <div class="conditions">
 <span class="chip chip-warn">✈️ KE2132 NRT 19:20 → PUS 21:35 · leave hotel 15:00</span>
@@ -186,69 +211,7 @@ src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fi
 <div class="logic-box" style="margin-top:16px">
 <h3>Day 15 Logic — Departure Day</h3>
 <div class="logic-pillars">
-<div class="pillar"><strong>Morning</strong>Gentle final Tokyo morning. Optional: Imperial Palace East Gardens (10 min walk), Otemachi coffee, or simply pack and be ready. No agenda.</div>
-<div class="pillar"><strong>Checkout</strong>11:00 checkout. Store bags with hotel concierge. Free window 11:00–15:00 for last wander and lunch.</div>
-<div class="pillar"><strong>Airport</strong>Narita Express from Tokyo Station (~60 min). Leave hotel 15:00 for comfortable margin — N'EX 15:15 arrives Terminal 1 by 16:15, 3 hrs before 19:20 departure.</div>
-<div class="pillar"><strong>Flight</strong>KE2132 direct NRT → PUS · 19:20 departure · ~2h 15min · Arrive Gimhae 21:35 KST (no time change — same timezone UTC+9).</div>
-<div class="pillar"><strong>Busan</strong>Taxi Gimhae → Grand Josun Busan (~₩40,000). Check-in ~22:45. Korea begins proper tomorrow.</div>
-</div>
-</div>
-<div class="route-strip">
-<h3>Today's Route</h3>
-<div class="route-nodes">
-<div class="route-node"><span>🏨</span><span class="label">Otemachi</span><span class="sub">&nbsp;11:00 out</span></div>
-<span class="route-arrow">→</span>
-<div class="route-node"><span>🌳</span><span class="label">Final hours</span></div>
-<span class="route-arrow">→</span>
-<div class="route-node"><span>🚆</span><span class="label">NRT transfer</span><span class="sub">&nbsp;15:00</span></div>
-<span class="route-arrow">→</span>
-<div class="route-node"><span>✈️</span><span class="label">KE2132</span><span class="sub">&nbsp;19:20</span></div>
-<span class="route-arrow">→</span>
-<div class="route-node"><span>🇰🇷</span><span class="label">Busan</span><span class="sub">&nbsp;21:35</span></div>
-<span class="route-arrow">→</span>
-<div class="route-node"><span>🏨</span><span class="label">Grand Josun</span></div>
-</div>
-</div>
-<div class="phase-divider" style="animation-delay:0.52s">
-<span class="phase-icon">🌅</span>
-<span class="phase-label">Phase 1 — Final Tokyo Morning</span>
-<div class="phase-line"></div>
-</div>
-<div class="blocks">
-<div class="block">
-<div class="b-time"><span class="b-clock">08:00</span><span class="b-duration">3 hrs</span></div>
-<div class="b-content">
-<div class="b-label"><span>Final Morning — Gentle Close <span class="tag tag-rest">Tokyo Close</span></span><span class="cost hotel"><span class="yen">Incl.</span><span class="aud">Pre-paid</span></span></div>
-<div class="b-text">The last morning in Japan. No agenda, no timed entry, no destination required. Three options — pick one or combine:</div>
-<div class="checklist-box">
-<div class="checklist-header">🌅 Final Morning — Three Options</div>
-<div class="checklist-body">
-<div class="check-row">
-<div class="check-icon">🌳</div>
-<div><strong>Imperial Palace East Gardens</strong> — 10 minutes walk from the hotel. Free, open from 09:00 (closed Mondays and Fridays — open on a Tuesday, good). Moat path and inner gardens are quiet on weekday mornings. A final green space before the airport.</div>
-</div>
-<div class="check-row">
-<div class="check-icon">☕</div>
-<div><strong>Otemachi café breakfast</strong> — the financial district has excellent morning coffee shops that fill with salarymen from 07:30. Sit at a counter, order a morning set, watch Tokyo's working rhythm before you leave it.</div>
-</div>
-<div class="check-row">
-<div class="check-icon">🛏</div>
-<div><strong>Stay in, pack properly, rest.</strong> After 14 days, this is a legitimate choice. Room service or convenience store breakfast. Use the morning to finish packing and be genuinely ready to leave.</div>
-</div>
-</div>
-</div>
-<div class="callout callout-tokyo">
-<span class="callout-icon">🗾</span>
-<span>Japan ends today. Whatever you choose this morning — make it unhurried. The airport time pressure comes at 15:00, not before.</span>
-</div>
-</div>
-</div>
-<div class="block">
-<div class="b-time"><span class="b-clock">11:00</span><span class="b-duration">20 min</span></div>
-<div class="b-content">
-<div class="b-label"><span>Checkout — Mitsui Garden Otemachi <span class="tag tag-transit">Checkout</span></span><span class="cost hotel"><span class="yen">Pre-paid</span><span class="aud">Settled</span></span></div>
-<div class="b-text">Check out by 11:00 (standard Mitsui Garden checkout). Store all bags with the concierge — they'll hold until 15:00 airport departure. Return room key, collect any stored valuables, confirm bags are tagged correctly for collection.</div>
-<div class="callout callout-tip">
+<div class="pillar"><strong>Morning</strong>Gentle final Tokyo morning. Optional: Imperial Palace East Gardens (10 min walk), Otemachi coffee, or sim<div class="callout callout-tip">
 <span class="callout-icon">🧳</span>
 <span><strong>Bags = hand-carry through the flight.</strong> Direct NRT → PUS means no multi-country transfer — suitcases stay with you. No takuhaibin needed (international takuhaibin to Korea takes 4–7 business days anyway, too slow for this schedule). Korean Air KE2132 economy allowance: 2 × 23kg checked + 1 × 10kg carry-on per person.</span>
 </div>
