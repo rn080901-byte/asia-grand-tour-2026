@@ -1,33 +1,166 @@
-<!-- BUILD DAY 14 FORK CARD -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-Design Goal:
-A cinematic Tokyo “Final Full Day” decision card.
+<title>Day 14 · Tokyo Final Fork · Asia Grand Tour 2026</title>
 
-LEFT PATH:
-14A — Classic Tokyo Finale
-(Meiji · Harajuku · Shibuya Sky · Golden Gai)
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-RIGHT PATH:
-14B — Slow Luxury Tokyo
-(Ginza · TeamLabs · Tokyo Station · Skyline Dinner)
+<style>
+body{
+  margin:0;
+  background:#111;
+  color:white;
+  font-family:'Inter',sans-serif;
+  padding:24px;
+}
 
-Requirements:
-- same navigation architecture as day13.html
-- luxury split-panel mobile design
-- full-screen hero aesthetic
-- animated hover cards
-- emotional finale tone
-- mobile-first
-- glassmorphism overlays
-- big CTA buttons:
-  “Enter 14A”
-  “Enter 14B”
+h1{
+  font-family:'Playfair Display',serif;
+  color:#f5c542;
+  font-size:42px;
+  margin-bottom:6px;
+  line-height:1.05;
+}
 
-Add:
-- “Final Full Day in Japan” masthead
-- Tokyo skyline atmosphere
-- Diamond Max branding
-- transition footer to Day 15
+.subtitle{
+  color:rgba(255,255,255,0.65);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:34px;
+}
 
-DO NOT build itinerary blocks yet.
-This file is only the Tokyo fork gateway.
+.intro{
+  font-size:16px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.82);
+  margin-bottom:34px;
+}
+
+.fork-card{
+  display:block;
+  text-decoration:none;
+  color:white;
+  background:linear-gradient(145deg,#1b1b1b,#151515);
+  border-radius:28px;
+  padding:30px;
+  margin-bottom:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+.option{
+  font-size:13px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  opacity:0.7;
+  margin-bottom:12px;
+}
+
+.title{
+  font-size:34px;
+  font-weight:700;
+  margin-bottom:14px;
+  line-height:1.1;
+}
+
+.desc{
+  font-size:17px;
+  line-height:1.7;
+  opacity:0.82;
+}
+
+.tag-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.tag{
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.08);
+  font-size:13px;
+}
+
+.classic{
+  border:1px solid rgba(245,197,66,0.25);
+}
+
+.luxury{
+  border:1px solid rgba(255,120,180,0.25);
+}
+
+.back{
+  display:inline-block;
+  margin-top:18px;
+  color:#f5c542;
+  text-decoration:none;
+  font-size:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Day 14 🇯🇵</h1>
+<div class="subtitle">Tokyo Final Full Day · Diamond Max Edition</div>
+
+<div class="intro">
+Tokyo now offers two final-day paths.
+Choose the version that best matches your energy after Day 13.
+Both routes lead toward the final Japan departure day.
+</div>
+
+<a href="/day14a.html" class="fork-card classic">
+
+  <div class="option">Option A</div>
+
+  <div class="title">
+    Classic Tokyo Finale 🌆
+  </div>
+
+  <div class="desc">
+    Meiji Shrine, Harajuku, deep rest, Shibuya Sky at dusk,
+    Shibuya Crossing, and a final Shinjuku night.
+  </div>
+
+  <div class="tag-row">
+    <div class="tag">⛩ Meiji Shrine</div>
+    <div class="tag">🛍 Harajuku</div>
+    <div class="tag">🌆 Shibuya Sky</div>
+    <div class="tag">🌃 Golden Gai</div>
+  </div>
+
+</a>
+
+<a href="/day14b.html" class="fork-card luxury">
+
+  <div class="option">Option B</div>
+
+  <div class="title">
+    Slow Luxury Tokyo ✨
+  </div>
+
+  <div class="desc">
+    A calmer final Tokyo day built around Ginza, elegant shopping,
+    food halls, Tokyo Station, skyline atmosphere, and a polished final dinner.
+  </div>
+
+  <div class="tag-row">
+    <div class="tag">🛍 Ginza</div>
+    <div class="tag">🍱 Depachika</div>
+    <div class="tag">🚉 Tokyo Station</div>
+    <div class="tag">🥂 Final Dinner</div>
+  </div>
+
+</a>
+
+<a class="back" href="/japan.html">
+← Back to Japan
+</a>
+
+</body>
+</html>
