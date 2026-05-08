@@ -1,1 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 15 · Tokyo → Busan · Asia Grand Tour 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#ffffff;--bg-soft:#f7f5f2;--bg-card:#f2efe9;--bg-deep:#ede9e1;--rule:#d8d0c0;--muted:#888070;--body:#2a2420;--heading:#0d0a08;--gold:#a06820;--gold-lo:rgba(160,104,32,0.09);--teal:#1e6860;--teal-lo:rgba(30,104,96,0.08);--red:#8a2018;--red-lo:rgba(138,32,24,0.07);--korea:#c41e3a;--korea-lo:rgba(196,30,58,0.07);--tokyo:#6a3a9a;--tokyo-lo:rgba(106,58,154,0.07)}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--body);font-size:15px;line-height:1.65;min-height:100vh}
+.page{max-width:860px;margin:0 auto;padding:0 0 80px}
+.masthead{position:relative;padding:52px 48px 40px;border-bottom:2px solid var(--heading);overflow:hidden}
+.masthead::after{content:'';position:absolute;top:0;right:0;width:320px;height:100%;background:linear-gradient(to left,rgba(196,30,58,0.05),transparent);pointer-events:none}
+.tour-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.1s}
+.tour-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--rule),transparent)}
+.day-eyebrow{display:flex;align-items:baseline;gap:18px;margin-bottom:10px;opacity:0;animation:fadeUp 0.5s ease forwards 0.2s}
+.day-number{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:300;line-height:0.85;color:var(--gold);letter-spacing:-3px}
+.day-name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--heading);line-height:1}
+.day-date{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;font-style:italic;color:var(--body);margin-top:14px;line-height:1.3;max-width:640px;opacity:0;animation:fadeUp 0.5s ease forwards 0.3s}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;opacity:0;animation:fadeUp 0.5s ease forwards 0.35s}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-shared{background:rgba(30,104,96,0.07);border:1px solid rgba(30,104,96,0.2);color:var(--teal)}
+.badge-korea{background:var(--korea-lo);border:1px solid rgba(196,30,58,0.2);color:var(--korea)}
+.conditions{display:flex;flex-wrap:wrap;gap:8px;padding:20px 48px;border-bottom:1px solid var(--rule);background:var(--bg-soft);opacity:0;animation:fadeUp 0.5s ease forwards 0.4s}
+.chip{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid}
+.chip-warn{background:var(--red-lo);border-color:rgba(138,32,24,0.2);color:var(--red)}
+.chip-info{background:var(--teal-lo);border-color:rgba(30,104,96,0.22);color:var(--teal)}
+.chip-gold{background:var(--gold-lo);border-color:rgba(160,104,32,0.22);color:var(--gold)}
+.chip-korea{background:var(--korea-lo);border-color:rgba(196,30,58,0.22);color:var(--korea)}
+.transition-box{margin:20px 48px 0;background:linear-gradient(135deg,var(--korea-lo),rgba(106,58,154,0.04));border:1px solid rgba(196,30,58,0.18);border-radius:10px;padding:18px 22px;opacity:0;animation:fadeUp 0.5s ease forwards 0.42s}
+.transition-box h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--korea);margin-bottom:8px}
+.transition-box p{font-size:13px;color:var(--body);line-height:1.65}
+.logic-box{margin:16px 48px 0;border-left:3px solid var(--korea);border-radius:0 8px 8px 0;border-top:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 22px;background:var(--bg-card);opacity:0;animation:fadeUp 0.5s ease forwards 0.45s}
+.logic-box h3{font-size:10px;font-weight:600;color:var(--korea);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px}
+.logic-pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.pillar{background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:9px 12px;font-size:12.5px;color:var(--body)}
+.pillar strong{color:var(--korea);display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.route-strip{padding:20px 48px;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.5s ease forwards 0.5s}
+.route-strip h3{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.route-nodes{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.route-node{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--body)}
+.route-node .label{font-weight:600;color:var(--heading)}
+.route-node .sub{font-size:10px;color:var(--muted)}
+.route-arrow{color:var(--rule);margin:0 4px}
+.phase-divider{padding:10px 48px 0;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.4s ease forwards}
+.phase-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;font-weight:600}
+.phase-line{flex:1;height:1px;background:var(--rule)}
+.phase-icon{font-size:14px}
+.blocks{padding:0 48px}
+.block{display:grid;grid-template-columns:86px 1fr;gap:0 22px;padding:22px 0;border-bottom:1px solid var(--rule);opacity:0;animation:fadeUp 0.4s ease forwards}
+.block:last-child{border-bottom:none}
+.block:nth-child(1){animation-delay:0.55s}.block:nth-child(2){animation-delay:0.62s}.block:nth-child(3){animation-delay:0.69s}.block:nth-child(4){animation-delay:0.76s}.block:nth-child(5){animation-delay:0.83s}.block:nth-child(6){animation-delay:0.90s}.block:nth-child(7){animation-delay:0.97s}.block:nth-child(8){animation-delay:1.04s}
+.b-time{display:flex;flex-direction:column;align-items:flex-end;padding-top:2px}
+.b-clock{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold);line-height:1}
+.b-duration{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:4px;text-align:right}
+.b-label{font-size:14px;font-weight:600;color:var(--heading);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between}
+.tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-weight:600}
+.tag-rest{background:var(--teal-lo);color:var(--teal);border:1px solid rgba(30,104,96,0.2)}
+.tag-transit{background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.15)}
+.tag-flight{background:var(--korea-lo);color:var(--korea);border:1px solid rgba(196,30,58,0.18)}
+.tag-korea{background:var(--korea-lo);color:var(--korea);border:1px solid rgba(196,30,58,0.18)}
+.b-text{font-size:13.5px;color:var(--body);line-height:1.72}
+.b-text strong{color:var(--heading);font-weight:600}
+.callout{margin-top:10px;padding:11px 14px;border-radius:6px;font-size:12.5px;line-height:1.65;display:flex;gap:9px;align-items:flex-start}
+.callout-nav{background:var(--teal-lo);border:1px solid rgba(30,104,96,0.18);color:#155248}
+.callout-tip{background:var(--gold-lo);border:1px solid rgba(160,104,32,0.18);color:#7a4e10}
+.callout-warn{background:var(--red-lo);border:1px solid rgba(138,32,24,0.15);color:#8a2018}
+.callout-korea{background:var(--korea-lo);border:1px solid rgba(196,30,58,0.15);color:#6a0a1a}
+.callout-tokyo{background:var(--tokyo-lo);border:1px solid rgba(106,58,154,0.15);color:#3a1a6a}
+.callout-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.metro-diagram{margin-top:12px;background:var(--bg-soft);border:1px solid var(--rule);border-radius:8px;padding:14px 16px}
+.metro-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.metro-step:last-child{margin-bottom:0}
+.metro-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.metro-dot.nex{background:#1a5a9a;color:white}
+.metro-dot.skyliner{background:#e63c2f;color:white}
+.metro-dot.walk{background:var(--bg-deep);color:var(--body);font-size:13px}
+.metro-connector{width:2px;height:12px;background:var(--rule);margin:0 11px}
+.metro-line-name{font-size:12px;font-weight:600;color:var(--heading)}
+.metro-line-detail{font-size:11.5px;color:var(--muted);margin-top:2px}
+.metro-detail-box{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.metro-tag{font-size:10.5px;padding:2px 8px;border-radius:10px;background:rgba(80,80,110,0.07);color:#505078;border:1px solid rgba(80,80,110,0.12)}
+.flight-box{margin-top:12px;background:linear-gradient(135deg,var(--korea-lo),rgba(196,30,58,0.03));border:1.5px solid rgba(196,30,58,0.2);border-radius:8px;padding:16px 18px}
+.flight-header{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--korea);font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(196,30,58,0.12)}
+.flight-row{display:grid;grid-template-columns:110px 1fr;gap:8px;margin-bottom:8px;font-size:13px;align-items:baseline}
+.flight-row:last-child{margin-bottom:0}
+.flight-label{color:var(--muted);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.flight-value{color:var(--body)}
+.flight-value strong{color:var(--heading)}
+.checklist-box{margin-top:12px;border:1.5px solid var(--rule);border-radius:8px;overflow:hidden}
+.checklist-header{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.checklist-body{background:var(--bg);padding:12px 14px;display:flex;flex-direction:column;gap:7px}
+.check-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--body);padding-bottom:7px;border-bottom:1px solid var(--rule)}
+.check-row:last-child{border-bottom:none;padding-bottom:0}
+.check-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+.arrival-box{margin-top:12px;border:1.5px solid rgba(196,30,58,0.2);border-radius:8px;overflow:hidden}
+.arrival-header{background:linear-gradient(135deg,var(--korea-lo),rgba(196,30,58,0.03));padding:10px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--korea);font-weight:600;border-bottom:1px solid rgba(196,30,58,0.12)}
+.arrival-body{background:var(--bg);padding:14px;display:flex;flex-direction:column;gap:9px}
+.arr-row{display:flex;gap:10px;align-items:flex-start;padding-bottom:9px;border-bottom:1px solid var(--rule)}
+.arr-row:last-child{padding-bottom:0;border-bottom:none}
+.arr-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.arr-text{font-size:13px;color:var(--body);line-height:1.6}
+.arr-text strong{color:var(--heading)}
+.cost{display:inline-flex;align-items:center;gap:5px;margin-left:auto;background:rgba(30,104,96,0.07);border:1px solid rgba(30,104,96,0.2);border-radius:20px;padding:3px 11px;font-size:11.5px;font-weight:600;color:var(--teal);white-space:nowrap;flex-shrink:0}
+.cost .yen{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700}
+.cost .aud{font-size:10.5px;color:var(--muted);font-weight:500}
+.cost.free{background:var(--red-lo);border-color:rgba(138,32,24,0.15);color:var(--red)}
+.cost.hotel{background:var(--gold-lo);border-color:rgba(160,104,32,0.2);color:var(--gold)}
+.cost.incl{background:var(--korea-lo);border-color:rgba(196,30,58,0.18);color:var(--korea)}
+.daily-total{margin:28px 48px 0;border:1.5px solid rgba(30,104,96,0.25);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.11s}
+.daily-total-header{background:rgba(30,104,96,0.08);border-bottom:1px solid rgba(30,104,96,0.18);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:600}
+.cost-row{display:grid;grid-template-columns:1fr 110px 80px;padding:9px 18px;border-bottom:1px solid var(--rule);font-size:13px;align-items:center;gap:8px}
+.cost-row:last-child{border-bottom:none}
+.cost-row:nth-child(even){background:var(--bg-soft)}
+.cost-row.total-row{background:rgba(30,104,96,0.07)!important;border-top:2px solid rgba(30,104,96,0.2);font-weight:700}
+.cr-label{color:var(--body)}
+.cr-yen{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--teal);text-align:right}
+.cr-aud{font-size:11.5px;color:var(--muted);text-align:right}
+.cost-row.total-row .cr-label{color:var(--heading);font-size:13.5px}
+.cost-row.total-row .cr-yen{font-size:1.15rem}
+.cost-row.total-row .cr-aud{color:var(--body);font-weight:600;font-size:12px}
+.packing-strip{margin:14px 48px 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.21s}
+.packing-header{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.packing-items{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;background:var(--bg-soft)}
+.pack-item{font-size:12px;color:var(--body);padding:4px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:16px}
+.pins-strip{margin:14px 48px 0;border:1px solid rgba(66,133,244,0.18);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.31s}
+.pins-header{background:#e8f0fe;border-bottom:1px solid rgba(66,133,244,0.15);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1a5bbf}
+.pins-list{display:flex;flex-wrap:wrap;gap:7px;padding:14px 18px;background:#f5f8ff}
+.pin{font-size:11.5px;color:#1a5bbf;padding:4px 11px;background:rgba(66,133,244,0.06);border:1px solid rgba(66,133,244,0.16);border-radius:14px}
+.day-footer{margin:20px 48px 0;padding:18px 22px;background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:0;animation:fadeUp 0.5s ease forwards 1.41s}
+.footer-prev{font-size:12px;color:var(--muted)}
+.footer-next{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--body);display:flex;align-items:center;gap:8px}
+.footer-next strong{color:var(--heading);font-style:italic}
+.footer-dots{display:flex;gap:5px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--rule)}
+.dot.active{background:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){.masthead,.conditions,.logic-box,.route-strip,.blocks,.packing-strip,.pins-strip,.day-footer,.phase-divider,.daily-total,.transition-box{padding-left:20px;padding-right:20px}.masthead{padding-top:36px;padding-bottom:30px}.day-number{font-size:4rem}.block{grid-template-columns:68px 1fr;gap:0 14px}}
+@media print{*,*::before,*::after{opacity:1!important;animation:none!important;transform:none!important;transition:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html,body{background:white!important;font-size:11pt!important;line-height:1.45!important;min-height:0!important}.page{max-width:100%!important;padding:0!important;margin:0!important}.masthead{padding:18pt 14pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important}.masthead::after,.masthead::before{display:none!important}.day-number,.summary-title,.title-text h1{font-size:32pt!important}.day-name{font-size:14pt!important}.day-title,.subtitle,.summary-subtitle{font-size:10.5pt!important;margin-top:6pt!important}.tour-label{margin-bottom:8pt!important;font-size:7pt!important}.day-eyebrow,.title-row{margin-bottom:4pt!important}.badges{margin-top:8pt!important}.badge,.chip,.legend-pill,.task-tag,.tag,.pack-item,.pin,.metro-tag,.highlight-chip{font-size:7.5pt!important;padding:1pt 5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.conditions,.legend-bar{padding:8pt 14pt!important;gap:4pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box,.transition-box,.opening,.notes-box,.closing-box,.guide-callouts,.priority-strip,.moments-box,.lessons-box{margin:8pt 14pt!important;padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.logic-box h3,.notes-box h3,.closing-box h3,.guide-callouts h2,.priority-strip,.moments-box h3,.lessons-box h3{font-size:10pt!important;margin-bottom:6pt!important}.logic-pillars{grid-template-columns:repeat(2,1fr)!important;gap:4pt!important}.pillar{padding:5pt 7pt!important;font-size:8.5pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip{padding:10pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.route-strip h3{margin-bottom:6pt!important;font-size:7pt!important}.route-node{font-size:8.5pt!important}.phase-divider{padding:6pt 14pt 0!important;page-break-after:avoid!important;break-after:avoid!important}.phase-label{font-size:7pt!important}.blocks{padding:0 14pt!important}.block{padding:9pt 0!important;grid-template-columns:60pt 1fr!important;gap:0 12pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.b-time{padding-top:1pt!important}.b-clock{font-size:11pt!important}.b-duration{font-size:7pt!important;margin-top:2pt!important}.b-label{font-size:10.5pt!important;margin-bottom:3pt!important}.b-text{font-size:9.5pt!important;line-height:1.5!important}.callout{margin-top:5pt!important;padding:6pt 9pt!important;font-size:9pt!important;line-height:1.45!important;page-break-inside:avoid!important;break-inside:avoid!important}.metro-diagram,.walk-box,.ginza-box,.flight-box,.checklist-box,.arrival-box{margin-top:6pt!important;padding:8pt 10pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.walk-header,.ginza-header,.checklist-header,.arrival-header,.flight-header{padding:5pt 8pt!important;font-size:7.5pt!important}.walk-row,.ginza-row,.check-row,.arr-row{padding-bottom:5pt!important}.walk-text,.ginza-text,.check-row,.arr-text{font-size:9pt!important;line-height:1.45!important}.metro-step{margin-bottom:5pt!important}.metro-line-name{font-size:9pt!important}.metro-line-detail{font-size:8.5pt!important}.cost{font-size:8.5pt!important;padding:1pt 7pt!important}.cost .yen{font-size:9.5pt!important}.cost .aud{font-size:7.5pt!important}.daily-total,.cost-summary{margin:8pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.daily-total-header,.cost-header{padding:7pt 12pt!important;font-size:7.5pt!important}.cost-row,.cost-row-sum{padding:5pt 12pt!important;font-size:9pt!important}.cr-yen,.cr-sum-value{font-size:9.5pt!important}.cr-aud{font-size:8pt!important}.packing-strip,.pins-strip{margin:6pt 14pt 0!important;page-break-inside:avoid!important;break-inside:avoid!important}.packing-header,.pins-header{padding:7pt 12pt!important;font-size:7.5pt!important}.packing-items,.pins-list{padding:8pt 12pt!important;gap:4pt!important}.day-footer,.footer{margin:8pt 14pt 0!important;padding:9pt 12pt!important;page-break-before:avoid!important;break-before:avoid!important}.footer-prev,.footer-next,.footer-text{font-size:8.5pt!important}.dot{width:4pt!important;height:4pt!important}.countdown-bar{page-break-inside:avoid!important;break-inside:avoid!important}.cd-cell{padding:8pt 10pt!important}.cd-num{font-size:14pt!important}.cd-label{font-size:7pt!important}.section-banner{margin:10pt 14pt 0!important;padding:7pt 12pt!important;page-break-after:avoid!important;break-after:avoid!important;page-break-inside:avoid!important;break-inside:avoid!important}.section-banner h2{font-size:11pt!important}.tasks{padding:0 14pt!important;margin-top:6pt!important}.task-card,.guide-row,.moment-row,.lesson-item,.pri-item,.first-card,.flight-row,.cd-cell{page-break-inside:avoid!important;break-inside:avoid!important}.task-card{padding:7pt 10pt!important;margin-bottom:4pt!important;grid-template-columns:22pt 1fr auto!important}.checkbox{width:14pt!important;height:14pt!important;font-size:11pt!important}.task-title{font-size:10pt!important}.task-detail{font-size:8.5pt!important;line-height:1.45!important}.task-status{font-size:7pt!important;padding-top:2pt!important}.guide-row,.moment-row,.lesson-item{padding:7pt 0!important}.guide-content h4,.moment-text strong,.lesson-text strong{font-size:10pt!important}.guide-content p,.moment-text,.lesson-text{font-size:9pt!important;line-height:1.45!important}.guide-cost{font-size:9pt!important}.firsts-grid{padding:0 14pt!important;grid-template-columns:repeat(2,1fr)!important;gap:5pt!important}.first-card{padding:7pt 9pt!important}.first-label{font-size:7pt!important}.first-value{font-size:8.5pt!important;line-height:1.4!important}.section-header{padding:14pt 14pt 6pt!important;page-break-after:avoid!important;break-after:avoid!important}.section-header h2{font-size:13pt!important}.opening{padding:12pt 14pt!important}.opening p{font-size:10pt!important;line-height:1.55!important}.stats-bar{page-break-inside:avoid!important;break-inside:avoid!important}.stat{padding:8pt 10pt!important}.stat-num{font-size:16pt!important}.stat-label{font-size:7pt!important}.city-timeline{padding:0 14pt!important}.city-block{padding:9pt 0!important;grid-template-columns:75pt 1fr!important;gap:0 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.city-days{font-size:11pt!important}.city-dates,.city-nights{font-size:7.5pt!important}.city-body h4{font-size:10.5pt!important;margin-bottom:4pt!important}.city-body p{font-size:9pt!important;line-height:1.45!important;margin-bottom:5pt!important}.city-highlights{margin-top:6pt!important;gap:4pt!important}.sayonara{margin:14pt 14pt 0!important;padding:12pt 14pt!important;page-break-inside:avoid!important;break-inside:avoid!important}.sayonara .kanji{font-size:18pt!important;margin-bottom:4pt!important}.sayonara .translit{font-size:7.5pt!important}.sayonara .next{margin-top:8pt!important;font-size:9.5pt!important}.priority-list{padding:8pt 14pt!important}.priority-header{padding:8pt 14pt!important;font-size:7.5pt!important}.pri-item{padding:5pt 0!important;font-size:9pt!important}.pri-num{font-size:11pt!important}.pri-when{font-size:7pt!important}@page{size:A4 portrait;margin:10mm 10mm 12mm 10mm}}</style>
+</head>
+<body>
+<div class="page">
+<header class="masthead">
+<div class="tour-label">🌏 Asia Grand Tour 2026 &nbsp;·&nbsp; Diamond Max Edition &nbsp;·&nbsp; Japan → Korea</div>
+<div class="day-eyebrow">
+<div class="day-number">15</div>
+<div>
+<div class="day-name">Tokyo → Busan</div>
+<div class="day-date">Tuesday · 25 August 2026</div>
+</div>
+</div>
+<div class="day-title">Final Tokyo Morning &nbsp;·&nbsp; Checkout &amp; Airport Transfer &nbsp;·&nbsp; KE2132 NRT → PUS Direct &nbsp;·&nbsp; Grand Josun Busan &nbsp;·&nbsp; Korea Begins</div>
+<div class="badges">
+<span class="badge badge-shared">✅ Shared — Both Itinerary Tracks</span>
+<span class="badge badge-korea">🇰🇷 Korea Leg Begins Today</span>
+</div>
+</header>
+<div class="conditions">
+<span class="chip chip-warn">✈️ KE2132 NRT 19:20 → PUS 21:35 · leave hotel 15:00</span>
+<span class="chip chip-gold">🏨 Checkout 11:00 · store bags at hotel till 15:00</span>
+<span class="chip chip-info">🚆 Narita Express ~60 min from Tokyo Station</span>
+<span class="chip chip-korea">🇰🇷 Busan 21:35 · Grand Josun Haeundae ~22:45</span>
+</div>
+<div class="transition-box">
+<h4>Japan Closes. Korea Opens.</h4>
+<p>Fourteen days. Osaka, Kyoto, Hiroshima, Hakone, Tokyo. You have eaten extraordinary food, stood in cedar forests at dawn, watched a city from 634 metres, walked the Peace Memorial Museum, and seen what it means to build a culture around the patient pursuit of excellence at every scale. Korea will be different in every way — louder, faster, more direct, street food everywhere, a completely different aesthetic. The contrast begins tonight.</p>
+</div>
+<div class="logic-box" style="margin-top:16px">
+<h3>Day 15 Logic — Departure Day</h3>
+<div class="logic-pillars">
+<div class="pillar"><strong>Morning</strong>Gentle final Tokyo morning. Optional: Imperial Palace East Gardens (10 min walk), Otemachi coffee, or simply pack and be ready. No agenda.</div>
+<div class="pillar"><strong>Checkout</strong>11:00 checkout. Store bags with hotel concierge. Free window 11:00–15:00 for last wander and lunch.</div>
+<div class="pillar"><strong>Airport</strong>Narita Express from Tokyo Station (~60 min). Leave hotel 15:00 for comfortable margin — N'EX 15:15 arrives Terminal 1 by 16:15, 3 hrs before 19:20 departure.</div>
+<div class="pillar"><strong>Flight</strong>KE2132 direct NRT → PUS · 19:20 departure · ~2h 15min · Arrive Gimhae 21:35 KST (no time change — same timezone UTC+9).</div>
+<div class="pillar"><strong>Busan</strong>Taxi Gimhae → Grand Josun Busan (~₩40,000). Check-in ~22:45. Korea begins proper tomorrow.</div>
+</div>
+</div>
+<div class="route-strip">
+<h3>Today's Route</h3>
+<div class="route-nodes">
+<div class="route-node"><span>🏨</span><span class="label">Otemachi</span><span class="sub">&nbsp;11:00 out</span></div>
+<span class="route-arrow">→</span>
+<div class="route-node"><span>🌳</span><span class="label">Final hours</span></div>
+<span class="route-arrow">→</span>
+<div class="route-node"><span>🚆</span><span class="label">NRT transfer</span><span class="sub">&nbsp;15:00</span></div>
+<span class="route-arrow">→</span>
+<div class="route-node"><span>✈️</span><span class="label">KE2132</span><span class="sub">&nbsp;19:20</span></div>
+<span class="route-arrow">→</span>
+<div class="route-node"><span>🇰🇷</span><span class="label">Busan</span><span class="sub">&nbsp;21:35</span></div>
+<span class="route-arrow">→</span>
+<div class="route-node"><span>🏨</span><span class="label">Grand Josun</span></div>
+</div>
+</div>
+<div class="phase-divider" style="animation-delay:0.52s">
+<span class="phase-icon">🌅</span>
+<span class="phase-label">Phase 1 — Final Tokyo Morning</span>
+<div class="phase-line"></div>
+</div>
+<div class="blocks">
+<div class="block">
+<div class="b-time"><span class="b-clock">08:00</span><span class="b-duration">3 hrs</span></div>
+<div class="b-content">
+<div class="b-label"><span>Final Morning — Gentle Close <span class="tag tag-rest">Tokyo Close</span></span><span class="cost hotel"><span class="yen">Incl.</span><span class="aud">Pre-paid</span></span></div>
+<div class="b-text">The last morning in Japan. No agenda, no timed entry, no destination required. Three options — pick one or combine:</div>
+<div class="checklist-box">
+<div class="checklist-header">🌅 Final Morning — Three Options</div>
+<div class="checklist-body">
+<div class="check-row">
+<div class="check-icon">🌳</div>
+<div><strong>Imperial Palace East Gardens</strong> — 10 minutes walk from the hotel. Free, open from 09:00 (closed Mondays and Fridays — open on a Tuesday, good). Moat path and inner gardens are quiet on weekday mornings. A final green space before the airport.</div>
+</div>
+<div class="check-row">
+<div class="check-icon">☕</div>
+<div><strong>Otemachi café breakfast</strong> — the financial district has excellent morning coffee shops that fill with salarymen from 07:30. Sit at a counter, order a morning set, watch Tokyo's working rhythm before you leave it.</div>
+</div>
+<div class="check-row">
+<div class="check-icon">🛏</div>
+<div><strong>Stay in, pack properly, rest.</strong> After 14 days, this is a legitimate choice. Room service or convenience store breakfast. Use the morning to finish packing and be genuinely ready to leave.</div>
+</div>
+</div>
+</div>
+<div class="callout callout-tokyo">
+<span class="callout-icon">🗾</span>
+<span>Japan ends today. Whatever you choose this morning — make it unhurried. The airport time pressure comes at 15:00, not before.</span>
+</div>
+</div>
+</div>
+<div class="block">
+<div class="b-time"><span class="b-clock">11:00</span><span class="b-duration">20 min</span></div>
+<div class="b-content">
+<div class="b-label"><span>Checkout — Mitsui Garden Otemachi <span class="tag tag-transit">Checkout</span></span><span class="cost hotel"><span class="yen">Pre-paid</span><span class="aud">Settled</span></span></div>
+<div class="b-text">Check out by 11:00 (standard Mitsui Garden checkout). Store all bags with the concierge — they'll hold until 15:00 airport departure. Return room key, collect any stored valuables, confirm bags are tagged correctly for collection.</div>
+<div class="callout callout-tip">
+<span class="callout-icon">🧳</span>
+<span><strong>Bags = hand-carry through the flight.</strong> Direct NRT → PUS means no multi-country transfer — suitcases stay with you. No takuhaibin needed (international takuhaibin to Korea takes 4–7 business days anyway, too slow for this schedule). Korean Air KE2132 economy allowance: 2 × 23kg checked + 1 × 10kg carry-on per person.</span>
+</div>
+</div>
+</div>
+<div class="block">
+<div class="b-time"><span class="b-clock">11:20</span><span class="b-duration">3 hrs 40 min</span></div>
+<div class="b-content">
+<div class="b-label"><span>Free Window — Lunch + Final Wander <span class="tag tag-rest">Free</span></span><span class="cost"><span class="yen">¥2,000–4,500</span><span class="aud">~A$21–46</span></span></div>
+<div class="b-text">Nearly 4 hours before the airport transfer. Use at your own pace. Two suggestions if you want structure:<br><br><strong>Kitte building</strong> (3 min walk from hotel, next to Tokyo Station) — a restored 1930s post office building with excellent lunch restaurants on the basement and 6th floor, and a free rooftop garden with views over the Marunouchi skyline and Tokyo Station. A beautiful, calm, very Tokyo way to spend a final morning.<br><br><strong>Tokyo Station Ramen Street</strong> (B1 of the First Avenue Tokyo Station) — eight ramen restaurants, each representing a different regional style. A bowl of Tokyo shoyu ramen — clear soy broth, thin noodles, chashu pork — is the correct final Japanese meal.</div>
+<div class="callout callout-tip">
+<span class="callout-icon">🍜</span>
+<span><strong>The last Japanese meal:</strong> pick ONE — either Ramen Street at 12:00 (arrive to beat the queue, 30–40 min wait at peak), or Kitte 6F for a sit-down lunch (less crowded, more relaxed). Don't try both — you'll have time to sit or walk afterward.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="phase-divider" style="animation-delay:0.97s">
+<span class="phase-icon">🚆</span>
+<span class="phase-label">Phase 2 — Airport Transfer · Narita</span>
+<div class="phase-line"></div>
+</div>
+<div class="blocks">
+<div class="block">
+<div class="b-time"><span class="b-clock">15:00</span><span class="b-duration">75 min</span></div>
+<div class="b-content">
+<div class="b-label"><span>Hotel → Narita Airport Terminal 1 <span class="tag tag-transit">NRT Transfer</span></span><span class="cost"><span class="yen">¥6,140</span><span class="aud">~A$63</span></span></div>
+<div class="b-text">Collect bags from hotel concierge at 15:00. Walk 8 min to Tokyo Station Marunouchi exit → JR Narita Express platform (another 10–15 min internal walk — the platform is deep in the basement). Target 15:15 or 15:30 departure.</div>
+<div class="metro-diagram">
+<div class="metro-step">
+<div class="metro-dot nex">N</div>
+<div>
+<div class="metro-line-name">Narita Express (N'EX) — Tokyo Station → Narita Terminal 1</div>
+<div class="metro-line-detail">~60 min · <strong>¥3,070pp reserved</strong> · departs every 30 min · direct from Tokyo Station</div>
+<div class="metro-detail-box">
+<span class="metro-tag">Most convenient from Otemachi</span>
+<span class="metro-tag">Large luggage racks — good with bags</span>
+<span class="metro-tag">Book at Tokyo Station JR ticket office or machines</span>
+</div>
+</div>
+</div>
+<div class="metro-connector"></div>
+<div class="metro-step">
+<div class="metro-dot skyliner">S</div>
+<div>
+<div class="metro-line-name">Keisei Skyliner — Ueno → Narita Terminal 1 (alternate)</div>
+<div class="metro-line-detail">~44 min · <strong>¥2,580pp</strong> · faster train but requires metro to Ueno first · total door-to-airport similar to N'EX</div>
+</div>
+</div>
+</div>
+<div class="callout callout-warn">
+<span class="callout-icon">⏰</span>
+<span><strong>Leaving at 15:00 gives proper buffer.</strong> N'EX 15:15 → Terminal 1 ~16:15 → Korean Air check-in (opens 3h before = 16:20, closes 1h before = 18:20). Arriving at 16:15 means you're at the check-in desk within its 2-hour window with time for security, immigration, and duty-free. Japan Tuesday evening is not especially busy.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="phase-divider" style="animation-delay:1.04s">
+<span class="phase-icon">✈️</span>
+<span class="phase-label">Phase 3 — Flight · KE2132 NRT → PUS Direct</span>
+<div class="phase-line"></div>
+</div>
+<div class="blocks">
+<div class="block">
+<div class="b-time"><span class="b-clock">16:15</span><span class="b-duration">45 min</span></div>
+<div class="b-content">
+<div class="b-label"><span>Narita Terminal 1 — Check In + Security <span class="tag tag-flight">Airport</span></span><span class="cost free"><span class="yen">¥0</span><span class="aud">Free</span></span></div>
+<div class="b-text">Korean Air check-in at <strong>Terminal 1 South Wing</strong> — follow Korean Air / KE signage from arrivals. International check-in: passport, boarding pass on app or print, baggage drop. Security and immigration immediately after. Allow 45–60 minutes for the full process.</div>
+<div class="callout callout-nav">
+<span class="callout-icon">🛂</span>
+<span><strong>Japan departure:</strong> no departure card required in 2024+ (abolished 2018 for most visitors). Have passport and onward travel (Grand Josun Busan address) accessible if asked. Japan immigration is efficient — queues typically move in 10–15 min on a Tuesday evening.</span>
+</div>
+</div>
+</div>
+<div class="block">
+<div class="b-time"><span class="b-clock">17:00</span><span class="b-duration">80 min</span></div>
+<div class="b-content">
+<div class="b-label"><span>Narita Airside — Final Japan Time <span class="tag tag-rest">Departure</span></span><span class="cost"><span class="yen">¥0–15,000</span><span class="aud">~A$0–154</span></span></div>
+<div class="b-text">Boarding typically begins ~40 min before departure = 18:40. That leaves ~90 min airside for duty-free and any last purchases. Narita Terminal 1 has good dining options post-security if you skipped ramen earlier.<br><br>Duty-free is worth 30 minutes: Japanese whisky (Nikka, Suntory), matcha confectionery, MUJI airport store. These are the correct last Japan purchases.</div>
+<div class="callout callout-tip">
+<span class="callout-icon">🥃</span>
+<span><strong>Japanese whisky at Narita:</strong> Nikka From the Barrel and Suntory Toki are significantly cheaper in Japan than in Australia. Korea customs allows 1L alcohol duty-free per person. Worth checking prices before buying — some Narita duty-free is pricier than inner-city liquor stores.</span>
+</div>
+<div class="callout callout-warn">
+<span class="callout-icon">💴</span>
+<span><strong>Leftover yen:</strong> don't exchange JPY → KRW at the airport — rates are poor. Spend remaining yen on airport food, whisky, or gifts. If you have ¥10,000+ left and won't return to Japan, ATMs at Narita can dispense USD or EUR if needed.</span>
+</div>
+</div>
+</div>
+<div class="block">
+<div class="b-time"><span class="b-clock">19:20</span><span class="b-duration">2h 15m</span></div>
+<div class="b-content">
+<div class="b-label"><span>KE2132 — NRT → PUS Direct ✈️ <span class="tag tag-flight">Flight</span></span><span class="cost incl"><span class="yen">Pre-paid</span><span class="aud">A$460pp</span></span></div>
+<div class="flight-box">
+<div class="flight-header">✈️ Flight Details — KE2132</div>
+<div class="flight-row"><div class="flight-label">Flight</div><div class="flight-value"><strong>Korean Air KE2132</strong></div></div>
+<div class="flight-row"><div class="flight-label">Route</div><div class="flight-value">Tokyo Narita (NRT) → Busan Gimhae (PUS) · <strong>direct</strong></div></div>
+<div class="flight-row"><div class="flight-label">Departs</div><div class="flight-value"><strong>19:20 JST</strong> · Terminal 1 South Wing</div></div>
+<div class="flight-row"><div class="flight-label">Arrives</div><div class="flight-value"><strong>21:35 KST</strong> · Gimhae International Airport</div></div>
+<div class="flight-row"><div class="flight-label">Duration</div><div class="flight-value">~2 hrs 15 min</div></div>
+<div class="flight-row"><div class="flight-label">Time zone</div><div class="flight-value">No change — Japan (JST) and Korea (KST) both UTC+9</div></div>
+<div class="flight-row"><div class="flight-label">Baggage</div><div class="flight-value">KE economy: 2 × 23kg checked, 1 × 10kg cabin per person</div></div>
+</div>
+<div class="callout callout-korea">
+<span class="callout-icon">🇰🇷</span>
+<span>The flight is short — one meal service, a brief doze. Use it to reorient: arriving in Korea, not Japan. Different language, different customs, different food culture. Currency changes to KRW (~₩910 = A$1 in 2026). Busan is warmer and more humid than Tokyo in August. The pace is different — more European in layout, more intense in energy. Korea will surprise you.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="phase-divider" style="animation-delay:1.11s">
+<span class="phase-icon">🇰🇷</span>
+<span class="phase-label">Phase 4 — Busan Arrival · Grand Josun</span>
+<div class="phase-line"></div>
+</div>
+<div class="blocks">
+<div class="block">
+<div class="b-time"><span class="b-clock">21:35</span><span class="b-duration">70 min</span></div>
+<div class="b-content">
+<div class="b-label"><span>Gimhae International → Grand Josun Busan <span class="tag tag-korea">Arrival</span></span><span class="cost"><span class="yen">₩40,000</span><span class="aud">~A$44</span></span></div>
+<div class="b-text">Arrive Gimhae International Airport (PUS). Immigration → baggage claim → exit → taxi rank. Korean immigration is efficient, English-signed throughout. Realistic: ~35–45 min from landing to taxi rank. Hotel by 22:45–23:00.</div>
+<div class="arrival-box">
+<div class="arrival-header">🇰🇷 Gimhae → Grand Josun Busan</div>
+<div class="arrival-body">
+<div class="arr-row">
+<div class="arr-icon">🚕</div>
+<div class="arr-text"><strong>Taxi — the only reasonable choice at 22:30 with luggage.</strong> Metered taxi from the arrivals hall to Grand Josun Busan (Haeundae Beach) — <strong>₩35,000–50,000</strong> (~A$38–55), 35–45 minutes depending on traffic. Late evening Tuesday traffic is light. Taxis are metered and safe — no negotiation needed. Deluxe/International taxis (black with orange lettering) are fine; regular orange taxis also fine but drivers speak less English.</div>
+</div>
+<div class="arr-row">
+<div class="arr-icon">🏨</div>
+<div class="arr-text"><strong>Grand Josun Busan check-in.</strong> Pre-paid, located directly at Haeundae Beach. Address: 292 Marine City 3-ro, Haeundae-gu, Busan (해운대해수욕장). Late check-in standard — front desk will have your reservation. Tell the taxi driver "그랜드 조선 부산" or show them the Hangul address. Bellhop service — ₩1,000–2,000 per bag gratuity is standard Korean luxury hotel practice (not required elsewhere in Korea).</div>
+</div>
+<div class="arr-row">
+<div class="arr-icon">💳</div>
+<div class="arr-text"><strong>Korean currency — withdraw at airport ATM.</strong> Shinhan, KB Kookmin, or Woori Bank ATMs accept international cards with good rates. Withdraw <strong>₩300,000–400,000</strong> for first few days. Korea is less cash-dependent than Japan but street food, markets, and small restaurants still prefer it.</div>
+</div>
+</div>
+</div>
+<div class="callout callout-korea">
+<span class="callout-icon">📱</span>
+<span><strong>Set up before leaving airport:</strong> (1) download <strong>Naver Maps</strong> — Google Maps is heavily crippled in Korea due to mapping regulations; Naver is essential. Alternative: <strong>KakaoMap</strong>. (2) <strong>Papago</strong> for translation (Korean-made, better than Google Translate for Korean). (3) <strong>Kakao T</strong> for taxi calls if needed later.</span>
+</div>
+</div>
+</div>
+<div class="block">
+<div class="b-time"><span class="b-clock">~22:45</span><span class="b-duration">—</span></div>
+<div class="b-content">
+<div class="b-label"><span>Grand Josun — First Korea Night <span class="tag tag-korea">Sleep</span></span><span class="cost hotel"><span class="yen">Pre-paid</span><span class="aud">Per night</span></span></div>
+<div class="b-text">Check in, light unpack, shower, sleep. Tomorrow is Busan Day 1 — Haeundae Beach in front of the hotel, Gamcheon Culture Village, Jagalchi fish market. Korea begins properly in the morning. <strong>Dick's birthday is in 3 days</strong> — the celebration is coming.</div>
+<div class="callout callout-tip">
+<span class="callout-icon">📋</span>
+<span><strong>Tonight before sleep:</strong> (1) confirm Haeundae view from room if booked (sunrise over the Pacific is spectacular); (2) alarm 08:30 — gentle first Busan morning; (3) Naver Maps + Papago downloaded and tested; (4) note: <strong>Suica does NOT work in Korea</strong> — grab a <strong>T-Money card</strong> at any Busan convenience store tomorrow (₩3,000 card + top-up, used for metro, buses, some taxis, payment at convenience stores).</span>
+</div>
+<div class="callout callout-korea">
+<span class="callout-icon">🇯🇵</span>
+<span><strong>Last Japan thought before sleep:</strong> fourteen days, five cities, one flight. Osaka to Tokyo overland, mountain to sea to capital. You have closed Japan properly. Korea is a different country — don't try to read it through a Japanese lens. Let it be what it is tomorrow morning.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="daily-total">
+<div class="daily-total-header">💴 Day 15 — Cost Breakdown (2 people)</div>
+<div class="cost-row"><span class="cr-label">Final Tokyo morning (coffee, Kitte, ramen)</span><span class="cr-yen">¥2,000–4,500</span><span class="cr-aud">~A$21–46</span></div>
+<div class="cost-row"><span class="cr-label">Narita Express × 2 — Tokyo Station → NRT T1</span><span class="cr-yen">¥6,140</span><span class="cr-aud">~A$63</span></div>
+<div class="cost-row"><span class="cr-label">Narita duty-free (whisky, matcha — optional)</span><span class="cr-yen">¥0–15,000</span><span class="cr-aud">~A$0–154</span></div>
+<div class="cost-row"><span class="cr-label">KE2132 NRT → PUS × 2 pre-paid</span><span class="cr-yen">Pre-paid</span><span class="cr-aud">A$920</span></div>
+<div class="cost-row"><span class="cr-label">Gimhae taxi → Grand Josun Haeundae</span><span class="cr-yen">₩40,000</span><span class="cr-aud">~A$44</span></div>
+<div class="cost-row"><span class="cr-label">KRW cash withdrawal at airport ATM</span><span class="cr-yen">₩350,000</span><span class="cr-aud">~A$385</span></div>
+<div class="cost-row"><span class="cr-label">Grand Josun Busan Night 1 of 4 (pre-paid)</span><span class="cr-yen">Pre-paid</span><span class="cr-aud">Per night</span></div>
+<div class="cost-row total-row"><span class="cr-label">🧮 Day 15 Transit Total (excl. flight + hotel + cash)</span><span class="cr-yen">¥8,140–25,640 + ₩40,000</span><span class="cr-aud">~A$128–307</span></div>
+</div>
+<div class="packing-strip">
+<div class="packing-header">🎒 Day 15 — Travel Ready</div>
+<div class="packing-items">
+<span class="pack-item">🛂 Passports accessible — top of bag</span>
+<span class="pack-item">✈️ KE2132 boarding passes — KE app or printed</span>
+<span class="pack-item">💳 Credit/debit card for KRW ATM</span>
+<span class="pack-item">💴 Spend remaining JPY — don't exchange at airport</span>
+<span class="pack-item">📱 Naver Maps + Papago + Kakao T installed</span>
+<span class="pack-item">🧳 All bags packed by 10:30 — hand-carry all through</span>
+<span class="pack-item">🚆 N'EX ticket at Tokyo Station JR office</span>
+<span class="pack-item">🎫 Suica for Japan only — T-Money tomorrow in Busan</span>
+<span class="pack-item">🏨 Grand Josun address in Hangul on phone</span>
+</div>
+</div>
+<div class="pins-strip">
+<div class="pins-header">📍 Google Maps / Naver Maps — Save These Now</div>
+<div class="pins-list">
+<span class="pin">📌 Imperial Palace East Gardens</span>
+<span class="pin">📌 Kitte Building Tokyo (rooftop)</span>
+<span class="pin">📌 Tokyo Station Ramen Street (B1)</span>
+<span class="pin">📌 Tokyo Station — N'EX Platform</span>
+<span class="pin">📌 Narita Airport Terminal 1 South Wing</span>
+<span class="pin">📌 Gimhae International Airport Arrivals</span>
+<span class="pin">📌 Grand Josun Busan (Naver — Korean map)</span>
+<span class="pin">📌 Shinhan Bank ATM — Gimhae Airport</span>
+</div>
+</div>
+<div class="day-footer">
+<div class="footer-prev">← Day 14A/B · Final Full Tokyo Day</div>
+<div class="footer-dots">
+<div class="dot"></div><div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div>
+<div class="dot active"></div>
+</div>
+<div class="footer-next">Tomorrow → <strong>Day 16 · Busan Day 1 · Haeundae · Gamcheon Village · Jagalchi</strong> ›</div>
+</div>
+</div>
+</body>
+</html>
 
