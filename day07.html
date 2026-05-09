@@ -158,32 +158,21 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--b
 .packing-header{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
 .packing-items{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;background:var(--bg-soft)}
 .pack-item{font-size:12px;color:var(--body);padding:4px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:16px}
+.pins-header{...}
 
-/* ── PINS ── */
-.pins-strip{margin:14px 48px 0;border:1px solid rgba(66,133,244,0.18);border-radius:10px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards 1.48s}
-.pins-header{background:#e8f0fe;border-bottom:1px solid rgba(66,133,244,0.15);padding:12px 18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1a5bbf;display:flex;align-items:center;gap:8px}
+.pins-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  padding:14px 18px;
+  background:#f5f8ff;
+}
+
 .pin{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  text-decoration:none;
 
-  font-size:11.5px;
-  color:#1a5bbf;
 
-  padding:7px 12px;
-
-  background:rgba(66,133,244,0.06);
-  border:1px solid rgba(66,133,244,0.16);
-  border-radius:14px;
-
-  transition:all .2s ease;
-}
-
-.pin:hover{
-  background:rgba(66,133,244,0.12);
-  border-color:rgba(66,133,244,0.28);
-}
+  
+  
 
 /* ── FOOTER ── */
 .day-footer{margin:20px 48px 0;padding:18px 22px;background:var(--bg-card);border:1px solid var(--rule);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;opacity:0;animation:fadeUp 0.5s ease forwards 1.58s}
