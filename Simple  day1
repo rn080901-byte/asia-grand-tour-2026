@@ -1,1 +1,429 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Day 01 · Osaka Arrival · Diamond Max Mobile Edition</title>
+<style>
+:root{
+  --ink:#17120f;
+  --ink-soft:#3d342d;
+  --muted:#786f63;
+  --paper:#faf6ed;
+  --paper2:#f2eadf;
+  --card:#fffdf8;
+  --gold:#b8860b;
+  --gold-soft:#d6ae48;
+  --crimson:#8b2635;
+  --indigo:#1d3557;
+  --line:#ded2c0;
+  --tip:#eef4f8;
+  --warn:#fdeeee;
+  --food:#fff4dc;
+  --shadow:0 14px 35px rgba(35,24,12,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Georgia,'Times New Roman',serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.58;
+  padding:0 0 84px;
+}
+a{color:inherit;text-decoration:none}
+.page{
+  max-width:560px;
+  margin:0 auto;
+  background:linear-gradient(180deg,#fbf7ef 0%,#f6efe4 100%);
+  min-height:100vh;
+}
+.masthead{
+  margin:0 14px 18px;
+  padding:calc(22px + env(safe-area-inset-top)) 18px 22px;
+  text-align:center;
+  border-bottom:3px double var(--gold);
+  border-top:0;
+  background:
+    linear-gradient(180deg,rgba(250,246,237,.82),rgba(250,246,237,.98)),
+    radial-gradient(circle at top,var(--gold-soft),transparent 42%);
+  border-bottom-left-radius:28px;
+  border-bottom-right-radius:28px;
+  box-shadow:var(--shadow);
+}
+.tour-title{
+  font-size:.68rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:800;
+  margin-bottom:10px;
+}
+.city-title{font-size:.96rem;color:var(--ink-soft);letter-spacing:.08em;margin-bottom:6px}
+.day-number{
+  font-size:5.25rem;
+  line-height:.9;
+  color:var(--crimson);
+  font-weight:900;
+  letter-spacing:-.06em;
+}
+h1{
+  font-size:1.8rem;
+  line-height:1.1;
+  font-weight:400;
+  margin:6px 0 4px;
+}
+.date{font-size:.92rem;color:var(--muted);font-style:italic;margin-bottom:11px}
+.subtitle{
+  font-size:.78rem;
+  color:var(--ink-soft);
+  letter-spacing:.045em;
+  border-top:1px solid var(--line);
+  padding-top:11px;
+}
+.quick-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:17px;
+}
+.action{
+  min-height:45px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:.84rem;
+  font-weight:800;
+  border:1px solid var(--line);
+  background:var(--card);
+  box-shadow:0 6px 14px rgba(35,24,12,.06);
+}
+.action.gold{background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#20140b;border:none}
+section{padding:0 14px 18px}
+.status-banner{
+  background:#fff7df;
+  border:1px solid var(--gold-soft);
+  border-radius:18px;
+  padding:12px 14px;
+  text-align:center;
+  font-size:.89rem;
+  color:var(--ink-soft);
+  margin-bottom:12px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:17px;
+}
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:4px solid var(--gold);
+  border-radius:16px;
+  padding:11px 12px;
+  min-height:74px;
+}
+.stat strong{display:block;color:var(--crimson);font-size:1.02rem;line-height:1.15}
+.stat span{display:block;color:var(--muted);font-size:.77rem;margin-top:4px}
+.section-heading{
+  font-size:1.22rem;
+  color:var(--indigo);
+  margin:18px 0 10px;
+  padding-bottom:7px;
+  border-bottom:2px solid var(--line);
+  letter-spacing:.01em;
+}
+.logic-block{
+  background:var(--paper2);
+  border-left:4px solid var(--indigo);
+  border-radius:15px;
+  padding:15px 16px;
+  font-size:.95rem;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin-bottom:16px;
+}
+.route-strip{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  background:#17110e;
+  color:#fff4df;
+  padding:12px;
+  border-radius:18px;
+  margin-bottom:16px;
+  scroll-snap-type:x mandatory;
+}
+.route-strip::-webkit-scrollbar{display:none}
+.route-step{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+  padding:9px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  white-space:nowrap;
+}
+.time-entry{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+}
+.time-entry:last-child{border-bottom:none}
+.time-col{text-align:right;padding-top:2px}
+.clock{font-size:1.07rem;color:var(--crimson);font-weight:900;line-height:1.05}
+.duration{font-size:.7rem;color:var(--muted);font-style:italic;margin-top:4px}
+.content-col{min-width:0}
+.entry-header{display:flex;flex-wrap:wrap;align-items:flex-start;gap:7px;margin-bottom:7px}
+.entry-title{font-size:1.02rem;font-weight:800;color:var(--ink);line-height:1.22;flex:1 1 100%}
+.entry-tag{
+  display:inline-block;
+  font-size:.64rem;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  padding:3px 8px;
+  border-radius:999px;
+  background:var(--paper2);
+  color:var(--muted);
+  border:1px solid var(--line);
+}
+.tag-transit{background:var(--tip);color:var(--indigo);border-color:#9fb8ce}
+.tag-hotel{background:#faeeee;color:var(--crimson);border-color:#d9a1a7}
+.tag-optional{background:var(--warn);color:var(--crimson);border-color:#e0a1a8}
+.tag-food{background:var(--food);color:#8b6508;border-color:#e0c579}
+.tag-rest{background:#eeeaf4;color:#5c4a82;border-color:#b8acd4}
+.cost-line{font-size:.78rem;color:var(--muted);margin-bottom:8px}
+.cost-line strong{color:var(--ink-soft)}
+.entry-body{font-size:.91rem;color:var(--ink-soft)}
+.entry-body p{margin-bottom:8px}
+.tip-box,.warn-box,.food-box{
+  display:flex;
+  gap:9px;
+  margin-top:9px;
+  padding:10px 12px;
+  border-radius:0 14px 14px 0;
+  font-size:.84rem;
+  color:var(--ink-soft);
+}
+.tip-box{background:var(--tip);border-left:4px solid var(--indigo)}
+.warn-box{background:var(--warn);border-left:4px solid var(--crimson)}
+.food-box{background:var(--food);border-left:4px solid var(--gold)}
+.tip-icon{flex-shrink:0}
+.mini-route{
+  background:var(--paper2);
+  border-radius:14px;
+  padding:10px 12px;
+  margin-top:9px;
+}
+.mini-route-step{
+  display:grid;
+  grid-template-columns:28px 1fr;
+  gap:8px;
+  padding:7px 0;
+  border-bottom:1px dashed var(--line);
+}
+.mini-route-step:last-child{border-bottom:none}
+.sub{font-size:.8rem;color:var(--muted);margin-top:2px}
+.map-list{display:grid;gap:9px;margin-top:11px}
+.map-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:13px 14px;
+  box-shadow:0 6px 14px rgba(35,24,12,.05);
+  font-size:.9rem;
+  font-weight:800;
+}
+.map-link small{display:block;font-weight:400;color:var(--muted);font-size:.76rem;margin-top:2px}
+.map-link .arrow{color:var(--gold);font-size:1.25rem}
+.cost-table{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  margin-top:10px;
+}
+.cost-title{padding:13px 14px;background:var(--paper2);font-weight:900;color:var(--indigo)}
+.cost-row,.cost-total{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  padding:11px 14px;
+  border-top:1px dotted var(--line);
+  font-size:.85rem;
+}
+.cost-row .amount{font-weight:900;color:var(--ink)}
+.cost-total{background:#1c130f;color:#fff3d6;font-weight:900;border-top:none}
+.prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.prep-item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:10px 11px;
+  font-size:.84rem;
+}
+.footer-nav{
+  margin:20px 14px 0;
+  padding:15px 0 20px;
+  border-top:3px double var(--gold);
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  color:var(--muted);
+  font-size:.86rem;
+  font-style:italic;
+}
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:560px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  padding:9px 10px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(250,246,237,.94);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  z-index:30;
+}
+.nav-btn{
+  text-align:center;
+  padding:7px 4px;
+  border-radius:14px;
+  font-size:.68rem;
+  color:var(--muted);
+  line-height:1.15;
+}
+.nav-btn strong{display:block;font-size:1rem;color:var(--ink);margin-bottom:2px}
+.nav-btn.active{background:#1c130f;color:#fff1d4}.nav-btn.active strong{color:#f2cf7a}
+@media(min-width:720px){body{padding-top:18px}.masthead{border-radius:28px}.page{box-shadow:0 0 40px rgba(35,24,12,.10)}}
+@media print{
+  body{background:white;padding:0}.page{max-width:100%;background:white}.bottom-nav,.quick-actions{display:none}.masthead{box-shadow:none;border-radius:0;margin:0 0 10mm;padding:12mm 10mm}.route-strip{overflow:visible;flex-wrap:wrap;background:#fff;color:#111;border:1px solid #ccc}.route-step{background:#f6f1e8;color:#111;border-color:#ccc}.stat,.logic-block,.map-link,.cost-table,.prep-item{break-inside:avoid;box-shadow:none}.time-entry{break-inside:avoid}.day-number{font-size:42pt}section{padding:0 8mm 8mm}.footer-nav{margin:8mm}
+}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+  <header class="masthead">
+    <div class="tour-title">Asia Grand Tour 2026 · Diamond Max Edition</div>
+    <div class="city-title">Japan · Osaka</div>
+    <div class="day-number">01</div>
+    <h1>Osaka — Arrival</h1>
+    <div class="date">Tuesday · 11 August 2026</div>
+    <div class="subtitle">Sydney → KIX · Nankai to Namba · Mobile Suica · Hotel · First Glimpse of Osaka</div>
+    <div class="quick-actions">
+      <a class="action gold" href="https://www.google.com/maps/dir/Kansai+International+Airport/Hiyori+Hotel+Osaka+Namba+Station/Dotonbori+Osaka" target="_blank">🗺 Live Route</a>
+      <a class="action" href="#maps">📌 Map Pins</a>
+    </div>
+  </header>  <section>
+    <div class="status-banner">✈️ Arrival Day · Easy Landing · No Sightseeing Required</div>
+    <div class="stats">
+      <div class="stat"><strong>✈️ 19:50</strong><span>JQ13 lands at KIX</span></div>
+      <div class="stat"><strong>🌡️ 29–32°C</strong><span>Warm Osaka evening</span></div>
+      <div class="stat"><strong>🚃 38–50 min</strong><span>Nankai to Namba</span></div>
+      <div class="stat"><strong>👟 ~2,000</strong><span>Very easy steps</span></div>
+    </div><div class="section-heading">Arrival Day Logic</div>
+<div class="logic-block">You left Sydney this morning and you've been in transit for the best part of 12 hours. The goal tonight is simple: land safely, get to the hotel, and let Osaka give you its first small gift — or nothing at all, if the body says no. One short walk, one street snack, one good sleep. The city has three full days ahead. Tonight you just arrive.</div>
 
+<div class="section-heading">Tonight's Route</div>
+<div class="route-strip">
+  <span class="route-step">✈️ KIX 19:50</span>
+  <span class="route-step">📱 Mobile Suica</span>
+  <span class="route-step">🚃 Nankai ~40 min</span>
+  <span class="route-step">🏨 Hiyori Hotel</span>
+  <span class="route-step">🏮 Dotonbori maybe</span>
+  <span class="route-step">🌙 Sleep</span>
+</div>
+
+  </section>  <section id="timeline">
+    <div class="section-heading">Before You Leave Sydney</div>
+    <div class="time-entry">
+      <div class="time-col"><div class="clock">Pre-trip</div><div class="duration">10 min</div></div>
+      <div class="content-col">
+        <div class="entry-header"><span class="entry-title">Set Up Mobile Suica on Apple Wallet</span><span class="entry-tag tag-transit">Prep</span></div>
+        <div class="cost-line"><strong>¥2,000 loaded</strong> · ~A$21 each</div>
+        <div class="entry-body"><p>This is the single biggest friction reduction you can make for Day 1. Open Apple Wallet → + → Transit Card → Suica. Load ¥2,000–3,000 per phone with your credit card.</p><div class="tip-box"><span class="tip-icon">📱</span><div>If either of you is on Android, Google Wallet support can be patchy outside Japan. In that case, buy an IC card on arrival — but only for the Android phone.</div></div></div>
+      </div>
+    </div><div class="section-heading">On Arrival</div>
+<div class="time-entry">
+  <div class="time-col"><div class="clock">19:50</div><div class="duration">Land</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Touch Down — Kansai International Airport</span><span class="entry-tag tag-transit">Transit</span></div><div class="cost-line"><strong>¥0</strong> · Free</div><div class="entry-body"><p>Wheels down at KIX — built on an artificial island in Osaka Bay. Follow the crowd toward Immigration. The terminal is modern, well signed in English, and completely straightforward.</p><div class="tip-box"><span class="tip-icon">💡</span><div>Have your passport and Visit Japan Web QR code ready before you reach the counter.</div></div></div></div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col"><div class="clock">20:00</div><div class="duration">45–60 min</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Immigration · Baggage · Walk to Nankai</span><span class="entry-tag tag-transit">Transit</span></div><div class="entry-body"><p>Expect 30–60 minutes for immigration on a full evening arrival. Collect bags. Walk directly to the Nankai Railway station via the covered walkway.</p><div class="warn-box"><span class="tip-icon">⚠️</span><div>Realistic boarding window for your train is <strong>21:00–21:20</strong>, not 20:40.</div></div></div></div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col"><div class="clock">21:10</div><div class="duration">38–48 min</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Nankai Train — KIX → Namba</span><span class="entry-tag tag-transit">Transit</span></div><div class="cost-line"><strong>¥1,940–2,900</strong> · ~A$20–30</div><div class="entry-body"><p>You have a choice here. Rapi:t gives you the arrival ceremony. The regular Airport Express gives you the easier tired-traveller option.</p><div class="mini-route"><div class="mini-route-step"><div>🤖</div><div><strong>Rapi:t Limited Express</strong><div class="sub">¥1,450pp · 38 min · Reserved seat · Every ~30 min</div></div></div><div class="mini-route-step"><div>🚃</div><div><strong>Nankai Airport Express</strong><div class="sub">¥970pp · 45–48 min · Just tap Suica and board</div></div></div></div><div class="tip-box"><span class="tip-icon">💭</span><div>Honest call: if you're glazed over, Airport Express is the kinder choice.</div></div></div></div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col"><div class="clock">22:00</div><div class="duration">15 min</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Namba Station → Konbini → Hiyori Hotel</span><span class="entry-tag tag-hotel">Walk</span></div><div class="cost-line"><strong>¥500–800</strong> · ~A$5–8</div><div class="entry-body"><p>Take the South Exit from Namba. Walk south toward the hotel. Stop once at Lawson or 7-Eleven for the room.</p><div class="food-box"><span class="tip-icon">🍙</span><div><strong>Konbini run:</strong> onigiri, cold green tea, water, egg sandwich for tomorrow, melon pan as a reward.</div></div></div></div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col"><div class="clock">22:15</div><div class="duration">20 min</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Check In — Hiyori Hotel Osaka Namba</span><span class="entry-tag tag-hotel">Hotel</span></div><div class="entry-body"><p>Check in, drop bags, open the curtains. Osaka will be glowing outside. Shower first. Change into something light. Your body needs the reset signal.</p><div class="tip-box"><span class="tip-icon">🛁</span><div>Business-hotel tub tonight. The proper cedar-tub soaking reset comes later in Kyoto.</div></div></div></div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col"><div class="clock">22:45</div><div class="duration">30 min</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Dotonbori First Glimpse — Only If Energy Allows</span><span class="entry-tag tag-optional">Optional</span></div><div class="cost-line"><strong>~¥500</strong> · ~A$5</div><div class="entry-body"><p>This is a maybe, not a plan. If you're both showered and wide awake, walk to Dotonbori. Stand on Ebisu-bashi bridge. Let the city introduce itself.</p><div class="food-box"><span class="tip-icon">🐙</span><div>One thing only: a small tray of takoyaki. Eat it on the bridge. Don't complicate it.</div></div><div class="warn-box"><span class="tip-icon">⚠️</span><div>If either of you hesitates for even two seconds, the answer is no.</div></div></div></div>
+</div>
+
+<div class="time-entry">
+  <div class="time-col"><div class="clock">23:30</div><div class="duration">Hard stop</div></div>
+  <div class="content-col"><div class="entry-header"><span class="entry-title">Sleep — Hard Stop</span><span class="entry-tag tag-rest">Rest</span></div><div class="entry-body"><p>Lights out by 23:30. Set two alarms for <strong>07:30</strong>. Phones charging, SPF accessible, water filled, Suica balance checked, light clothes laid out.</p></div></div>
+</div>
+
+  </section>  <section id="maps">
+    <div class="section-heading">Google Maps — Tap to Open</div>
+    <div class="map-list">
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Hiyori+Hotel+Osaka+Namba+Station" target="_blank"><span>📌 Hiyori Hotel Osaka Namba Station<small>Night 1 hotel</small></span><span class="arrow">›</span></a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=KIX+Nankai+Railway+Station" target="_blank"><span>📌 KIX Nankai Railway Station<small>Airport train to Namba</small></span><span class="arrow">›</span></a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Namba+Station+South+Exit+Osaka" target="_blank"><span>📌 Namba Station South Exit<small>Best walking exit</small></span><span class="arrow">›</span></a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lawson+near+Hiyori+Hotel+Osaka+Namba+Station" target="_blank"><span>📌 Lawson / 7-Eleven nearby<small>Konbini stop</small></span><span class="arrow">›</span></a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Dotonbori+Canal+Osaka" target="_blank"><span>📌 Dotonbori Canal<small>Optional first glimpse</small></span><span class="arrow">›</span></a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Glico+Running+Man+Sign+Osaka" target="_blank"><span>📌 Glico Running Man Sign<small>Classic Osaka photo</small></span><span class="arrow">›</span></a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ebisu+Bashi+Bridge+Osaka" target="_blank"><span>📌 Ebisu-bashi Bridge<small>Stand here and look both ways</small></span><span class="arrow">›</span></a>
+    </div>
+  </section>  <section id="costs">
+    <div class="section-heading">Day 1 · Cost Breakdown</div>
+    <div class="cost-table">
+      <div class="cost-title">💴 Spending today · 2 people</div>
+      <div class="cost-row"><span>Mobile Suica pre-loaded × 2</span><span class="amount">¥4,000</span></div>
+      <div class="cost-row"><span>Nankai train × 2</span><span class="amount">¥1,940–2,900</span></div>
+      <div class="cost-row"><span>Konbini run</span><span class="amount">¥500–800</span></div>
+      <div class="cost-row"><span>Takoyaki if you go</span><span class="amount">¥500</span></div>
+      <div class="cost-total"><span>Total excl. hotel</span><span>¥6,940–8,200 · ~A$71–84</span></div>
+    </div>
+  </section>  <section id="prep">
+    <div class="section-heading">What You Need Off the Plane</div>
+    <div class="prep-grid">
+      <div class="prep-item">🛂 Passports</div><div class="prep-item">📋 Visit Japan Web QR</div><div class="prep-item">📱 Suica active</div><div class="prep-item">💴 ¥5,000 cash backup</div><div class="prep-item">📱 Phone charged</div><div class="prep-item">👟 Comfortable shoes</div><div class="prep-item">💊 Jet lag meds</div><div class="prep-item">💧 Water bottle</div>
+    </div>
+  </section>  <div class="footer-nav"><span>← Departed Sydney</span><span>Tomorrow → Osaka Castle & Harukas Sunset</span></div>
+</div><nav class="bottom-nav">
+  <a class="nav-btn active" href="#top"><strong>01</strong>Home</a>
+  <a class="nav-btn" href="#timeline"><strong>⏱</strong>Plan</a>
+  <a class="nav-btn" href="#maps"><strong>🗺</strong>Maps</a>
+  <a class="nav-btn" href="#prep"><strong>✓</strong>Prep</a>
+</nav>
+</body>
+</html>
